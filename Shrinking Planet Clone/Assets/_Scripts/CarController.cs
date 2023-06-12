@@ -2,27 +2,23 @@ using UnityEngine;
 
 public class CarController : MonoBehaviour
 {
+    [SerializeField] private Transform _raycastHitPoint;
+    [SerializeField] private Transform _planetTransform;
+
     [SerializeField] private float _moveSpeed = 5f;
     [SerializeField] private float _rotationSpeed = 60f;
+
+    private float _verticalCarPlaceOffset = .1f;
 
     private float _rotationAngle;
 
     private Vector3 _moveDirection;
-    private Rigidbody _rb;
-
-    private void Awake()
-    {
-        _rb = GetComponent<Rigidbody>();
-    }
+    private RaycastHit _hit;
 
     private void Update()
     {
         SetDirectionAndRotation();
-    }
-
-    private void FixedUpdate()
-    {
-        Move();   
+        PlaceCar();
     }
 
     private void SetDirectionAndRotation()
@@ -42,11 +38,33 @@ public class CarController : MonoBehaviour
             _rotationAngle += Time.deltaTime * _rotationSpeed * horizontal;
         }
 
-        transform.rotation = Quaternion.Euler(eulerRotation);
+        //transform.rotation = Quaternion.Euler(eulerRotation);
+
+        transform.Translate(transform.forward * Time.deltaTime * 10f);
+
+        Vector3 normalizedVectorRotation = GetNormalizedVerticalRotation();
+        Quaternion targetRotation = Quaternion.FromToRotation(transform.up, (transform.position - _planetTransform.position).normalized) * transform.rotation;
+
+        transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, 50f * Time.deltaTime);
     }
 
-    private void Move()
+    private Vector3 GetNormalizedVerticalRotation()
     {
-        _rb.MovePosition(_rb.position + _moveSpeed * Time.deltaTime * transform.TransformDirection(_moveDirection));
+        Vector3 verticalRotation = Vector3.zero;
+
+        if (Physics.Raycast(_raycastHitPoint.position, -_raycastHitPoint.up, out _hit, 0.25f))
+        {
+            verticalRotation = (_hit.point - _raycastHitPoint.position).normalized;
+        }
+
+        return verticalRotation;
+    }
+
+    private void PlaceCar()
+    {
+        if (_hit.point.magnitude > 0f)
+        {
+            transform.position = _hit.point + transform.up * _verticalCarPlaceOffset;
+        }
     }
 }
