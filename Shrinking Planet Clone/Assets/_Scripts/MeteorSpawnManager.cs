@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class CratorSpawnManager : Singleton<CratorSpawnManager>
+public class MeteorSpawnManager : Singleton<MeteorSpawnManager>
 {
     [SerializeField] private Transform _planetTransform;
     [SerializeField] private MeshFilter _planetMeshFilter;
@@ -9,7 +9,7 @@ public class CratorSpawnManager : Singleton<CratorSpawnManager>
     [SerializeField] private float _maxTimeInSeconds;
 
     private float _elapsedTime;
-    private float _verticalSpawnOffset = 10f;
+    private float _verticalSpawnOffset = 20f;
 
     protected override void Awake()
     {
@@ -45,9 +45,10 @@ public class CratorSpawnManager : Singleton<CratorSpawnManager>
 
         Vector3 localPosition = verticies[randomIndex];
         Vector3 worldPosition = _planetMeshFilter.transform.TransformPoint(localPosition);
-        Vector3 verticalOffset = Vector3.up * _verticalSpawnOffset;
+        Vector3 verticalOffset = (worldPosition - _planetTransform.position).normalized * _verticalSpawnOffset;
 
+        GameObject meteor = Instantiate(_testPrefab, worldPosition + verticalOffset, Quaternion.identity);
 
-        Instantiate(_testPrefab, worldPosition + verticalOffset, Quaternion.identity);
+        meteor.GetComponent<Meteor>().Setup(worldPosition);
     }
 }

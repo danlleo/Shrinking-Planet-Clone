@@ -3,6 +3,9 @@ using UnityEngine;
 public class CarController : MonoBehaviour
 {
     [SerializeField] private float _moveSpeed = 5f;
+    [SerializeField] private float _rotationSpeed = 60f;
+
+    private float _rotationAngle;
 
     private Vector3 _moveDirection;
     private Rigidbody _rb;
@@ -24,10 +27,22 @@ public class CarController : MonoBehaviour
 
     private void SetDirectionAndRotation()
     {
-        float horizontal = Input.GetAxisRaw("Horizontal");
-        float vertical = Input.GetAxisRaw("Vertical");
+        float horizontal = Input.GetAxis("Horizontal");
+        float vertical = Input.GetAxis("Vertical");
 
-        _moveDirection = new Vector3(horizontal, 0f, vertical).normalized;
+        _rotationAngle = Mathf.Clamp(_rotationAngle, -45f, 45f);
+        _moveDirection = new Vector3(0f, 0f, vertical).normalized;
+
+        Vector3 eulerRotation = transform.eulerAngles;
+
+        eulerRotation.y = _rotationAngle;
+
+        if (Mathf.Abs(horizontal) > 0f)
+        {
+            _rotationAngle += Time.deltaTime * _rotationSpeed * horizontal;
+        }
+
+        transform.rotation = Quaternion.Euler(eulerRotation);
     }
 
     private void Move()
