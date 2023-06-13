@@ -209,13 +209,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 330585543}
-  m_LocalRotation: {x: -0.38463065, y: 0.0033094164, z: -0.0014212826, w: -0.9230636}
-  m_LocalPosition: {x: -0.08385135, y: 4.033407, z: -3.3829842}
+  m_LocalRotation: {x: 0.34289166, y: 0.11535001, z: -0.04268364, w: 0.93128824}
+  m_LocalPosition: {x: -5.638109, y: 17.477957, z: -18.566952}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 1812737550}
-  m_RootOrder: -1
+  m_Father: {fileID: 0}
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 28.399, y: 0, z: 0}
 --- !u!114 &330585547
 MonoBehaviour:
@@ -858,7 +858,6 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 959046550}
-  - {fileID: 330585546}
   - {fileID: 437967988}
   m_Father: {fileID: 0}
   m_RootOrder: 3
@@ -896,10 +895,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cb9de8a6aac9e564a97a871f4312dbe0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _raycastHitPoint: {fileID: 437967988}
   _planetTransform: {fileID: 788931109}
-  _moveSpeed: 1
-  _rotationSpeed: 100
+  _speed: 2
 --- !u!1 &1867502975
 GameObject:
   m_ObjectHideFlags: 0

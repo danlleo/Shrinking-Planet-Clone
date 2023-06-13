@@ -1,61 +1,44 @@
-using System;
 using UnityEngine;
 
 public class CarController : MonoBehaviour
 {
-    private const string HORIZONTAL = "Horizontal";
-
-    [SerializeField] private Transform _raycastHitPoint;
     [SerializeField] private Transform _planetTransform;
 
-    [SerializeField] private float _moveSpeed = 5f;
-    [SerializeField] private float _rotationSpeed = 60f;
+    [SerializeField] private float _speed = 1f;
 
-    private float _rotationAngle;
-    private float _radius;
-
-    private RaycastHit _hit;
+    private float _radius = 5f;
+    private float _azimuth = 0f;
+    private float _elevation = 0f;
 
     private void Start()
     {
-        _radius = GetRadius();
+        _radius = _planetTransform.localScale.y / 2;
     }
 
     private void Update()
     {
-        SetDirectionAndRotation();
+        Movement();
+        Rotation();
     }
 
-    private void FixedUpdate()
+    private void Movement()
     {
-        CheckGroundPosition();
+        _azimuth += Input.GetAxis("Horizontal") * _speed * Time.deltaTime;
+        _elevation += Input.GetAxis("Vertical") * _speed * Time.deltaTime;
+
+        float x = _radius * Mathf.Cos(_azimuth) * Mathf.Sin(_elevation);
+        float y = _radius * Mathf.Cos(_elevation);
+        float z = _radius * Mathf.Sin(_azimuth) * Mathf.Sin(_elevation);
+
+        Vector3 direction = new Vector3(x, y, z);
+
+        transform.position = direction;
     }
 
-    private void SetDirectionAndRotation()
+    private void Rotation()
     {
-        float horizontal = Input.GetAxis(HORIZONTAL);
-
-        _rotationAngle = Mathf.Clamp(_rotationAngle, -45f, 45f);
-
-        Vector3 eulerRotation = transform.eulerAngles;
-
-        eulerRotation.y = _rotationAngle;
-
-        if (Mathf.Abs(horizontal) > 0f)
-        {
-            _rotationAngle += Time.deltaTime * _rotationSpeed * horizontal;
-        }
-
-        // transform.rotation = Quaternion.Euler(eulerRotation);
-
         Quaternion targetRotation = Quaternion.FromToRotation(transform.up, (transform.position - _planetTransform.position).normalized) * transform.rotation;
 
-        transform.position = new Vector3(transform.position.x, transform.position.y + _radius, transform.position.z);
         transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, 50f * Time.deltaTime);
-        transform.Translate(transform.forward * Time.deltaTime * _moveSpeed);
     }
-
-    private float GetRadius() => (_planetTransform.position - transform.position).magnitude;
-
-    private void CheckGroundPosition() => Physics.Raycast(_raycastHitPoint.position, -_raycastHitPoint.up, out _hit, 0.25f);
 }
