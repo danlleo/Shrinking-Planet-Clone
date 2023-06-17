@@ -1,8 +1,13 @@
 using UnityEngine;
 
-public class UnitActionSystem : MonoBehaviour
+public class UnitActionSystem : Singleton<UnitActionSystem>
 {
     private Unit _selectedUnit;
+
+    protected override void Awake()
+    {
+        base.Awake();
+    }
 
     public void Update()
     {
@@ -17,18 +22,17 @@ public class UnitActionSystem : MonoBehaviour
                 return;
 
             if (unit == _selectedUnit)
-            {
-                print("Idi v zhopu");
                 return;
-            }
 
             HandleUnitSelection(unit);
         }
+
+        if (InputManager.Instance.IsRightMouseButtonDownThisFrame())
+        {
+            if (_selectedUnit == null)
+                return;
+        }
     }
 
-    private void HandleUnitSelection(Unit unit)
-    {
-        unit.Fart();
-        _selectedUnit = unit;
-    }
+    private void HandleUnitSelection(Unit unit) => _selectedUnit = unit;
 }
