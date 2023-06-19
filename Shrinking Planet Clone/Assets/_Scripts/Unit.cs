@@ -5,6 +5,7 @@ public class Unit : MonoBehaviour
 {
     public event EventHandler OnUnitSpawned;
     public event EventHandler OnUnitMoved;
+    public event EventHandler OnUnitReachedDesk;
 
     [SerializeField] private UnitSO _unitSO;
 
@@ -45,8 +46,7 @@ public class Unit : MonoBehaviour
         switch (_currentState)
         {
             case State.Idle:
-
-                if (timer >= 3f)
+                if (timer >= 5f)
                 {
                     _currentState = State.Walking;
                     timer = 0f;
@@ -57,13 +57,30 @@ public class Unit : MonoBehaviour
                 }
                 break;
             case State.Walking:
-                if (!_wasCalled)
+                if (timer >= 5f)
                 {
-                    OnUnitMoved?.Invoke(this, EventArgs.Empty); 
-                    _wasCalled = true;
+                    _currentState = State.Working;
+                    timer = 0f;
+                    _wasCalled = false;
                 }
+                else
+                {
+                    if (!_wasCalled)
+                    {
+                        OnUnitMoved?.Invoke(this, EventArgs.Empty);
+                        _wasCalled = true;
+                    }
+
+                    timer += Time.deltaTime;
+                }
+                
                 break;
             case State.Working:
+                if (!_wasCalled)
+                {
+                    OnUnitReachedDesk?.Invoke(this, EventArgs.Empty);
+                    _wasCalled = true;
+                }
                 break;
             case State.Leaving:
                 break;
@@ -81,7 +98,7 @@ public class Unit : MonoBehaviour
         return null;
     }
     
-    public string GetGreetingsSO() => _unitSO.Greetings;
+    public string GetUnitGreetingsText() => _unitSO.Greetings;
 
     public Vector3 GetUnitDeskPosition() => _unitSO.UnitTargetDeskPosition;
 }

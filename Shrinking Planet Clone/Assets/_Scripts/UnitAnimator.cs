@@ -10,7 +10,14 @@ public class UnitAnimator : MonoBehaviour
         {
             unit.OnUnitSpawned += Unit_OnUnitSpawned;
             unit.OnUnitMoved += Unit_OnUnitMoved;
+            unit.OnUnitReachedDesk += Unit_OnUnitReachedDesk;
         }
+    }
+
+    private void Unit_OnUnitReachedDesk(object sender, System.EventArgs e)
+    {
+        _animator.SetBool(UnitAnimationParams.IS_WALKING, false);
+        _animator.SetBool(UnitAnimationParams.IS_TYPING, true);
     }
 
     private void Unit_OnUnitMoved(object sender, System.EventArgs e)
