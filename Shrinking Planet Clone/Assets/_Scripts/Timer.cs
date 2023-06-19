@@ -7,10 +7,8 @@ public class Timer : MonoBehaviour
 {
     [SerializeField] private Image _timerForeground;
 
-    private float _maxTimeInSeconds = 10f;
+    private float _maxTimeInSeconds = 180f;
     private float _normalizedTime = 0f;
-
-    public void InvokeTimer(Action onDayEnd) => StartCoroutine(StartTimerCountDownInSeconds(onDayEnd));
 
     private void Start()
     {
@@ -18,12 +16,19 @@ public class Timer : MonoBehaviour
         DayManager.Instance.OnNewDayStart += DayManager_OnNewDayStart;
     }
 
+    private void OnDestroy()
+    {
+        DayManager.Instance.OnNewDayStart -= DayManager_OnNewDayStart;
+    }
+
+    public void InvokeTimer(Action onDayEnded) => StartCoroutine(StartTimerCountDownInSeconds(onDayEnded));
+
     private void DayManager_OnNewDayStart(object sender, Action e)
     {
         InvokeTimer(e);
     }
 
-    private IEnumerator StartTimerCountDownInSeconds(Action onDayEnd)
+    private IEnumerator StartTimerCountDownInSeconds(Action onDayEnded)
     {
         float timer = _maxTimeInSeconds;
 
@@ -35,7 +40,7 @@ public class Timer : MonoBehaviour
             yield return null;
         }
 
-        onDayEnd?.Invoke();
+        onDayEnded?.Invoke();
     }
 
     private void ResetTimer() => _timerForeground.fillAmount = 1f;
