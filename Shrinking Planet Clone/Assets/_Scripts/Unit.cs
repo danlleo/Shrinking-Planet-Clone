@@ -6,10 +6,9 @@ public class Unit : MonoBehaviour
     public event EventHandler OnUnitSpawned;
     public event EventHandler OnUnitMoved;
     public event EventHandler OnUnitReachedDesk;
+    public event EventHandler OnUnitBeganWork;
 
     [SerializeField] private UnitSO _unitSO;
-
-    private BaseAction[] _baseActionArray;
 
     private enum State
     {
@@ -21,17 +20,15 @@ public class Unit : MonoBehaviour
 
     private State _currentState;
 
-    private float timer = 0f;
-    private bool _wasCalled;
+    private float _timer = 0f;
+    private float _moveSpeed = 4f;
+    private float _rotateSpeed = 10f;
+    private float _stoppingDistance = .1f;
 
-    private void Awake()
-    {
-        _baseActionArray = GetComponents<BaseAction>();
-    }
+    private bool _wasCalled;
 
     private void Start()
     {
-        BaseAction baseAction = GetComponent<BaseAction>();
         _currentState = State.Idle;
         OnUnitSpawned?.Invoke(this, EventArgs.Empty);
     }
@@ -46,34 +43,26 @@ public class Unit : MonoBehaviour
         switch (_currentState)
         {
             case State.Idle:
-                if (timer >= 5f)
+                if (_timer >= 5f)
                 {
                     _currentState = State.Walking;
-                    timer = 0f;
+                    _timer = 0f;
                 }
                 else
                 {
-                    timer += Time.deltaTime;
+                    _timer += Time.deltaTime;
                 }
                 break;
             case State.Walking:
-                if (timer >= 5f)
+                if (!_wasCalled)
                 {
-                    _currentState = State.Working;
-                    timer = 0f;
-                    _wasCalled = false;
+                    MoveUnit();
                 }
                 else
                 {
-                    if (!_wasCalled)
-                    {
-                        OnUnitMoved?.Invoke(this, EventArgs.Empty);
-                        _wasCalled = true;
-                    }
-
-                    timer += Time.deltaTime;
+                    _currentState = State.Working;
+                    _wasCalled = false;
                 }
-                
                 break;
             case State.Working:
                 if (!_wasCalled)
@@ -81,23 +70,39 @@ public class Unit : MonoBehaviour
                     OnUnitReachedDesk?.Invoke(this, EventArgs.Empty);
                     _wasCalled = true;
                 }
+                else
+                {
+                    HandleUnitJob();
+                }
                 break;
             case State.Leaving:
                 break;
         }
     }
 
-    public T GetAction<T>() where T : BaseAction
+    private void MoveUnit()
     {
-        foreach (BaseAction baseAction in _baseActionArray)
-        {
-            if (baseAction is T t)
-                return t;
-        }
+        Vector3 moveDirection = (GetUnitDeskPosition() - transform.position).normalized;
 
-        return null;
+        // Set rotation in which Unit is looking
+        transform.forward = Vector3.Slerp(transform.forward, moveDirection, Time.deltaTime * _rotateSpeed);
+
+        if (Vector3.Distance(transform.position, GetUnitDeskPosition()) > _stoppingDistance)
+        {
+            // If can move -> move
+            transform.position += _moveSpeed * Time.deltaTime * moveDirection;
+        }
+        else
+        {
+            _wasCalled = true;
+        }
     }
-    
+
+    private void HandleUnitJob()
+    {
+
+    }
+
     public string GetUnitGreetingsText() => _unitSO.Greetings;
 
     public Vector3 GetUnitDeskPosition() => _unitSO.UnitTargetDeskPosition;
