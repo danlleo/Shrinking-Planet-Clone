@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class UnitActionSystem : Singleton<UnitActionSystem>
 {
@@ -25,8 +26,14 @@ public class UnitActionSystem : Singleton<UnitActionSystem>
                 return false;
             }
 
-            selectedUnit = unit;
+            // If mouse pointer is over UI element
+            if (EventSystem.current.IsPointerOverGameObject())
+            {
+                selectedUnit = null;
+                return false;
+            }
 
+            selectedUnit = unit;
             return true;
         }
 

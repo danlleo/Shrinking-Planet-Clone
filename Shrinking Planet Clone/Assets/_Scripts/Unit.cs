@@ -3,6 +3,8 @@ using UnityEngine;
 
 public class Unit : MonoBehaviour
 {
+    public static event EventHandler OnUnitSelectingJob;
+
     public event EventHandler OnUnitSpawned;
     public event EventHandler OnUnitMoved;
     public event EventHandler OnUnitReachedDesk;
@@ -10,10 +12,13 @@ public class Unit : MonoBehaviour
 
     [SerializeField] private UnitSO _unitSO;
 
+    private UnitOccupation _unitOccupation;
+
     private enum State
     {
         Idle,
         Walking,
+        ReachedDesk,
         Working,
         Leaving,
     }
@@ -27,15 +32,27 @@ public class Unit : MonoBehaviour
 
     private bool _wasCalled;
 
+    private void Awake()
+    {
+        _unitOccupation = GetComponent<UnitOccupation>();
+    }
+
     private void Start()
     {
         _currentState = State.Idle;
+        _unitOccupation.OnUnitOccupationSet += UnitOccupation_OnUnitOccupationSet;
         OnUnitSpawned?.Invoke(this, EventArgs.Empty);
     }
 
     private void Update()
     {
         StateMachine();
+    }
+
+    private void UnitOccupation_OnUnitOccupationSet(object sender, EventArgs e)
+    {
+        _currentState = State.Working;
+        _wasCalled = false;
     }
 
     private void StateMachine()
@@ -60,11 +77,11 @@ public class Unit : MonoBehaviour
                 }
                 else
                 {
-                    _currentState = State.Working;
+                    _currentState = State.ReachedDesk;
                     _wasCalled = false;
                 }
                 break;
-            case State.Working:
+            case State.ReachedDesk:
                 if (!_wasCalled)
                 {
                     OnUnitReachedDesk?.Invoke(this, EventArgs.Empty);
@@ -72,7 +89,14 @@ public class Unit : MonoBehaviour
                 }
                 else
                 {
-                    HandleUnitJob();
+                    HandleUnitJobSelect();
+                }
+                break;
+            case State.Working:
+                if (!_wasCalled)
+                {
+                    OnUnitBeganWork?.Invoke(this, EventArgs.Empty);
+                    _wasCalled = true;
                 }
                 break;
             case State.Leaving:
@@ -98,13 +122,13 @@ public class Unit : MonoBehaviour
         }
     }
 
-    private void HandleUnitJob()
+    private void HandleUnitJobSelect()
     {
         if (UnitActionSystem.Instance.TryGetSelectedUnit(out Unit selectedUnit))
         {
             if (ReferenceEquals(selectedUnit, this))
             {
-                OnUnitBeganWork?.Invoke(this, EventArgs.Empty);
+                OnUnitSelectingJob?.Invoke(this, EventArgs.Empty);
             } 
         }
     }
