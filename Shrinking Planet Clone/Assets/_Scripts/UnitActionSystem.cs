@@ -2,37 +2,35 @@ using UnityEngine;
 
 public class UnitActionSystem : Singleton<UnitActionSystem>
 {
-    private Unit _selectedUnit;
-
     protected override void Awake()
     {
         base.Awake();
     }
 
-    public void Update()
+    public bool TryGetSelectedUnit(out Unit selectedUnit)
     {
         if (InputManager.Instance.IsMouseButtonDownThisFrame())
         {
             Vector3 cameraPosition = Camera.main.transform.position;
 
             if (!Physics.Raycast(cameraPosition, MouseWorld.GetPosition() - cameraPosition, out RaycastHit hitInfo, float.MaxValue))
-                return;
+            {
+                selectedUnit = null;
+                return false;
+            }
 
             if (!hitInfo.collider.TryGetComponent(out Unit unit))
-                return;
+            {
+                selectedUnit = null;
+                return false;
+            }
 
-            if (unit == _selectedUnit)
-                return;
+            selectedUnit = unit;
 
-            HandleUnitSelection(unit);
+            return true;
         }
 
-        if (InputManager.Instance.IsRightMouseButtonDownThisFrame())
-        {
-            if (_selectedUnit == null)
-                return;
-        }
+        selectedUnit = null;
+        return false;
     }
-
-    private void HandleUnitSelection(Unit unit) => _selectedUnit = unit;
 }

@@ -100,7 +100,13 @@ public class Unit : MonoBehaviour
 
     private void HandleUnitJob()
     {
-
+        if (UnitActionSystem.Instance.TryGetSelectedUnit(out Unit selectedUnit))
+        {
+            if (ReferenceEquals(selectedUnit, this))
+            {
+                OnUnitBeganWork?.Invoke(this, EventArgs.Empty);
+            } 
+        }
     }
 
     public string GetUnitGreetingsText() => _unitSO.Greetings;
