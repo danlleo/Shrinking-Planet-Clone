@@ -10,7 +10,7 @@ public class WorkingProgressBarUI : MonoBehaviour
     [SerializeField] private UnitEconomy _unitEconomy;
     [SerializeField] private Image _progressBarForeground;
 
-    private float _maxTimeInSeconds = 15f;
+    private float _maxTimeInSeconds = 5f;
     private float _normalizedTime = 0f;
 
     private void Start()

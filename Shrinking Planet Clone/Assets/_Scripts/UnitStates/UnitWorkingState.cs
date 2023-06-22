@@ -1,7 +1,10 @@
+using System;
 using UnityEngine;
 
 public class UnitWorkingState : UnitBaseState
 {
+    public static event EventHandler OnUnitReceivedPayment;
+
     private Unit _unit;
     private UnitEconomy _unitEconomy;
 
@@ -18,12 +21,12 @@ public class UnitWorkingState : UnitBaseState
         _unitEconomy.OnUnitReadyToReceiveMoney += UnitEconomy_OnUnitReadyToReceiveMoney;
     }
 
-    private void UnitEconomy_OnUnitReadyToReceiveMoney(object sender, System.EventArgs e)
+    private void UnitEconomy_OnUnitReadyToReceiveMoney(object sender, EventArgs e)
     {
         SetReadyToRecievePayment();
     }
 
-    private void UnitEconomy_OnUnitRecievedMoney(object sender, System.EventArgs e)
+    private void UnitEconomy_OnUnitRecievedMoney(object sender, EventArgs e)
     {
         SetNotReadyToRecievePayment();
     }
@@ -43,6 +46,7 @@ public class UnitWorkingState : UnitBaseState
             if (ReferenceEquals(selectedUnit, _unit))
             {
                 _unitEconomy.InvokeOnUnitRecievedMoney();
+                OnUnitReceivedPayment?.Invoke(_unit, EventArgs.Empty);
             }
         }
     }
