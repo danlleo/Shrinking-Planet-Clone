@@ -11,6 +11,7 @@ public class UnitWalkingState : UnitBaseState
     public override void EnterState(UnitStateManager unitStateManager)
     {
         _unit = unitStateManager.GetComponent<Unit>();
+        _unit.InvokeUnitMovedEvent();
     }
 
     public override void UpdateState(UnitStateManager unitStateManager)

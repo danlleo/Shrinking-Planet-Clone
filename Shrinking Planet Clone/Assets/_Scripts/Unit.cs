@@ -9,6 +9,7 @@ public class Unit : MonoBehaviour
     public event EventHandler OnUnitSpawned;
     public event EventHandler OnUnitMoved;
     public event EventHandler OnUnitBeganWork;
+    public event EventHandler OnUnitPerformedWorkPiece;
 
     [SerializeField] private UnitSO _unitSO;
 
@@ -17,9 +18,15 @@ public class Unit : MonoBehaviour
         OnUnitSpawned?.Invoke(this, EventArgs.Empty);
     }
 
-    public void InvokeUnitSelectingJob() => OnUnitSelectingJob?.Invoke(this, EventArgs.Empty);
+    public void InvokeUnitSelectingJobEvent() => OnUnitSelectingJob?.Invoke(this, EventArgs.Empty);
     
     public void InvokeUnitReachedDeskEvent() => OnUnitReachedDesk?.Invoke(this, EventArgs.Empty);
+
+    public void InvokeUnitMovedEvent() => OnUnitMoved?.Invoke(this, EventArgs.Empty);
+
+    public void InvokeUnitBeganWorkEvent() => OnUnitBeganWork?.Invoke(this, EventArgs.Empty);
+
+    public void InvokeUnitPerformedWorkPiece() => OnUnitPerformedWorkPiece?.Invoke(this, EventArgs.Empty);
 
     public string GetUnitGreetingsText() => _unitSO.Greetings;
 
