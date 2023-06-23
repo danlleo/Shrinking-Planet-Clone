@@ -1,5 +1,7 @@
 using UnityEngine;
 
+// T should be normalized time
+
 public static class InterpolateUtils
 {
     // This formula produces an interpolation that starts and ends slowly, with a faster motion in the middle.
