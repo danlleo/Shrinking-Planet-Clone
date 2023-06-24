@@ -45,7 +45,5 @@ public class EconomyManager : MonoBehaviour
 
             yield return null;
         }
-
-        print("WTF MRAZ");
     }
 }
