@@ -9,7 +9,13 @@ public class ExclamationPointUI : MonoBehaviour
     {
         _unitEconomy.OnUnitReadyToReceiveMoney += UnitEconomy_OnUnitReadyToReceiveMoney;
         _unitEconomy.OnUnitReceivedMoney += UnitEconomy_OnUnitReceivedMoney;
+        DayManager.Instance.OnDayEnded += DayManager_OnDayEnded;
 
+        Hide();
+    }
+
+    private void DayManager_OnDayEnded(object sender, System.EventArgs e)
+    {
         Hide();
     }
 

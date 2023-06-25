@@ -17,9 +17,14 @@ public class DayManager : Singleton<DayManager>
         InvokeOnDayChangedEvent();
     }
 
-    protected void InvokeOnDayChangedEvent() => OnDayChanged?.Invoke(this, EventArgs.Empty);
+    public void InvokeOnDayChangedEvent() => OnDayChanged?.Invoke(this, EventArgs.Empty);
 
-    protected void InvokeOnDayEndedEvent() => OnDayEnded?.Invoke(this, EventArgs.Empty);
+    public void InvokeOnDayEndedEvent() => OnDayEnded?.Invoke(this, EventArgs.Empty);
 
     public int GetCurrentDay() => _currentDay;
+
+    public void ProceedToAnotherDay()
+    {
+        _currentDay++;
+    }
 }

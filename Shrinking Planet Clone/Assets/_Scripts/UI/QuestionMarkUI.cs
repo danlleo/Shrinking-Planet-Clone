@@ -9,6 +9,12 @@ public class QuestionMarkUI : MonoBehaviour
     {
         _unit.OnUnitReachedDesk += Unit_OnUnitReachedDesk;
         _unit.OnUnitBeganWork += Unit_OnUnitBeganWork;
+        DayManager.Instance.OnDayEnded += DayManager_OnDayEnded;
+    }
+
+    private void DayManager_OnDayEnded(object sender, System.EventArgs e)
+    {
+        Hide();
     }
 
     private void Unit_OnUnitBeganWork(object sender, System.EventArgs e)

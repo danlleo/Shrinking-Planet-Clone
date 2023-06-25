@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4b6a7a36042ef784489f5dadd874274d, type: 3}
   m_Name: UnitSO 1
   m_EditorClassIdentifier: 
+  UnitName: Unit 1
   Greetings: Hello!
   DefaultOccupation: ART
   UnitTargetDeskPosition: {x: -2.5, y: 0, z: 2.5}

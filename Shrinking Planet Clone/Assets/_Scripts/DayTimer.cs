@@ -2,24 +2,20 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class DayTimer : DayManager
+public class DayTimer : MonoBehaviour
 {
     [SerializeField] private Image _timerForeground;
 
-    private float _maxTimeInSeconds = 100f;
+    private float _maxTimeInSeconds = 10f;
     private float _normalizedTime = 0f;
-
-    protected override void Awake()
-    {
-        // Logic here later
-    }
 
     private void Start()
     {
-        OnDayChanged += DayTimer_OnDayChanged;
+        DayManager.Instance.OnDayChanged += DayManager_OnDayChanged;
+        InvokeTimer();
     }
 
-    private void DayTimer_OnDayChanged(object sender, System.EventArgs e)
+    private void DayManager_OnDayChanged(object sender, System.EventArgs e)
     {
         InvokeTimer();
     }
@@ -38,6 +34,6 @@ public class DayTimer : DayManager
             yield return null;
         }
 
-        InvokeOnDayEndedEvent();
+        DayManager.Instance.InvokeOnDayEndedEvent();
     }
 }

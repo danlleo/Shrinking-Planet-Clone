@@ -15,6 +15,7 @@ public class Unit : MonoBehaviour
 
     private void Start()
     {
+        UnitManager.Instance.AddUnit(this);
         OnUnitSpawned?.Invoke(this, EventArgs.Empty);
     }
 
@@ -29,6 +30,8 @@ public class Unit : MonoBehaviour
     public void InvokeUnitPerformedWorkPiece() => OnUnitPerformedWorkPiece?.Invoke(this, EventArgs.Empty);
 
     public string GetUnitGreetingsText() => _unitSO.Greetings;
+
+    public string GetUnitName() => _unitSO.UnitName;
 
     public Vector3 GetUnitDeskPosition() => _unitSO.UnitTargetDeskPosition;
 }

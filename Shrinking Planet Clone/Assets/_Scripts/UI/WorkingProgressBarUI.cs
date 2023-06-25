@@ -13,10 +13,24 @@ public class WorkingProgressBarUI : MonoBehaviour
     private float _maxTimeInSeconds = 5f;
     private float _normalizedTime = 0f;
 
+    private Coroutine _countDownCoroutine;
+
     private void Start()
     {
         _unit.OnUnitPerformedWorkPiece += Unit_OnUnitPerformedWorkPiece;
         _unitEconomy.OnUnitReceivedMoney += UnitEconomy_OnUnitRecievedMoney;
+        DayManager.Instance.OnDayEnded += DayManager_OnDayEnded;
+        Hide();
+    }
+
+    private void DayManager_OnDayEnded(object sender, EventArgs e)
+    {
+        if (_countDownCoroutine != null)
+        {
+            StopCoroutine(_countDownCoroutine);
+            _countDownCoroutine = null;
+        }
+
         Hide();
     }
 
@@ -32,7 +46,7 @@ public class WorkingProgressBarUI : MonoBehaviour
         InvokeTimer();
     }
 
-    public void InvokeTimer() => StartCoroutine(StartTimerCountDownInSeconds());
+    public void InvokeTimer() => _countDownCoroutine = StartCoroutine(StartTimerCountDownInSeconds());
 
     private IEnumerator StartTimerCountDownInSeconds()
     {
