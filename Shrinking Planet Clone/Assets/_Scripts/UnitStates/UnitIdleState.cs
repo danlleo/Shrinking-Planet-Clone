@@ -1,11 +1,17 @@
+using System;
 using UnityEngine;
 
 public class UnitIdleState : UnitBaseState
 {
+    public static event EventHandler OnUnitSpawned;
+
     private float _timer;
 
     public override void EnterState(UnitStateManager unitStateManager)
     {
+        Unit unit = unitStateManager.GetComponent<Unit>();
+
+        OnUnitSpawned?.Invoke(unit, EventArgs.Empty);
         _timer = 0f;
     }
 

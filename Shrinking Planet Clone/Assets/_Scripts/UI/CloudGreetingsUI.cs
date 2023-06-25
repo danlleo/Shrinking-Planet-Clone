@@ -10,10 +10,10 @@ public class CloudGreetingsUI : MonoBehaviour
 
     private void Start()
     {
-        DayManager.Instance.OnNewDayStart += DayManager_OnNewDayStart;
+        UnitIdleState.OnUnitSpawned += UnitIdleState_OnUnitSpawned;
     }
 
-    private void DayManager_OnNewDayStart(object sender, System.Action e)
+    private void UnitIdleState_OnUnitSpawned(object sender, System.EventArgs e)
     {
         InvokeDisplayUICloudWithTextCoroutine();
     }

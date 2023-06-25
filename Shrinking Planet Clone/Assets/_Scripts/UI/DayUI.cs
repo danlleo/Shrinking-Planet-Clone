@@ -7,10 +7,16 @@ public class DayUI : MonoBehaviour
 
     private void Start()
     {
+        UpdateDayUI();
         DayManager.Instance.OnDayChanged += DayManager_OnDayChanged;
     }
 
     private void DayManager_OnDayChanged(object sender, System.EventArgs e)
+    {
+        UpdateDayUI();
+    }
+
+    private void UpdateDayUI()
     {
         int currentDay = DayManager.Instance.GetCurrentDay();
         _currentDayText.text = $"Current Day -> {currentDay}";
