@@ -4,5 +4,6 @@ using UnityEngine;
 public class UnitSO : ScriptableObject
 {
     public string Greetings;
-    public Vector3 UnitTargetDeskPosition;    
+    public string DefaultOccupation;
+    public Vector3 UnitTargetDeskPosition;
 }

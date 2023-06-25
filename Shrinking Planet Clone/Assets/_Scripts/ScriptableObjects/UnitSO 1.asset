@@ -13,4 +13,5 @@ MonoBehaviour:
   m_Name: UnitSO 1
   m_EditorClassIdentifier: 
   Greetings: Hello!
+  DefaultOccupation: ART
   UnitTargetDeskPosition: {x: -2.5, y: 0, z: 2.5}

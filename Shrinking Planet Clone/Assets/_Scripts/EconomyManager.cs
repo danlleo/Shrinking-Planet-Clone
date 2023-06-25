@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using UnityEngine;
+using static UnitWorkingState;
 
 public class EconomyManager : MonoBehaviour
 {
@@ -17,7 +18,7 @@ public class EconomyManager : MonoBehaviour
         UnitWorkingState.OnUnitReceivedPayment += UnitWorkingState_OnUnitReceivedPayment;
     }
 
-    private void UnitWorkingState_OnUnitReceivedPayment(object sender, EventArgs e)
+    private void UnitWorkingState_OnUnitReceivedPayment(object sender, UnitRecievedPaymentEventArgs e)
     {
         Vector3 screenPosition = Camera.main.WorldToScreenPoint(MouseWorld.GetPosition());
 
@@ -26,7 +27,13 @@ public class EconomyManager : MonoBehaviour
         moneyIcon.transform.position = screenPosition;
 
         StartCoroutine(MoveIconToFinalPosition(moneyIcon));
+
+        AddMoneyToCurrentAmount(e.MoneyAmount);
+
+        print(_totalCurrentMoneyAmount);
     }
+
+    private void AddMoneyToCurrentAmount(int moneyAmount) => _totalCurrentMoneyAmount += moneyAmount; 
 
     private IEnumerator MoveIconToFinalPosition(Transform icon)
     {

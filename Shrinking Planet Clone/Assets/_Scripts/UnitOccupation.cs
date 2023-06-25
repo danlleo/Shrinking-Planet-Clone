@@ -5,6 +5,8 @@ public class UnitOccupation : MonoBehaviour
 {
     public event EventHandler OnUnitOccupationSet;
 
+    [SerializeField] private UnitSO _unitSO;
+
     private string _occupation;
 
     public void SetUnitOccupation(string occupation)
@@ -14,4 +16,6 @@ public class UnitOccupation : MonoBehaviour
     }
 
     public string GetUnitOccupation() => _occupation;
+
+    public string GetDefaultUnitOccupation() => _unitSO.DefaultOccupation;
 }
