@@ -52,5 +52,7 @@ public class EconomyManager : MonoBehaviour
 
             yield return null;
         }
+
+        Destroy(icon.gameObject);
     }
 }
