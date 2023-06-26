@@ -24,9 +24,10 @@ public class ExclamationPointUI : MonoBehaviour
         Hide();
     }
 
-    private void UnitEconomy_OnUnitReadyToReceiveMoney(object sender, System.EventArgs e)
+    private void UnitEconomy_OnUnitReadyToReceiveMoney(object sender, UnitEconomy.UnitReadyToReceiveMoneyEventArgs e)
     {
-        Show();
+        if (e.SuccessfullyFinishedWork)
+            Show();
     }
 
     private void Show() => _exclamationPointUI.SetActive(true);

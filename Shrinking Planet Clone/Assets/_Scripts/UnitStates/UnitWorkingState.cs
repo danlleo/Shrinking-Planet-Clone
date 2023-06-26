@@ -1,8 +1,10 @@
 using System;
+using static UnitEconomy;
 
 public class UnitWorkingState : UnitBaseState
 {
     public static event EventHandler<UnitRecievedPaymentEventArgs> OnUnitReceivedPayment;
+    public static event EventHandler OnUnitResolvedWorkIssue;
 
     public class UnitRecievedPaymentEventArgs : EventArgs
     {
@@ -20,6 +22,7 @@ public class UnitWorkingState : UnitBaseState
     private UnitStateManager _unitStateManager;
 
     private bool _isReadyToRecievePayment;
+    private bool _hasUnitSuccessfullyFinishedWork;
 
     private int _defaultRecieveUnitMoney = 100;
 
@@ -45,9 +48,17 @@ public class UnitWorkingState : UnitBaseState
         _unitStateManager.SwitchState(_unitStateManager._leavingState);
     }
 
-    private void UnitEconomy_OnUnitReadyToReceiveMoney(object sender, EventArgs e)
+    private void UnitEconomy_OnUnitReadyToReceiveMoney(object sender, UnitReadyToReceiveMoneyEventArgs e)
     {
         SetReadyToRecievePayment();
+        
+        if (!e.SuccessfullyFinishedWork)
+        {
+            _hasUnitSuccessfullyFinishedWork = false;
+            return;
+        }
+        
+        _hasUnitSuccessfullyFinishedWork = true;
     }
 
     private void UnitEconomy_OnUnitRecievedMoney(object sender, EventArgs e)
@@ -73,6 +84,14 @@ public class UnitWorkingState : UnitBaseState
                 int unitMoneyAmountReceived = _unitOccupation.GetUnitOccupation() == _unitOccupation.GetDefaultUnitOccupation() 
                     ? _defaultRecieveUnitMoney 
                     : _defaultRecieveUnitMoney - (int)(_defaultRecieveUnitMoney * _loseRecieveUnitMoneyPercentage);
+                
+                // If unit didn't finish work successfully
+                if (!_hasUnitSuccessfullyFinishedWork)
+                {
+                    _hasUnitSuccessfullyFinishedWork = true;
+                    OnUnitResolvedWorkIssue?.Invoke(_unit, EventArgs.Empty);
+                    return;
+                }
 
                 _unitEconomy.InvokeOnUnitRecievedMoney();
                 OnUnitReceivedPayment?.Invoke(_unit, new UnitRecievedPaymentEventArgs(unitMoneyAmountReceived));

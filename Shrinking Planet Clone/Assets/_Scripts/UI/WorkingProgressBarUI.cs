@@ -34,13 +34,13 @@ public class WorkingProgressBarUI : MonoBehaviour
         Hide();
     }
 
-    private void UnitEconomy_OnUnitRecievedMoney(object sender, System.EventArgs e)
+    private void UnitEconomy_OnUnitRecievedMoney(object sender, EventArgs e)
     {
         Show();
         InvokeTimer();
     }
 
-    private void Unit_OnUnitPerformedWorkPiece(object sender, System.EventArgs e)
+    private void Unit_OnUnitPerformedWorkPiece(object sender, EventArgs e)
     {
         Show();
         InvokeTimer();
@@ -60,7 +60,10 @@ public class WorkingProgressBarUI : MonoBehaviour
             yield return null;
         }
 
-        _unitEconomy.InvokeOnUnitReadyToReceiveMoney();
+        // Calculate if unit successfully finished work, for now 50% chance
+        bool HasUnitSuccessfullyFinishedWork = UnityEngine.Random.Range(0, 2) == 0;
+
+        _unitEconomy.InvokeOnUnitReadyToReceiveMoney(HasUnitSuccessfullyFinishedWork);
         Hide();
     }
 
