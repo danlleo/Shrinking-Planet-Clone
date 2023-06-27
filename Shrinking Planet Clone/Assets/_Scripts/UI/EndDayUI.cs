@@ -31,11 +31,12 @@ public class EndDayUI : MonoBehaviour
         {
             Transform unitDisplaySingle = Instantiate(_unitDispalySinglePrefab, _unitDisplayGroup);
             UnitDisplaySingleUI unitDisplaySingleUI = unitDisplaySingle.GetComponent<UnitDisplaySingleUI>();
+            UnitLevel unitLevel = unit.GetComponent<UnitLevel>();
             Sprite unitDisplayImage = unit.GetUnitImage();
             string unitDisplayName = unit.GetUnitName();
-            string unitDisplayLevel = unit.GetComponent<UnitLevel>().GetUnitCurrentLevel().ToString();
+            string unitDisplayLevel = unitLevel.GetUnitCurrentLevel().ToString();
 
-            unitDisplaySingleUI.Setup(unitDisplayImage, unitDisplayName, unitDisplayLevel);
+            unitDisplaySingleUI.Setup(unitDisplayImage, unitDisplayName, unitDisplayLevel, unitLevel);
         }
     }
 }

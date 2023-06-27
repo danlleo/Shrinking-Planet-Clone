@@ -243,7 +243,7 @@ MonoBehaviour:
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 0
-  m_FillAmount: 0.808
+  m_FillAmount: 0
   m_FillClockwise: 1
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
@@ -394,6 +394,7 @@ GameObject:
   - component: {fileID: 607449203532682920}
   - component: {fileID: 5391470832053943845}
   - component: {fileID: 7246641012080528136}
+  - component: {fileID: 5567822396238505251}
   m_Layer: 5
   m_Name: UnitDisplayImage
   m_TagString: Untagged
@@ -459,6 +460,21 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &5567822396238505251
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7554900443664871611}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e19747de3f5aca642ab2be37e372fb86, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_EffectColor: {r: 0, g: 0, b: 0, a: 0.5}
+  m_EffectDistance: {x: 5, y: 5}
+  m_UseGraphicAlpha: 1
 --- !u!1 &7832090497189431498
 GameObject:
   m_ObjectHideFlags: 0
@@ -513,6 +529,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _unitDisplayImage: {fileID: 7246641012080528136}
+  _progressBarForeground: {fileID: 707289214316260077}
   _unitDisplayNameText: {fileID: 895322898530300250}
   _unitDisplayLevelText: {fileID: 7472116843449601766}
 --- !u!1 &7865446528233412597

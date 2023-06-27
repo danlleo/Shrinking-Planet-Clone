@@ -1,9 +1,14 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class UnitLevelUpSystem : MonoBehaviour
+public class UnitLevelUpSystem : Singleton<UnitLevelUpSystem>
 {
     private int _XPToNextLevel = 100;
+
+    protected override void Awake()
+    {
+        base.Awake();
+    }
 
     private void Start()
     {
@@ -27,17 +32,21 @@ public class UnitLevelUpSystem : MonoBehaviour
 
     private void CheckLevelUp(UnitLevel unitLevel)
     {
-        int unitCurrentXP = unitLevel.GetUnitCurrentXP();
+        int unitCurrentXP = unitLevel.GetUnitCurrentXPValue();
 
         if (unitCurrentXP <= _XPToNextLevel)
         {
+            unitLevel.SetUnitPreviousXP(unitCurrentXP);
             print("Unit Level Stays The Same");
             return;
         }
 
         unitLevel.IncreaseUnitLevel();
-        unitLevel.SetUnitXP(unitCurrentXP - _XPToNextLevel);
+        unitLevel.SetUnitPreviousXP(0);
+        unitLevel.SetUnitCurrentXP(unitCurrentXP - _XPToNextLevel);
         print("Unit Level Increased");
         CheckLevelUp(unitLevel);
     }
+
+    public int GetXPToNextLevel() => _XPToNextLevel;
 }
