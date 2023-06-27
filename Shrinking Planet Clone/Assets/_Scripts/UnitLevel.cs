@@ -3,7 +3,7 @@ using UnityEngine;
 public class UnitLevel : MonoBehaviour
 {
     private int _currentLevel = 1;
-    private int _currentXP = 300;
+    private int _currentXP = 100;
 
     public int GetUnitCurrentXP() => _currentXP;
 

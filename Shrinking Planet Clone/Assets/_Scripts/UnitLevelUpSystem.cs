@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class UnitLevelUpSystem : MonoBehaviour
 {
-    private int _XPToNextLevel = 300;
+    private int _XPToNextLevel = 100;
 
     private void Start()
     {
@@ -29,15 +29,15 @@ public class UnitLevelUpSystem : MonoBehaviour
     {
         int unitCurrentXP = unitLevel.GetUnitCurrentXP();
 
-        if (unitCurrentXP >= _XPToNextLevel)
-        {
-            unitLevel.IncreaseUnitLevel();
-            unitLevel.SetUnitXP(unitCurrentXP - _XPToNextLevel);
-            print("Unit Level Increased");
-        }
-        else
+        if (unitCurrentXP <= _XPToNextLevel)
         {
             print("Unit Level Stays The Same");
+            return;
         }
+
+        unitLevel.IncreaseUnitLevel();
+        unitLevel.SetUnitXP(unitCurrentXP - _XPToNextLevel);
+        print("Unit Level Increased");
+        CheckLevelUp(unitLevel);
     }
 }

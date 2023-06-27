@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Unit : MonoBehaviour
 {
@@ -32,6 +33,8 @@ public class Unit : MonoBehaviour
     public string GetUnitGreetingsText() => _unitSO.Greetings;
 
     public string GetUnitName() => _unitSO.UnitName;
+
+    public Sprite GetUnitImage() => _unitSO.UnitDisplayImage;
 
     public Vector3 GetUnitDeskPosition() => _unitSO.UnitTargetDeskPosition;
 }

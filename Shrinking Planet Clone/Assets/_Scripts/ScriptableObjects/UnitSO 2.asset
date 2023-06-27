@@ -12,7 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4b6a7a36042ef784489f5dadd874274d, type: 3}
   m_Name: UnitSO 2
   m_EditorClassIdentifier: 
-  UnitName: Unit 2
+  UnitName: Lark
   Greetings: Hey!
   DefaultOccupation: DEVELOPER
   UnitTargetDeskPosition: {x: 0, y: 0, z: 2.5}
+  UnitDisplayImage: {fileID: 21300000, guid: 50a43e4df2ecd2b4085a51d060794d9a, type: 3}
