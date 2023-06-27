@@ -16,11 +16,13 @@ public class UnitEconomy : MonoBehaviour
         }
     }
 
-    private int _currentMoneyAmount;
+    private int _currentUnitMoneyAmount;
 
-    public void AddMoneyToCurrentAmount(int recievedMoneyAmount) => _currentMoneyAmount += recievedMoneyAmount;
+    public void AddMoneyToCurrentAmount(int recievedMoneyAmount) => _currentUnitMoneyAmount += recievedMoneyAmount;
     
-    public void ClearCurrentMoneyAmount() => _currentMoneyAmount = 0;
+    public void ClearCurrentMoneyAmount() => _currentUnitMoneyAmount = 0;
+
+    public int GetCurrentUnitMoneyAmount() => _currentUnitMoneyAmount;
 
     public void InvokeOnUnitReadyToReceiveMoney(bool successfullyFinishedWork) => OnUnitReadyToReceiveMoney?.Invoke(this, new UnitReadyToReceiveMoneyEventArgs(successfullyFinishedWork));
 

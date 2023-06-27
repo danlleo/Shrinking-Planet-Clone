@@ -6,7 +6,7 @@ public class PlayerNarrationSystem : MonoBehaviour, IObserver
 
     public void OnNotify()
     {
-        print("PNS: NOTIFIED");
+        // Future logic here
     }
 
     private void OnEnable()

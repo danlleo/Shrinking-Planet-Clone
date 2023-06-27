@@ -6,7 +6,7 @@ public class DayTimer : MonoBehaviour
 {
     [SerializeField] private Image _timerForeground;
 
-    private float _maxTimeInSeconds = 100f;
+    private float _maxTimeInSeconds = 10f;
     private float _normalizedTime = 0f;
 
     private void Start()
@@ -17,7 +17,7 @@ public class DayTimer : MonoBehaviour
 
     private void DayManager_OnDayChanged(object sender, System.EventArgs e)
     {
-        InvokeTimer();
+        //InvokeTimer();
     }
 
     protected void InvokeTimer() => StartCoroutine(StartTimerCountDownInSeconds());

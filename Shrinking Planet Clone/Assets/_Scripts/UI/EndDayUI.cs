@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 using UnityEngine;
 
 public class EndDayUI : MonoBehaviour
@@ -14,13 +13,6 @@ public class EndDayUI : MonoBehaviour
     private void DayManager_OnDayEnded(object sender, System.EventArgs e)
     {
         Show();
-
-        List<Unit> unitList = UnitManager.Instance.GetAllUnits();
-
-        foreach (Unit unit in unitList)
-        {
-            print(unit.GetUnitName());
-        }
     }
 
     private void Show() => _endDayUI.SetActive(true);
