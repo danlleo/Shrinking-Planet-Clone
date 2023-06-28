@@ -18,6 +18,13 @@ public class UnitReachedDeskState : UnitBaseState
         DayManager.Instance.OnDayChanged += DayManager_OnDayChanged;
     }
 
+    // Move it somewhere
+    private void OnDestroy()
+    {
+        _unitOccupation.OnUnitOccupationSet -= UnitOccupation_OnUnitOccupationSet;
+        DayManager.Instance.OnDayChanged -= DayManager_OnDayChanged;
+    }
+
     private void DayManager_OnDayChanged(object sender, EventArgs e)
     {
         _unitStateManager.SwitchState(_unitStateManager._leavingState);

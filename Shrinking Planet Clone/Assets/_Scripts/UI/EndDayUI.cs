@@ -13,6 +13,11 @@ public class EndDayUI : MonoBehaviour
         DayManager.Instance.OnDayEnded += DayManager_OnDayEnded;
     }
 
+    private void OnDestroy()
+    {
+        DayManager.Instance.OnDayEnded -= DayManager_OnDayEnded;
+    }
+
     private void DayManager_OnDayEnded(object sender, System.EventArgs e)
     {
         Show();

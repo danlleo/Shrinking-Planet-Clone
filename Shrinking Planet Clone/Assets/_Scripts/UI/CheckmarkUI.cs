@@ -15,6 +15,13 @@ public class CheckmarkUI : MonoBehaviour
         Hide();
     }
 
+    private void OnDestroy()
+    {
+        UnitWorkingState.OnUnitResolvedWorkIssue -= UnitWorkingState_OnUnitResolvedWorkIssue;
+        DayManager.Instance.OnDayEnded -= DayManager_OnDayEnded;
+        _unitEconomy.OnUnitReceivedMoney -= UnitEconomy_OnUnitReceivedMoney;
+    }
+
     private void DayManager_OnDayEnded(object sender, System.EventArgs e)
     {
         Hide();

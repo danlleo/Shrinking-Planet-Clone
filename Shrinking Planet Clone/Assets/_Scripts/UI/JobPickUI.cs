@@ -28,6 +28,11 @@ public class JobPickUI : MonoBehaviour
         Hide();
     }
 
+    private void OnDestroy()
+    {
+        Unit.OnUnitSelectingJob -= Unit_OnUnitSelectingJob;
+    }
+
     private void Unit_OnUnitSelectingJob(object sender, System.EventArgs e)
     {
         Unit unit = (Unit)sender;

@@ -15,6 +15,11 @@ public class UnitAnimator : MonoBehaviour
         }
     }
 
+    private void OnDestroy()
+    {
+        // Think about it here later
+    }
+
     private void Unit_OnUnitReachedDesk(object sender, System.EventArgs e)
     {
         _animator.SetBool(UnitAnimationParams.IS_WALKING, false);

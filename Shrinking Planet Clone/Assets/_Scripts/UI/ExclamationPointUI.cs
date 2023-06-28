@@ -14,6 +14,11 @@ public class ExclamationPointUI : MonoBehaviour
         Hide();
     }
 
+    private void OnDestroy()
+    {
+        DayManager.Instance.OnDayEnded -= DayManager_OnDayEnded;
+    }
+
     private void DayManager_OnDayEnded(object sender, System.EventArgs e)
     {
         Hide();

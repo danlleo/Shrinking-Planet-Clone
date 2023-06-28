@@ -11,6 +11,11 @@ public class DayUI : MonoBehaviour
         DayManager.Instance.OnDayChanged += DayManager_OnDayChanged;
     }
 
+    private void OnDestroy()
+    {
+        DayManager.Instance.OnDayChanged -= DayManager_OnDayChanged;
+    }
+
     private void DayManager_OnDayChanged(object sender, System.EventArgs e)
     {
         UpdateDayUI();

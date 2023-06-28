@@ -15,6 +15,11 @@ public class UnitLevelUpSystem : Singleton<UnitLevelUpSystem>
         DayManager.Instance.OnDayEnded += DayManager_OnDayEnded;
     }
 
+    private void OnDestroy()
+    {
+        DayManager.Instance.OnDayChanged -= DayManager_OnDayEnded;
+    }
+
     private void DayManager_OnDayEnded(object sender, System.EventArgs e)
     {
         List<Unit> units = UnitManager.Instance.GetAllUnits();

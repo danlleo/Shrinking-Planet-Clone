@@ -19,6 +19,11 @@ public class EconomyManager : Singleton<EconomyManager>
         UnitWorkingState.OnUnitReceivedPayment += UnitWorkingState_OnUnitReceivedPayment;
     }
 
+    private void OnDestroy()
+    {
+        UnitWorkingState.OnUnitReceivedPayment -= UnitWorkingState_OnUnitReceivedPayment;
+    }
+
     private void UnitWorkingState_OnUnitReceivedPayment(object sender, UnitRecievedPaymentEventArgs e)
     {
         AddMoneyToCurrentAmount(e.MoneyAmount);

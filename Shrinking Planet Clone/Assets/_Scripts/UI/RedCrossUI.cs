@@ -15,6 +15,13 @@ public class RedCrossUI : MonoBehaviour
         UnitWorkingState.OnUnitResolvedWorkIssue += UnitWorkingState_OnUnitResolvedWorkIssue;
     }
 
+    private void OnDestroy()
+    {
+        _unitEconomy.OnUnitReadyToReceiveMoney -= UnitEconomy_OnUnitReadyToReceiveMoney;
+        DayManager.Instance.OnDayEnded -= DayManager_OnDayEnded;
+        UnitWorkingState.OnUnitResolvedWorkIssue -= UnitWorkingState_OnUnitResolvedWorkIssue;
+    }
+
     private void DayManager_OnDayEnded(object sender, System.EventArgs e)
     {
         Hide();

@@ -43,6 +43,13 @@ public class UnitWorkingState : UnitBaseState
         DayManager.Instance.OnDayEnded += DayManager_OnDayEnded;
     }
 
+    private void OnDestroy()
+    {
+        _unitEconomy.OnUnitReceivedMoney -= UnitEconomy_OnUnitRecievedMoney;
+        _unitEconomy.OnUnitReadyToReceiveMoney -= UnitEconomy_OnUnitReadyToReceiveMoney;
+        DayManager.Instance.OnDayEnded -= DayManager_OnDayEnded;
+    }
+
     private void DayManager_OnDayEnded(object sender, EventArgs e)
     {
         _unitStateManager.SwitchState(_unitStateManager._leavingState);

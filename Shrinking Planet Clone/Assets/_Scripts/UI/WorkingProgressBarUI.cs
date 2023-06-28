@@ -23,6 +23,13 @@ public class WorkingProgressBarUI : MonoBehaviour
         Hide();
     }
 
+    private void OnDestroy()
+    {
+        _unit.OnUnitPerformedWorkPiece -= Unit_OnUnitPerformedWorkPiece;
+        _unitEconomy.OnUnitReceivedMoney -= UnitEconomy_OnUnitRecievedMoney;
+        DayManager.Instance.OnDayEnded -= DayManager_OnDayEnded;
+    }
+
     private void DayManager_OnDayEnded(object sender, EventArgs e)
     {
         if (_countDownCoroutine != null)
