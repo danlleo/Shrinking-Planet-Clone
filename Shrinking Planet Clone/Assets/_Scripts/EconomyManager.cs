@@ -16,12 +16,12 @@ public class EconomyManager : Singleton<EconomyManager>
 
     private void Start()
     {
-        UnitWorkingState.OnUnitReceivedPayment += UnitWorkingState_OnUnitReceivedPayment;
+        OnUnitReceivedPayment += UnitWorkingState_OnUnitReceivedPayment;
     }
 
     private void OnDestroy()
     {
-        UnitWorkingState.OnUnitReceivedPayment -= UnitWorkingState_OnUnitReceivedPayment;
+        OnUnitReceivedPayment -= UnitWorkingState_OnUnitReceivedPayment;
     }
 
     private void UnitWorkingState_OnUnitReceivedPayment(object sender, UnitRecievedPaymentEventArgs e)
@@ -29,7 +29,7 @@ public class EconomyManager : Singleton<EconomyManager>
         AddMoneyToCurrentAmount(e.MoneyAmount);
     }
 
-    private void AddMoneyToCurrentAmount(int moneyAmount) => _totalCurrentMoneyAmount += moneyAmount;
+    public void AddMoneyToCurrentAmount(int moneyAmount) => _totalCurrentMoneyAmount += moneyAmount;
 
     public int GetTotalCurrentMoneyAmount() => _totalCurrentMoneyAmount;
 }

@@ -6,7 +6,7 @@ public class DayTimer : MonoBehaviour
 {
     [SerializeField] private Image _timerForeground;
 
-    private float _maxTimeInSeconds = 1f;
+    private float _maxTimeInSeconds = 30f;
     private float _normalizedTime = 0f;
 
     private void Start()

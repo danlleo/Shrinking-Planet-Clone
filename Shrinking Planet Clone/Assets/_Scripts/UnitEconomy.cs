@@ -16,9 +16,45 @@ public class UnitEconomy : MonoBehaviour
         }
     }
 
+    [SerializeField] private Transform _moneyReceivedAnimationPosition;
+    [SerializeField] private GameObject _moneyReceivedAnimationPrefab;
+
+    private Unit _unit;
+
     private int _currentUnitMoneyAmount;
 
-    public void AddMoneyToCurrentAmount(int recievedMoneyAmount) => _currentUnitMoneyAmount += recievedMoneyAmount;
+    private void Start()
+    {
+        _unit = GetComponent<Unit>();
+        UnitWorkingState.OnUnitReceivedPayment += UnitWorkingState_OnUnitReceivedPayment;
+    }
+
+    private void UnitWorkingState_OnUnitReceivedPayment(object sender, UnitWorkingState.UnitRecievedPaymentEventArgs e)
+    {
+        Unit selectedUnit = (Unit)sender;
+
+        if (ReferenceEquals(_unit, selectedUnit))
+        {
+            AddMoneyToCurrentAmount(e.MoneyAmount);
+            InstantiateMoneyReceivedAnimation(e.MoneyAmount);
+        }
+    }
+
+    private void InstantiateMoneyReceivedAnimation(int moneyAmount)
+    {
+        GameObject ukraine_forever_transform_game_object = Instantiate(_moneyReceivedAnimationPrefab, _moneyReceivedAnimationPosition);
+
+        if (ukraine_forever_transform_game_object.TryGetComponent(out MoneyReceivedAnimationPrefab moneyReceivedAnimationPrefab))
+        {
+            moneyReceivedAnimationPrefab.SetMoneyReceivedText(moneyAmount);
+        }
+    }
+
+    public void AddMoneyToCurrentAmount(int recievedMoneyAmount)
+    {
+        _currentUnitMoneyAmount += recievedMoneyAmount;
+        print("Current Unit Money after received payment: " + _currentUnitMoneyAmount);
+    }
     
     public void ClearCurrentMoneyAmount() => _currentUnitMoneyAmount = 0;
 

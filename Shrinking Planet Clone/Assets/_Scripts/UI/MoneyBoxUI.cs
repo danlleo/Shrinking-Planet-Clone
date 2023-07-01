@@ -14,7 +14,7 @@ public class MoneyBoxUI : MonoBehaviour
 
     private void Start()
     {
-        UnitWorkingState.OnUnitReceivedPayment += UnitWorkingState_OnUnitReceivedPayment;
+        OnUnitReceivedPayment += UnitWorkingState_OnUnitReceivedPayment;
         DayManager.Instance.OnDayEnded += DayManager_OnDayEnded;
     }
 

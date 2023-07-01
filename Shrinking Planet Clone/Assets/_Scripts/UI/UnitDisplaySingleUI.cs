@@ -40,12 +40,12 @@ public class UnitDisplaySingleUI : MonoBehaviour
         {
             timer += Time.deltaTime;
             _normalizedTime = timer / _maxTimeInSeconds;
-            _progressBarForeground.fillAmount = Mathf.Lerp((float)previousXP / XPsum, (float)currentXP / XPsum, _normalizedTime);
+            
+            // Bug below
+            // _progressBarForeground.fillAmount = Mathf.Lerp((float)previousXP / XPsum, (float)currentXP / XPsum, _normalizedTime);
             
             yield return null;
         }
-
-        print("Does it stop");
 
         if (currentXP > xpToNextLevel)
             yield return StartCoroutine(StartLevelProgressMoveBarInSeconds());
