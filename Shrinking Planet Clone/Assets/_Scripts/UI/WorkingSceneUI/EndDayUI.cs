@@ -1,11 +1,21 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class EndDayUI : MonoBehaviour
 {
     [SerializeField] private GameObject _endDayUI;
+    [SerializeField] private Button _endDayButton;
     [SerializeField] private Transform _unitDisplayGroup;
     [SerializeField] private Transform _unitDispalySinglePrefab;
+
+    private void Awake()
+    {
+        _endDayButton.onClick.AddListener(() =>
+        {
+            Loader.Load(Loader.Scene.ManagingScene);
+        });
+    }
 
     private void Start()
     {

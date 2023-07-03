@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using TMPro;
 using UnityEngine;
@@ -8,14 +9,24 @@ public class CloudGreetingsUI : MonoBehaviour
     [SerializeField] private TextMeshProUGUI _cloudImageText;
     [SerializeField] private Unit _unit;
 
-    private void Start()
+    private void OnEnable()
     {
         UnitIdleState.OnUnitSpawned += UnitIdleState_OnUnitSpawned;
     }
 
-    private void UnitIdleState_OnUnitSpawned(object sender, System.EventArgs e)
+    private void OnDestroy()
     {
-        InvokeDisplayUICloudWithTextCoroutine();
+        UnitIdleState.OnUnitSpawned -= UnitIdleState_OnUnitSpawned;
+    }
+
+    private void UnitIdleState_OnUnitSpawned(object sender, EventArgs e)
+    {
+        Unit selectedUnit = (Unit)sender;
+
+        if (ReferenceEquals(selectedUnit, _unit))
+        {
+            InvokeDisplayUICloudWithTextCoroutine();
+        }
     }
 
     private void UpdateCloudImageText(string targetText) => _cloudImageText.text = targetText;

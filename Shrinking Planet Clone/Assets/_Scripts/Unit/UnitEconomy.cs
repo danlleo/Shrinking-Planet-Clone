@@ -50,12 +50,8 @@ public class UnitEconomy : MonoBehaviour
         }
     }
 
-    public void AddMoneyToCurrentAmount(int recievedMoneyAmount)
-    {
-        _currentUnitMoneyAmount += recievedMoneyAmount;
-        print("Current Unit Money after received payment: " + _currentUnitMoneyAmount);
-    }
-    
+    public void AddMoneyToCurrentAmount(int recievedMoneyAmount) => _currentUnitMoneyAmount += recievedMoneyAmount;
+
     public void ClearCurrentMoneyAmount() => _currentUnitMoneyAmount = 0;
 
     public int GetCurrentUnitMoneyAmount() => _currentUnitMoneyAmount;

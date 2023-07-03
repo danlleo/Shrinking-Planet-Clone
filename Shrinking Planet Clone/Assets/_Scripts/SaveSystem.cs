@@ -3,7 +3,7 @@ using UnityEngine;
 public class SaveSystem : Singleton<SaveSystem>
 {
     private const int DEFAULT_COMPANY_RANK_POSITION = 100;
-    private const int DEFAULT_TOTAL_MONEY_AMOUNT = 0;
+    private const int DEFAULT_TOTAL_MONEY_AMOUNT = 999;
 
     protected override void Awake()
     {

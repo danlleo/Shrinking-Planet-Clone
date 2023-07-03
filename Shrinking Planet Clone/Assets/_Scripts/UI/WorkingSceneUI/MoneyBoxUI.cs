@@ -18,6 +18,12 @@ public class MoneyBoxUI : MonoBehaviour
         DayManager.Instance.OnDayEnded += DayManager_OnDayEnded;
     }
 
+    private void OnDestroy()
+    {
+        OnUnitReceivedPayment -= UnitWorkingState_OnUnitReceivedPayment;
+        DayManager.Instance.OnDayEnded -= DayManager_OnDayEnded;
+    }
+
     private void DayManager_OnDayEnded(object sender, System.EventArgs e)
     {
         Hide();
