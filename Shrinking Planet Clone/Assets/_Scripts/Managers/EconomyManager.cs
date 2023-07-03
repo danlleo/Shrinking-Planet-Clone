@@ -12,11 +12,18 @@ public class EconomyManager : Singleton<EconomyManager>
     protected override void Awake()
     {
         base.Awake();
+        _totalCurrentMoneyAmount = SaveSystem.Instance.LoadMoneyAmount();
     }
 
     private void Start()
     {
         OnUnitReceivedPayment += UnitWorkingState_OnUnitReceivedPayment;
+        DayManager.Instance.OnDayEnded += DayManager_OnDayEnded;
+    }
+
+    private void DayManager_OnDayEnded(object sender, System.EventArgs e)
+    {
+        SaveSystem.Instance.SaveMoneyAmount(_totalCurrentMoneyAmount);
     }
 
     private void OnDestroy()

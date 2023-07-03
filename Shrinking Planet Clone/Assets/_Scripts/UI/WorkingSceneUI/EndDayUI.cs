@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -13,6 +14,7 @@ public class EndDayUI : MonoBehaviour
     {
         _endDayButton.onClick.AddListener(() =>
         {
+            DayManager.Instance.ProceedToAnotherDay();
             Loader.Load(Loader.Scene.ManagingScene);
         });
     }
@@ -28,7 +30,7 @@ public class EndDayUI : MonoBehaviour
         DayManager.Instance.OnDayEnded -= DayManager_OnDayEnded;
     }
 
-    private void DayManager_OnDayEnded(object sender, System.EventArgs e)
+    private void DayManager_OnDayEnded(object sender, EventArgs e)
     {
         Show();
         AddUnitDisplaySingleUI();

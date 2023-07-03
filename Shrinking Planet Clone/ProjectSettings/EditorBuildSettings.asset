@@ -14,4 +14,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/ManagingScene.unity
     guid: 0e3868d40ab1fd24fbe3eb43418edac2
+  - enabled: 1
+    path: Assets/Scenes/InterviewScene.unity
+    guid: 2c16e7018940a6c4ba1d335d71bdb331
   m_configObjects: {}

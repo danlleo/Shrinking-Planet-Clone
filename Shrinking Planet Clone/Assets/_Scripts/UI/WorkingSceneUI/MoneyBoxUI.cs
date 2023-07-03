@@ -16,6 +16,7 @@ public class MoneyBoxUI : MonoBehaviour
     {
         OnUnitReceivedPayment += UnitWorkingState_OnUnitReceivedPayment;
         DayManager.Instance.OnDayEnded += DayManager_OnDayEnded;
+        UpdateMoneyAmountUI();
     }
 
     private void OnDestroy()
@@ -38,9 +39,7 @@ public class MoneyBoxUI : MonoBehaviour
         moneyIcon.transform.position = screenPosition;
 
         StartCoroutine(MoveIconToFinalPosition(moneyIcon));
-
-        // Display total current money amount text
-        _moneyAmountText.text = EconomyManager.Instance.GetTotalCurrentMoneyAmount().ToString();
+        UpdateMoneyAmountUI();
     }
 
     private IEnumerator MoveIconToFinalPosition(Transform icon)
@@ -63,6 +62,9 @@ public class MoneyBoxUI : MonoBehaviour
 
         Destroy(icon.gameObject);
     }
+
+    // Display total current money amount text
+    private void UpdateMoneyAmountUI() => _moneyAmountText.text = EconomyManager.Instance.GetTotalCurrentMoneyAmount().ToString();
 
     private void Show() => _moneyBoxUI.SetActive(true);
 

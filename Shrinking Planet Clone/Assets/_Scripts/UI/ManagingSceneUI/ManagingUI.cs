@@ -1,4 +1,5 @@
 using System;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -7,6 +8,8 @@ public class ManagingUI : MonoBehaviour
     public static event EventHandler OnOpenBuyUI;
 
     [SerializeField] private GameObject _managingUI;
+    [SerializeField] private TextMeshProUGUI _currentCompanyRankText;
+    [SerializeField] private TextMeshProUGUI _currentDayText;
     [SerializeField] private Button _startButton;
     [SerializeField] private Button _buyButton;
 
@@ -27,6 +30,8 @@ public class ManagingUI : MonoBehaviour
     private void Start()
     {
         BuyUI.OnOpenBuyUIClose += BuyUI_OnOpenBuyUIClose;
+        _currentCompanyRankText.text = "Company Rank: ";
+        _currentDayText.text = "Current Day: " + DayManager.Instance.GetCurrentDay();
     }
 
     private void OnDestroy()

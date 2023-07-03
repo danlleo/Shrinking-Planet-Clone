@@ -8,11 +8,13 @@ public static class Loader
     // Dummy class
     private class LoadingMonoBehaviour : MonoBehaviour { }
 
+    // All available scenes
     public enum Scene
     {
         LoadingScene,
         WorkingScene,
         ManagingScene,
+        InterviewScene,
     }
 
     private static Action _onLoaderCallback;
