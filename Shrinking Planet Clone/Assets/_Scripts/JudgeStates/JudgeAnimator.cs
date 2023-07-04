@@ -9,7 +9,13 @@ public class JudgeAnimator : MonoBehaviour
         if (TryGetComponent<Judge>(out Judge judge))
         {
             judge.OnJudgeThinking += Judge_OnJudgeThinking;
+            judge.OnJudgeAsking += Judge_OnJudgeAsking;
         }
+    }
+
+    private void Judge_OnJudgeAsking(object sender, System.EventArgs e)
+    {
+        _animator.SetTrigger(JudgeAnimationParams.IS_ASKING);
     }
 
     private void Judge_OnJudgeThinking(object sender, System.EventArgs e)

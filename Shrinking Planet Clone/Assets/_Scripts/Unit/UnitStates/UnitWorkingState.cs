@@ -101,6 +101,7 @@ public class UnitWorkingState : UnitBaseState
                     return;
                 }
 
+                // Fire an event if everything was OK
                 _unitEconomy.InvokeOnUnitRecievedMoney();
                 OnUnitReceivedPayment?.Invoke(_unit, new UnitRecievedPaymentEventArgs(unitMoneyAmountReceived));
             }

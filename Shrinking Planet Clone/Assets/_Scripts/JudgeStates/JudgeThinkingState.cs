@@ -20,7 +20,8 @@ public class JudgeThinkingState : JudgeBaseState
     {
         if (InputManager.Instance.IsTButtonDownThisFrame())
         {
-            Debug.Log(JudgeQuestionsManager.Instance.GetRandomQuestion().QuestionText);
+            _judge.InvokeJudgeAskingEvent();
+            Debug.Log(JudgeQuestionsManager.Instance.GetAndSetRandomQuestion().QuestionText);
         }
     }
 }

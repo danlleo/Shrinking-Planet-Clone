@@ -14,9 +14,10 @@ public class JudgeQuestionsManager : Singleton<JudgeQuestionsManager>
         base.Awake();
     }
 
-    public Question GetRandomQuestion()
+    public Question GetAndSetRandomQuestion()
     {
         int randomIndex = Random.Range(0, _questionArray.Length);
+        _currentQuestion = _questionArray[randomIndex];
 
         return _questionArray[randomIndex];
     }
@@ -31,6 +32,8 @@ public class JudgeQuestionsManager : Singleton<JudgeQuestionsManager>
         
         // Otherwise
     }
+
+    public Question GetCurrenQuestion() => _currentQuestion;
 
     private void IncreaseAnsweredQuestionsCount() => _answeredQuestionsCount++;
 }
