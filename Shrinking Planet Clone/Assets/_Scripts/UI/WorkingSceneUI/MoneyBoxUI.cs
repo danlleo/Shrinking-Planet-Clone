@@ -10,7 +10,7 @@ public class MoneyBoxUI : MonoBehaviour
     [SerializeField] private Transform _moneyIcon;
     [SerializeField] private TextMeshProUGUI _moneyAmountText;
 
-    private float _moveDuration = .3f;
+    private float _moveMoneyIconDuration = .3f;
 
     private void Start()
     {
@@ -49,11 +49,11 @@ public class MoneyBoxUI : MonoBehaviour
         Vector3 startPosition = icon.transform.position;
         Vector3 endPosition = _moneyIcon.position;
 
-        while (elapsedTime < _moveDuration)
+        while (elapsedTime < _moveMoneyIconDuration)
         {
             elapsedTime += Time.deltaTime;
 
-            float t = Mathf.Clamp01(elapsedTime / _moveDuration);
+            float t = Mathf.Clamp01(elapsedTime / _moveMoneyIconDuration);
 
             icon.position = Vector3.Lerp(startPosition, endPosition, InterpolateUtils.EaseInOutQuart(t));
 

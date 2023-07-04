@@ -12,6 +12,7 @@ public class ManagingUI : MonoBehaviour
     [SerializeField] private TextMeshProUGUI _currentDayText;
     [SerializeField] private Button _startButton;
     [SerializeField] private Button _buyButton;
+    [SerializeField] private Button _interviewButton;
 
     private void Awake()
     {
@@ -25,14 +26,30 @@ public class ManagingUI : MonoBehaviour
             Hide();
             OnOpenBuyUI?.Invoke(this, EventArgs.Empty);
         });
+
+        _interviewButton.onClick.AddListener(() =>
+        {
+            Loader.Load(Loader.Scene.InterviewScene);
+        });
     }
 
     private void Start()
     {
-        BuyUI.OnOpenBuyUIClose += BuyUI_OnOpenBuyUIClose;
         _currentCompanyRankText.text = "Company Rank: ";
         _currentDayText.text = "Current Day: " + DayManager.Instance.GetCurrentDay();
+        BuyUI.OnOpenBuyUIClose += BuyUI_OnOpenBuyUIClose;
+
+        if (IsInterviewDay())
+        {
+            ShowInterviewButton();
+        }
+        else
+        {
+            ShowStartButton();
+        }
     }
+
+    private bool IsInterviewDay() => DayManager.Instance.GetCurrentDay() % 4 == 0;
 
     private void OnDestroy()
     {
@@ -47,4 +64,8 @@ public class ManagingUI : MonoBehaviour
     private void Show() => _managingUI.SetActive(true);
 
     private void Hide() => _managingUI.SetActive(false);
+
+    private void ShowStartButton() => _startButton.gameObject.SetActive(true);
+
+    private void ShowInterviewButton() => _interviewButton.gameObject.SetActive(true);
 }
