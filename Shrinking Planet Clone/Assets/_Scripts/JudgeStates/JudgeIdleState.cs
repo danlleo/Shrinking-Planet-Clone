@@ -4,11 +4,14 @@ public class JudgeIdleState : JudgeBaseState
 {
     public override void EnterState(JudgeStateManager judgeStateManager)
     {
-        Debug.Log("Hello");
+        Debug.Log("Entered Idle State");
     }
 
     public override void UpdateState(JudgeStateManager judgeStateManager)
     {
-        Debug.Log("Update state");
+        if (InputManager.Instance.IsTButtonDownThisFrame())
+        {
+            judgeStateManager.SwitchState(judgeStateManager._thinkingState);
+        }
     }
 }

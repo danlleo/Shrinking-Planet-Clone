@@ -14,6 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   UnitName: Lark
   Greetings: Hey!
-  DefaultOccupation: DEVELOPER
+  DefaultOccupation: 2
   UnitTargetDeskPosition: {x: 0, y: 0, z: 2.5}
   UnitDisplayImage: {fileID: 21300000, guid: 50a43e4df2ecd2b4085a51d060794d9a, type: 3}

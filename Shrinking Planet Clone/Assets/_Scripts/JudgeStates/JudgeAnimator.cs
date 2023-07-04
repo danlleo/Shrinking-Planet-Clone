@@ -14,6 +14,6 @@ public class JudgeAnimator : MonoBehaviour
 
     private void Judge_OnJudgeThinking(object sender, System.EventArgs e)
     {
-        throw new System.NotImplementedException();
+        _animator.SetTrigger(JudgeAnimationParams.IS_THINKING);
     }
 }

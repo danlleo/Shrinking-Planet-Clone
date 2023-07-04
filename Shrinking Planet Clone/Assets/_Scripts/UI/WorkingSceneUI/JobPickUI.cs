@@ -13,13 +13,13 @@ public class JobPickUI : MonoBehaviour
 
     private void Awake()
     {
-        _artButton.onClick.AddListener(() => SetUnitOccupation(UnitOccupationList.ART));
+        _artButton.onClick.AddListener(() => SetUnitOccupation(UnitOccupationList.Art));
 
-        _supportButton.onClick.AddListener(() => SetUnitOccupation(UnitOccupationList.SUPPORT));
+        _supportButton.onClick.AddListener(() => SetUnitOccupation(UnitOccupationList.Support));
 
-        _developerButton.onClick.AddListener(() => SetUnitOccupation(UnitOccupationList.DEVELOPER));
+        _developerButton.onClick.AddListener(() => SetUnitOccupation(UnitOccupationList.Developer));
 
-        _moderatorButton.onClick.AddListener(() => SetUnitOccupation(UnitOccupationList.MODERATOR));
+        _moderatorButton.onClick.AddListener(() => SetUnitOccupation(UnitOccupationList.Moderator));
     }
 
     private void Start()
@@ -47,7 +47,7 @@ public class JobPickUI : MonoBehaviour
 
     private void SetUnit(Unit unit) => _unit = unit;
 
-    private void SetUnitOccupation(string occupation)
+    private void SetUnitOccupation(UnitOccupationList occupation)
     {
         if (_unit.TryGetComponent(out UnitOccupation unitOccupation))
         {
