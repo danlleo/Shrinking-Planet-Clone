@@ -253,6 +253,7 @@ GameObject:
   - component: {fileID: 146607513}
   - component: {fileID: 146607512}
   - component: {fileID: 146607511}
+  - component: {fileID: 146607514}
   m_Layer: 0
   m_Name: JudgeAskingCanvas
   m_TagString: Untagged
@@ -278,7 +279,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 2}
+  m_AnchoredPosition: {x: 0, y: 2.25}
   m_SizeDelta: {x: 10, y: 10}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &146607511
@@ -320,7 +321,7 @@ MonoBehaviour:
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
   m_DynamicPixelsPerUnit: 1
-  m_PresetInfoIsWorld: 0
+  m_PresetInfoIsWorld: 1
 --- !u!223 &146607513
 Canvas:
   m_ObjectHideFlags: 0
@@ -344,6 +345,19 @@ Canvas:
   m_SortingLayerID: 0
   m_SortingOrder: 0
   m_TargetDisplay: 0
+--- !u!114 &146607514
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 146607509}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0d84825d22c21ff43a9a98a1600e0827, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _isInvert: 0
 --- !u!1 &215455468
 GameObject:
   m_ObjectHideFlags: 0
@@ -418,21 +432,30 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _questionArray:
-  - QuestionIcon: {fileID: 0}
-    QuestionText: 
-    QuestionType: ART
-  - QuestionIcon: {fileID: 0}
-    QuestionText: 
-    QuestionType: Support
-  - QuestionIcon: {fileID: 0}
-    QuestionText: 
-    QuestionType: Developer
-  - QuestionIcon: {fileID: 0}
-    QuestionText: 
-    QuestionType: 
-  - QuestionIcon: {fileID: 0}
-    QuestionText: 
-    QuestionType: 
+  - QuestionIcon: {fileID: 21300000, guid: 3a4074a13d154e1438931fa53cf9fa06, type: 3}
+    QuestionType: 0
+    QuestionText: What can you say about this?!
+  - QuestionIcon: {fileID: 21300000, guid: 6f38acc50ab6c6e4ba84414b070a1f9a, type: 3}
+    QuestionType: 1
+    QuestionText: Ok, bet you didn't expect this!
+  - QuestionIcon: {fileID: 21300000, guid: a38fc54087960da45874a70d978d6912, type: 3}
+    QuestionType: 2
+    QuestionText: How about this?!
+  - QuestionIcon: {fileID: 21300000, guid: 3d6448eb6f4877346963cc32be2c5d94, type: 3}
+    QuestionType: 3
+    QuestionText: You're not going anywhere with this one!
+  - QuestionIcon: {fileID: 21300000, guid: 3a4074a13d154e1438931fa53cf9fa06, type: 3}
+    QuestionType: 0
+    QuestionText: Try this one, dummy!
+  - QuestionIcon: {fileID: 21300000, guid: 6f38acc50ab6c6e4ba84414b070a1f9a, type: 3}
+    QuestionType: 1
+    QuestionText: You are in a dead end!
+  - QuestionIcon: {fileID: 21300000, guid: a38fc54087960da45874a70d978d6912, type: 3}
+    QuestionType: 2
+    QuestionText: Try laughing now!
+  - QuestionIcon: {fileID: 21300000, guid: 3d6448eb6f4877346963cc32be2c5d94, type: 3}
+    QuestionType: 3
+    QuestionText: Got you, looser
 --- !u!4 &245000759
 Transform:
   m_ObjectHideFlags: 0
@@ -937,7 +960,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 0}
+  m_Sprite: {fileID: 21300000, guid: 3a4074a13d154e1438931fa53cf9fa06, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1

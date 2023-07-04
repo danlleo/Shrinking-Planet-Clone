@@ -7,15 +7,15 @@ public class UnitOccupation : MonoBehaviour
 
     [SerializeField] private UnitSO _unitSO;
 
-    private UnitOccupationList _occupation;
+    private UnitOccupationType _occupation;
 
-    public void SetUnitOccupation(UnitOccupationList occupation)
+    public void SetUnitOccupation(UnitOccupationType occupation)
     {
         _occupation = occupation;
         OnUnitOccupationSet?.Invoke(this, EventArgs.Empty);
     }
 
-    public UnitOccupationList GetUnitOccupation() => _occupation;
+    public UnitOccupationType GetUnitOccupation() => _occupation;
 
-    public UnitOccupationList GetDefaultUnitOccupation() => _unitSO.DefaultOccupation;
+    public UnitOccupationType GetDefaultUnitOccupation() => _unitSO.DefaultOccupation;
 }

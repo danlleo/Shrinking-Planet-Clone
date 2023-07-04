@@ -5,7 +5,7 @@ public class UnitSO : ScriptableObject
 {
     public string UnitName;
     public string Greetings;
-    public UnitOccupationList DefaultOccupation;
+    public UnitOccupationType DefaultOccupation;
     public Vector3 UnitTargetDeskPosition;
     public Sprite UnitDisplayImage;
 }

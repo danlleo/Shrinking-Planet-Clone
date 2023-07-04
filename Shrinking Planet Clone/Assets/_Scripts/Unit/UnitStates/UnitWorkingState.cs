@@ -43,6 +43,7 @@ public class UnitWorkingState : UnitBaseState
         DayManager.Instance.OnDayEnded += DayManager_OnDayEnded;
     }
 
+    // Make a solution for below code for OnDestroy
     private void OnDestroy()
     {
         _unitEconomy.OnUnitReceivedMoney -= UnitEconomy_OnUnitRecievedMoney;

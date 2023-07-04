@@ -18,6 +18,9 @@ public class JudgeThinkingState : JudgeBaseState
 
     public override void UpdateState(JudgeStateManager judgeStateManager)
     {
-        // Logic here later
+        if (InputManager.Instance.IsTButtonDownThisFrame())
+        {
+            Debug.Log(JudgeQuestionsManager.Instance.GetRandomQuestion().QuestionText);
+        }
     }
 }
