@@ -14,7 +14,6 @@ public class DayManager : Singleton<DayManager>
 
     private void Start()
     {
-        _currentDay = SaveSystem.Instance.LoadCurrentDay();
         InvokeOnDayChangedEvent();
     }
 
@@ -27,6 +26,5 @@ public class DayManager : Singleton<DayManager>
     public void ProceedToAnotherDay()
     {
         _currentDay++;
-        SaveSystem.Instance.SaveCurrentDay(_currentDay);
     }
 }

@@ -2,48 +2,26 @@ using UnityEngine;
 
 public class SaveSystem : Singleton<SaveSystem>
 {
-    private const int DEFAULT_COMPANY_RANK_POSITION = 100;
-    private const int DEFAULT_TOTAL_MONEY_AMOUNT = 999;
-    private const int CURRENT_DAY = 1;
+    private string _saveFilePath;
 
     protected override void Awake()
     {
         base.Awake();
     }
 
-    public void SaveMoneyAmount(int moneyAmount) => PlayerPrefs.SetInt(SaveSystemParams.TOTAL_MONEY_KEY, moneyAmount);
-
-    public int LoadMoneyAmount()
+    private void Start()
     {
-        if (PlayerPrefs.HasKey(SaveSystemParams.TOTAL_MONEY_KEY))
-        {
-            return PlayerPrefs.GetInt(SaveSystemParams.TOTAL_MONEY_KEY);
-        }
-
-        return DEFAULT_TOTAL_MONEY_AMOUNT;
+        _saveFilePath = Application.persistentDataPath + "/save.json";
     }
 
-    public void SaveCompanyRankPosition(int companyRankPosition) => PlayerPrefs.SetInt(SaveSystemParams.COMPANY_RANK_POSITION_KEY, companyRankPosition);
-
-    public int LoadCompanyRankPosition()
+    public void SaveGame()
     {
-        if (PlayerPrefs.HasKey(SaveSystemParams.COMPANY_RANK_POSITION_KEY))
-        {
-            return PlayerPrefs.GetInt(SaveSystemParams.COMPANY_RANK_POSITION_KEY);
-        }
+        SaveData saveData = new SaveData();
 
-        return DEFAULT_COMPANY_RANK_POSITION;
     }
 
-    public void SaveCurrentDay(int currentDay) => PlayerPrefs.SetInt(SaveSystemParams.CURRENT_DAY_KEY, currentDay);
-
-    public int LoadCurrentDay()
+    public void LoadGame()
     {
-        if (PlayerPrefs.HasKey(SaveSystemParams.CURRENT_DAY_KEY))
-        {
-            return PlayerPrefs.GetInt(SaveSystemParams.CURRENT_DAY_KEY);
-        }
 
-        return CURRENT_DAY;
     }
 }

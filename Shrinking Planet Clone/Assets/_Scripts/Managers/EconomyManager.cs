@@ -16,14 +16,13 @@ public class EconomyManager : Singleton<EconomyManager>
 
     private void Start()
     {
-        _totalCurrentMoneyAmount = SaveSystem.Instance.LoadMoneyAmount();
         OnUnitReceivedPayment += UnitWorkingState_OnUnitReceivedPayment;
         DayManager.Instance.OnDayEnded += DayManager_OnDayEnded;
     }
 
     private void DayManager_OnDayEnded(object sender, System.EventArgs e)
     {
-        SaveSystem.Instance.SaveMoneyAmount(_totalCurrentMoneyAmount);
+        // Save money here
     }
 
     private void OnDestroy()

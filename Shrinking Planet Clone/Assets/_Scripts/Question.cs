@@ -5,6 +5,6 @@ using UnityEngine;
 public struct Question
 {
     public Sprite QuestionIcon;
-    public UnitOccupationType QuestionType;
+    public UnitOccupationTypes QuestionType;
     public string QuestionText;
 }

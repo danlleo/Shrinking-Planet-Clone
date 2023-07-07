@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class UnitAnimationParams
 {
-    public static readonly int IS_WALKING = Animator.StringToHash("IsWalking");
-    public static readonly int IS_TYPING = Animator.StringToHash("IsTyping");
-    public static readonly int ON_UNIT_SPAWN = Animator.StringToHash("OnUnitSpawn");
+    public static readonly int IsWalking = Animator.StringToHash("IsWalking");
+    public static readonly int IsTyping = Animator.StringToHash("IsTyping");
+    public static readonly int OnUnitSpawn = Animator.StringToHash("OnUnitSpawn");
 }

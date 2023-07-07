@@ -15,11 +15,11 @@ public class JudgeAnimator : MonoBehaviour
 
     private void Judge_OnJudgeAsking(object sender, System.EventArgs e)
     {
-        _animator.SetTrigger(JudgeAnimationParams.IS_ASKING);
+        _animator.SetTrigger(JudgeAnimationParams.IsAsking);
     }
 
     private void Judge_OnJudgeThinking(object sender, System.EventArgs e)
     {
-        _animator.SetTrigger(JudgeAnimationParams.IS_THINKING);
+        _animator.SetTrigger(JudgeAnimationParams.IsThinking);
     }
 }

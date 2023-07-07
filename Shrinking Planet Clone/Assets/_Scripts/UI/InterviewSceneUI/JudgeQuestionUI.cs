@@ -1,3 +1,5 @@
+using System;
+using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -7,6 +9,8 @@ public class JudgeQuestionUI : MonoBehaviour
     [SerializeField] private GameObject _judgeQuestionUI;
     [SerializeField] private Image _judgeQuestionImage;
 
+    private const float DISPLAY_QUESTION_TIME_IN_SECONDS = 1f;
+
     private void Start()
     {
         _judge.OnJudgeAsking += Judge_OnJudgeAsking;
@@ -14,7 +18,7 @@ public class JudgeQuestionUI : MonoBehaviour
         Hide();
     }
 
-    private void Judge_OnJudgeAsking(object sender, System.EventArgs e)
+    private void Judge_OnJudgeAsking(object sender, EventArgs e)
     {
         Show();
         DisplayQuestion();
@@ -25,6 +29,15 @@ public class JudgeQuestionUI : MonoBehaviour
         Question question = JudgeQuestionsManager.Instance.GetCurrenQuestion();
 
         _judgeQuestionImage.sprite = question.QuestionIcon;
+
+        StartCoroutine(DisplayQuestionTimer());
+    }
+
+    private IEnumerator DisplayQuestionTimer()
+    {
+        yield return new WaitForSeconds(DISPLAY_QUESTION_TIME_IN_SECONDS);
+
+        Hide();
     }
 
     private void Show() => _judgeQuestionUI.SetActive(true);
