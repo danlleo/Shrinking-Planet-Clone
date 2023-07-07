@@ -2,26 +2,35 @@ using UnityEngine;
 
 public class SaveSystem : Singleton<SaveSystem>
 {
-    private string _saveFilePath;
+    private IDataService _dataService = new JsonDataService();
+
+    private SaveData saveData = new("danlleo", 22);
+
+    private bool _encryptionEnabled;
 
     protected override void Awake()
     {
         base.Awake();
     }
 
-    private void Start()
+    // For testing purposes
+    public void Update()
     {
-        _saveFilePath = Application.persistentDataPath + "/save.json";
+        if (InputManager.Instance.IsTButtonDownThisFrame())
+        {
+            SerializeJson();
+        }
     }
 
-    public void SaveGame()
+    public void SerializeJson()
     {
-        SaveData saveData = new SaveData();
-
-    }
-
-    public void LoadGame()
-    {
-
+        if (_dataService.SaveData("game-save.json", saveData, _encryptionEnabled))
+        {
+            Debug.Log("Saved");
+        }
+        else
+        {
+            Debug.LogError("Could not save file!");
+        }
     }
 }
