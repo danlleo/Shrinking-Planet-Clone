@@ -13,25 +13,6 @@ public class UnitManager : Singleton<UnitManager>
         base.Awake();
     }
 
-    private void Start()
-    {
-        foreach (var unitSO in _unitSOList)
-        {
-            GameObject spawnedUnit = Instantiate(_unitPrefab);
-            
-            if (spawnedUnit.TryGetComponent(out Unit unit))
-            {
-                unit.Initialize(unitSO);
-                spawnedUnit.transform.position = unitSO.UnitSpawnPosition;
-            }
-
-            if (spawnedUnit.TryGetComponent(out UnitOccupation unitOccupation))
-            {
-                unitOccupation.Initialize(unitSO);
-            }
-        }
-    }
-
     public void AddUnit(Unit unit) => _unitList.Add(unit);
 
     public void RemoveUnit(Unit unit) => _unitList.Remove(unit);

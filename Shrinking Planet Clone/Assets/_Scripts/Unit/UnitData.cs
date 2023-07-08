@@ -1,12 +1,12 @@
 using UnityEngine;
 
 [System.Serializable]
-public class UnitData 
+public class UnitData
 {
     public string UnitSOName;
     public string UnitName;
     public string UnitGreetings;
-    public UnitOccupationTypes UnitDefaultOccupation;
+    public string UnitDefaultOccupation;
     public float[] UnitSpawnPosition;
     public float[] UnitTargetDeskPosition;
 
@@ -17,15 +17,15 @@ public class UnitData
         Vector3 unitSpawnPosition = unit.GetUnitSpawnPosition();
         Vector3 unitTargetDeskPosition = unit.GetUnitDeskPosition();
 
-        UnitSpawnPosition = new float[] 
+        UnitSpawnPosition = new float[]
         {
             unitSpawnPosition.x,
-            unitSpawnPosition.y, 
+            unitSpawnPosition.y,
             unitSpawnPosition.z,
         };
 
-        UnitTargetDeskPosition = new float[] 
-        { 
+        UnitTargetDeskPosition = new float[]
+        {
             unitTargetDeskPosition.x,
             unitTargetDeskPosition.y,
             unitTargetDeskPosition.z,
