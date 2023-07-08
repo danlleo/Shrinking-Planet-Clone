@@ -12,12 +12,18 @@ public class Unit : MonoBehaviour
     public event EventHandler OnUnitBeganWork;
     public event EventHandler OnUnitPerformedWorkPiece;
 
-    [SerializeField] private UnitSO _unitSO;
+    private UnitSO _unitSO;
 
     private void Start()
     {
         UnitManager.Instance.AddUnit(this);
         OnUnitSpawned?.Invoke(this, EventArgs.Empty);
+    }
+
+    public void Initialize(UnitSO unitSO)
+    {
+        SaveGameManager.UnitList.Add(this);
+        _unitSO = unitSO;
     }
 
     public void InvokeUnitSelectingJobEvent() => OnUnitSelectingJob?.Invoke(this, EventArgs.Empty);
@@ -30,11 +36,15 @@ public class Unit : MonoBehaviour
 
     public void InvokeUnitPerformedWorkPiece() => OnUnitPerformedWorkPiece?.Invoke(this, EventArgs.Empty);
 
+    public string GetUnitSOName() => _unitSO.name;
+
     public string GetUnitGreetingsText() => _unitSO.Greetings;
 
     public string GetUnitName() => _unitSO.UnitName;
 
     public Sprite GetUnitImage() => _unitSO.UnitDisplayImage;
+
+    public Vector3 GetUnitSpawnPosition() => _unitSO.UnitSpawnPosition;
 
     public Vector3 GetUnitDeskPosition() => _unitSO.UnitTargetDeskPosition;
 }

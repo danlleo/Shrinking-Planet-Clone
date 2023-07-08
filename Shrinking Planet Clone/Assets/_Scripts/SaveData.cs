@@ -1,13 +1,6 @@
-using UnityEngine;
-
-public class SaveData : MonoBehaviour
+public class SaveData
 {
-    public string Name;
-    public int Age;
-
-    public SaveData(string name, int age)
-    {
-        Name = name;
-        Age = age;
-    }
+    public int CompanyRankPosition;
+    public int DayCount;
+    public int MoneyAmount;
 }

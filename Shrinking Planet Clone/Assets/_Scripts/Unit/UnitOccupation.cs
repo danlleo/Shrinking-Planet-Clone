@@ -5,9 +5,14 @@ public class UnitOccupation : MonoBehaviour
 {
     public event EventHandler OnUnitOccupationSet;
 
-    [SerializeField] private UnitSO _unitSO;
+    private UnitSO _unitSO;
 
     private UnitOccupationTypes _occupation;
+
+    public void Initialize(UnitSO unitSO)
+    {
+        _unitSO = unitSO;
+    }
 
     public void SetUnitOccupation(UnitOccupationTypes occupation)
     {
