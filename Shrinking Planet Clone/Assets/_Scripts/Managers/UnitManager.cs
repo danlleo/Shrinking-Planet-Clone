@@ -36,6 +36,7 @@ public class UnitManager : Singleton<UnitManager>
             }
 
             if (unitGameObject.TryGetComponent(out UnitOccupation unitOccupation))
+<<<<<<< HEAD
 =======
     private void Start()
     {
@@ -51,6 +52,8 @@ public class UnitManager : Singleton<UnitManager>
 
             if (spawnedUnit.TryGetComponent(out UnitOccupation unitOccupation))
 >>>>>>> parent of 08002ed (Creating my own save system solution)
+=======
+>>>>>>> parent of ee6369f (Fixing)
             {
                 unitOccupation.Initialize(unitSO);
             }
