@@ -20,6 +20,9 @@ public class UnitManager : Singleton<UnitManager>
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> parent of 5b2dda5 (Fixing)
 =======
     private void Start()
     {
@@ -36,6 +39,7 @@ public class UnitManager : Singleton<UnitManager>
             }
 
             if (unitGameObject.TryGetComponent(out UnitOccupation unitOccupation))
+<<<<<<< HEAD
 <<<<<<< HEAD
 =======
     private void Start()
@@ -54,13 +58,14 @@ public class UnitManager : Singleton<UnitManager>
 >>>>>>> parent of 08002ed (Creating my own save system solution)
 =======
 >>>>>>> parent of ee6369f (Fixing)
+=======
+>>>>>>> parent of 5b2dda5 (Fixing)
             {
                 unitOccupation.Initialize(unitSO);
             }
         }
     }
 
-<<<<<<< HEAD
 >>>>>>> parent of ee6369f (Fixing)
 =======
 >>>>>>> parent of b54ff3c (Added unstable save system, adding UI for choosing units for the interview)
@@ -70,10 +75,13 @@ public class UnitManager : Singleton<UnitManager>
 >>>>>>> parent of b54ff3c (Added unstable save system, adding UI for choosing units for the interview)
 =======
 >>>>>>> parent of b54ff3c (Added unstable save system, adding UI for choosing units for the interview)
+<<<<<<< HEAD
 =======
 >>>>>>> parent of 08002ed (Creating my own save system solution)
 =======
 >>>>>>> parent of b54ff3c (Added unstable save system, adding UI for choosing units for the interview)
+=======
+>>>>>>> parent of 5b2dda5 (Fixing)
     public void AddUnit(Unit unit) => _unitList.Add(unit);
 
     public void RemoveUnit(Unit unit) => _unitList.Remove(unit);

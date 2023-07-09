@@ -1,21 +1,28 @@
 using System.Collections.Generic;
+using System.IO;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 public class SaveGameManager : MonoBehaviour
 {
+<<<<<<< HEAD
 <<<<<<< HEAD
     [SerializeField] private Unit _unitPrefab;
 =======
     [SerializeField] private List<UnitData> _unitDataList = new List<UnitData>();
 >>>>>>> parent of b54ff3c (Added unstable save system, adding UI for choosing units for the interview)
+=======
+    [SerializeField] private List<UnitData> _unitDataList = new List<UnitData>();
+>>>>>>> parent of 5b2dda5 (Fixing)
 
-    public static List<Unit> UnitList = new List<Unit>();
+    private string _saveFilePath;
 
+<<<<<<< HEAD
 <<<<<<< HEAD
     const string UNIT_KEY = "/unit";
     const string UNIT_COUNT_KEY = "/unit.count";
 =======
+=======
+>>>>>>> parent of 5b2dda5 (Fixing)
     private const string UNITS_PATH = "Units";
 
     private const int DEFAULT_COMPANY_RANK_POSITION = 100;
@@ -26,51 +33,51 @@ public class SaveGameManager : MonoBehaviour
     {
         _saveFilePath = Application.persistentDataPath + "/save.json";
     }
+<<<<<<< HEAD
 >>>>>>> parent of b54ff3c (Added unstable save system, adding UI for choosing units for the interview)
+=======
+>>>>>>> parent of 5b2dda5 (Fixing)
 
     // For testing purposes
     public void Update()
     {
-        if (InputManager.Instance.IsTButtonDownThisFrame())
+        if (Input.GetKeyDown(KeyCode.S))
         {
-            
+            SaveGame();
         }
 
         if (Input.GetKeyDown(KeyCode.L))
         {
-
+            LoadGame();
         }
-    }
-    
-    private void Save()
-    {
-        string key = UNIT_KEY + SceneManager.GetActiveScene().buildIndex;
-        string countKey = UNIT_COUNT_KEY + SceneManager.GetActiveScene().buildIndex;
 
-        SaveSystem.Save(UnitList.Count, countKey);
-
-        for (int i = 0; i < UnitList.Count; i++)
+        if (Input.GetKeyDown(KeyCode.N))
         {
-            UnitData unitData = new UnitData(UnitList[i]);
-
-            SaveSystem.Save(unitData, key + i);
+            NewGame();
         }
     }
 
-    private void Load()
+    public void SaveGame()
     {
+<<<<<<< HEAD
 <<<<<<< HEAD
         string key = UNIT_KEY + SceneManager.GetActiveScene().buildIndex;
         string countKey = UNIT_COUNT_KEY + SceneManager.GetActiveScene().buildIndex;
 =======
+=======
+>>>>>>> parent of 5b2dda5 (Fixing)
         SaveData saveData = new SaveData();
         saveData.CompanyRankPosition = 100;
         saveData.DayCount = 1;
         saveData.MoneyAmount = 100;
+<<<<<<< HEAD
 >>>>>>> parent of b54ff3c (Added unstable save system, adding UI for choosing units for the interview)
+=======
+>>>>>>> parent of 5b2dda5 (Fixing)
 
-        int count = SaveSystem.Load<int>(countKey);
+        string json = JsonUtility.ToJson(saveData);
 
+<<<<<<< HEAD
 <<<<<<< HEAD
         for (int i = 0; i < count; i++)
         {
@@ -88,13 +95,52 @@ public class SaveGameManager : MonoBehaviour
 
         if (File.Exists(_saveFilePath))
         {
+=======
+        File.WriteAllText(_saveFilePath, json);
+
+        print("Game Saved");
+    }
+
+    public void LoadGame()
+    {
+        UnitSO[] unitSOList = Resources.LoadAll<UnitSO>(UNITS_PATH);
+
+        if (File.Exists(_saveFilePath))
+        {
+>>>>>>> parent of 5b2dda5 (Fixing)
             string json = File.ReadAllText(_saveFilePath);
 
             JsonUtility.FromJson<SaveData>(json);
 
             return;
+<<<<<<< HEAD
 >>>>>>> parent of b54ff3c (Added unstable save system, adding UI for choosing units for the interview)
+=======
+>>>>>>> parent of 5b2dda5 (Fixing)
         }
+
+        Debug.LogError("No Save File Found!");
+    }
+
+    public void NewGame()
+    {
+        if (File.Exists(_saveFilePath))
+        {
+            File.Delete(_saveFilePath);
+        }
+
+        _unitDataList.Clear();
+
+        SaveData saveData = new SaveData();
+        saveData.CompanyRankPosition = DEFAULT_COMPANY_RANK_POSITION;
+        saveData.DayCount = DEFAULT_DAY_COUNT;
+        saveData.MoneyAmount = DEFAULT_MONEY_AMOUNT;
+
+        string json = JsonUtility.ToJson(saveData);
+
+        File.WriteAllText( _saveFilePath, json);
+
+        print("New Game Started");
     }
 <<<<<<< HEAD
 =======

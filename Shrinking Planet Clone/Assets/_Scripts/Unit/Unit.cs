@@ -20,12 +20,6 @@ public class Unit : MonoBehaviour
         OnUnitSpawned?.Invoke(this, EventArgs.Empty);
     }
 
-    public void Initialize(UnitSO unitSO)
-    {
-        SaveGameManager.UnitList.Add(this);
-        _unitSO = unitSO;
-    }
-
     public void InvokeUnitSelectingJobEvent() => OnUnitSelectingJob?.Invoke(this, EventArgs.Empty);
     
     public void InvokeUnitReachedDeskEvent() => OnUnitReachedDesk?.Invoke(this, EventArgs.Empty);
