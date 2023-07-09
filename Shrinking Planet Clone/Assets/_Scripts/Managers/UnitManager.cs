@@ -19,6 +19,7 @@ public class UnitManager : Singleton<UnitManager>
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
     private void Start()
     {
@@ -68,6 +69,8 @@ public class UnitManager : Singleton<UnitManager>
 >>>>>>> parent of b54ff3c (Added unstable save system, adding UI for choosing units for the interview)
 =======
 >>>>>>> parent of 08002ed (Creating my own save system solution)
+=======
+>>>>>>> parent of b54ff3c (Added unstable save system, adding UI for choosing units for the interview)
     public void AddUnit(Unit unit) => _unitList.Add(unit);
 
     public void RemoveUnit(Unit unit) => _unitList.Remove(unit);
