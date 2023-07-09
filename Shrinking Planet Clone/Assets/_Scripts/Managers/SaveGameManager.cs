@@ -6,6 +6,7 @@ public class SaveGameManager : MonoBehaviour
 {
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
     [SerializeField] private Unit _unitPrefab;
 =======
     [SerializeField] private List<UnitData> _unitDataList = new List<UnitData>();
@@ -13,6 +14,9 @@ public class SaveGameManager : MonoBehaviour
 =======
     [SerializeField] private List<UnitData> _unitDataList = new List<UnitData>();
 >>>>>>> parent of 5b2dda5 (Fixing)
+=======
+    [SerializeField] private List<UnitData> _unitDataList = new List<UnitData>();
+>>>>>>> parent of b54ff3c (Added unstable save system, adding UI for choosing units for the interview)
 
     private string _saveFilePath;
 
@@ -71,9 +75,12 @@ public class SaveGameManager : MonoBehaviour
         saveData.DayCount = 1;
         saveData.MoneyAmount = 100;
 <<<<<<< HEAD
+<<<<<<< HEAD
 >>>>>>> parent of b54ff3c (Added unstable save system, adding UI for choosing units for the interview)
 =======
 >>>>>>> parent of 5b2dda5 (Fixing)
+=======
+>>>>>>> parent of b54ff3c (Added unstable save system, adding UI for choosing units for the interview)
 
         string json = JsonUtility.ToJson(saveData);
 
@@ -143,6 +150,7 @@ public class SaveGameManager : MonoBehaviour
         print("New Game Started");
     }
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 
     public void NewGame()
@@ -165,5 +173,7 @@ public class SaveGameManager : MonoBehaviour
 
         print("New Game Started");
     }
+>>>>>>> parent of b54ff3c (Added unstable save system, adding UI for choosing units for the interview)
+=======
 >>>>>>> parent of b54ff3c (Added unstable save system, adding UI for choosing units for the interview)
 }
