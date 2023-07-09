@@ -20,14 +20,14 @@ public class UnitManager : Singleton<UnitManager>
         foreach (var unitData in _unitDataList)
         {
             UnitSO unitSO = SaveGameManager.Instance.GetUnitSO(unitData.UnitSOName);
-            GameObject unitGameObject = Instantiate(_unitPrefab);
+            GameObject unitPrefab = Instantiate(_unitPrefab);
             
-            if (unitGameObject.TryGetComponent(out Unit unit))
+            if (unitPrefab.TryGetComponent(out Unit unit))
             {
                 unit.Initialize(unitSO);
             }
 
-            if (unitGameObject.TryGetComponent(out UnitOccupation unitOccupation))
+            if (unitPrefab.TryGetComponent(out UnitOccupation unitOccupation))
             {
                 unitOccupation.Initialize(unitSO);
             }
