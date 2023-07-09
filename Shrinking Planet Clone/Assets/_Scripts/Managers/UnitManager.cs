@@ -3,10 +3,10 @@ using UnityEngine;
 
 public class UnitManager : Singleton<UnitManager>
 {
+    [SerializeField] private List<UnitSO> _unitSOList = new List<UnitSO>();
     [SerializeField] private GameObject _unitPrefab;
 
     private List<Unit> _unitList = new List<Unit>();
-    private List<UnitData> _unitDataList = new List<UnitData>();
 
     protected override void Awake()
     {
@@ -20,14 +20,14 @@ public class UnitManager : Singleton<UnitManager>
         foreach (var unitData in _unitDataList)
         {
             UnitSO unitSO = SaveGameManager.Instance.GetUnitSO(unitData.UnitSOName);
-            GameObject unitPrefab = Instantiate(_unitPrefab);
+            GameObject unitGameObject = Instantiate(_unitPrefab);
             
-            if (unitPrefab.TryGetComponent(out Unit unit))
+            if (unitGameObject.TryGetComponent(out Unit unit))
             {
                 unit.Initialize(unitSO);
             }
 
-            if (unitPrefab.TryGetComponent(out UnitOccupation unitOccupation))
+            if (unitGameObject.TryGetComponent(out UnitOccupation unitOccupation))
             {
                 unitOccupation.Initialize(unitSO);
             }

@@ -20,7 +20,7 @@ public class UnitDisplaySingleUI : MonoBehaviour
         _unitDisplayImage.sprite = unitDisplayImage;
 
         _unitDisplayNameText.text = unitDisplayNameText;
-        _unitDisplayLevelText.text = $"Lvl. {unitDisplayLevelText}";
+        _unitDisplayLevelText.text = "Lvl. " + unitDisplayLevelText;
         _unitLevel = unitLevel;
 
         StartCoroutine(StartLevelProgressMoveBarInSeconds());

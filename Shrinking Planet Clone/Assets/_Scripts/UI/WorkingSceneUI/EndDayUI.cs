@@ -33,14 +33,14 @@ public class EndDayUI : MonoBehaviour
     private void DayManager_OnDayEnded(object sender, EventArgs e)
     {
         Show();
-        ShowUnitsDisplaySingleUI();
+        AddUnitDisplaySingleUI();
     }
 
     private void Show() => _endDayUI.SetActive(true);
 
     private void Hide() => _endDayUI.SetActive(false);
 
-    private void ShowUnitsDisplaySingleUI()
+    private void AddUnitDisplaySingleUI()
     {
         List<Unit> unitList = UnitManager.Instance.GetAllUnits();
 
@@ -53,12 +53,7 @@ public class EndDayUI : MonoBehaviour
             string unitDisplayName = unit.GetUnitName();
             string unitDisplayLevel = unitLevel.GetUnitCurrentLevel().ToString();
 
-            unitDisplaySingleUI.Setup(
-                unitDisplayImage, 
-                unitDisplayName, 
-                unitDisplayLevel, 
-                unitLevel
-            );
+            unitDisplaySingleUI.Setup(unitDisplayImage, unitDisplayName, unitDisplayLevel, unitLevel);
         }
     }
 }
