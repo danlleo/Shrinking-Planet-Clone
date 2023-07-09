@@ -2,9 +2,11 @@ using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
 
-public class SaveGameManager : MonoBehaviour
+public class SaveGameManager : Singleton<SaveGameManager>
 {
-    [SerializeField] private List<UnitData> _unitDataList = new List<UnitData>();
+    [SerializeField] private List<UnitData> _defaultUnitDataList = new List<UnitData>();
+    
+    private List<UnitData> _unitDataList = new List<UnitData>();
 
     private string _saveFilePath;
 
@@ -14,9 +16,20 @@ public class SaveGameManager : MonoBehaviour
     private const int DEFAULT_DAY_COUNT = 1;
     private const int DEFAULT_MONEY_AMOUNT = 100;
 
-    private void Awake()
+    protected override void Awake()
     {
+        base.Awake();
+
         _saveFilePath = Application.persistentDataPath + "/save.json";
+        
+        if (SaveExists())
+        {
+            LoadGame();
+        }
+        else
+        {
+            NewGame();
+        }
     }
 
     // For testing purposes
@@ -44,6 +57,7 @@ public class SaveGameManager : MonoBehaviour
         saveData.CompanyRankPosition = 100;
         saveData.DayCount = 1;
         saveData.MoneyAmount = 100;
+        saveData.UnitDataList = _unitDataList;
 
         string json = JsonUtility.ToJson(saveData);
 
@@ -54,13 +68,13 @@ public class SaveGameManager : MonoBehaviour
 
     public void LoadGame()
     {
-        UnitSO[] unitSOList = Resources.LoadAll<UnitSO>(UNITS_PATH);
-
         if (File.Exists(_saveFilePath))
         {
             string json = File.ReadAllText(_saveFilePath);
 
-            JsonUtility.FromJson<SaveData>(json);
+            SaveData data = JsonUtility.FromJson<SaveData>(json);
+
+            _unitDataList = data.UnitDataList;
 
             return;
         }
@@ -77,10 +91,14 @@ public class SaveGameManager : MonoBehaviour
 
         _unitDataList.Clear();
 
+        // Copying and pasting items from default list
+        _unitDataList = new List<UnitData>(_defaultUnitDataList);
+
         SaveData saveData = new SaveData();
         saveData.CompanyRankPosition = DEFAULT_COMPANY_RANK_POSITION;
         saveData.DayCount = DEFAULT_DAY_COUNT;
         saveData.MoneyAmount = DEFAULT_MONEY_AMOUNT;
+        saveData.UnitDataList = _unitDataList;
 
         string json = JsonUtility.ToJson(saveData);
 
@@ -88,4 +106,15 @@ public class SaveGameManager : MonoBehaviour
 
         print("New Game Started");
     }
+
+    public List<UnitData> GetUnitDataList() => _unitDataList;
+
+    public UnitSO GetUnitSO(string name)
+    {
+        UnitSO unitSO = Resources.Load<UnitSO>($"{UNITS_PATH}/{name}");
+
+        return unitSO;
+    }
+
+    public bool SaveExists() => File.Exists(_saveFilePath);
 }
