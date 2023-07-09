@@ -14,11 +14,6 @@ public class Unit : MonoBehaviour
 
     private UnitSO _unitSO;
 
-    public void Initialize(UnitSO unitSO)
-    {
-        _unitSO = unitSO;
-    }
-
     private void Start()
     {
         UnitManager.Instance.AddUnit(this);
