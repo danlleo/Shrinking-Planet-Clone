@@ -1,6 +1,5 @@
 using System;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class Unit : MonoBehaviour
 {
@@ -18,6 +17,11 @@ public class Unit : MonoBehaviour
     {
         UnitManager.Instance.AddUnit(this);
         OnUnitSpawned?.Invoke(this, EventArgs.Empty);
+    }
+
+    public void Initialize(UnitSO unitSO)
+    {
+        _unitSO = unitSO;
     }
 
     public void InvokeUnitSelectingJobEvent() => OnUnitSelectingJob?.Invoke(this, EventArgs.Empty);

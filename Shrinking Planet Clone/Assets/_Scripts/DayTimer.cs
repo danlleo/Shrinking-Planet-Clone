@@ -20,9 +20,9 @@ public class DayTimer : MonoBehaviour
         //InvokeTimer();
     }
 
-    protected void InvokeTimer() => StartCoroutine(StartTimerCountDownInSeconds());
+    protected void InvokeTimer() => StartCoroutine(TimerCountDownInSecondsRoutine());
 
-    private IEnumerator StartTimerCountDownInSeconds()
+    private IEnumerator TimerCountDownInSecondsRoutine()
     {
         float timer = _maxTimeInSeconds;
 

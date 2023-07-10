@@ -13,7 +13,7 @@ public class JudgeQuestionUI : MonoBehaviour
 
     private void Start()
     {
-        _judge.OnJudgeAsking += Judge_OnJudgeAsking;
+        Judge.OnJudgeAsking += Judge_OnJudgeAsking;
 
         Hide();
     }
