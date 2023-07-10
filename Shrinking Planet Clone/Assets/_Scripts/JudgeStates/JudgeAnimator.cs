@@ -6,11 +6,8 @@ public class JudgeAnimator : MonoBehaviour
 
     private void Start()
     {
-        if (TryGetComponent<Judge>(out Judge judge))
-        {
-            judge.OnJudgeThinking += Judge_OnJudgeThinking;
-            judge.OnJudgeAsking += Judge_OnJudgeAsking;
-        }
+        Judge.OnJudgeThinking += Judge_OnJudgeThinking;
+        Judge.OnJudgeAsking += Judge_OnJudgeAsking;
     }
 
     private void Judge_OnJudgeAsking(object sender, System.EventArgs e)

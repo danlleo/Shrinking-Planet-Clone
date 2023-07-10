@@ -9,4 +9,5 @@ public class UnitSO : ScriptableObject
     public Vector3 UnitSpawnPosition;
     public Vector3 UnitTargetDeskPosition;
     public Sprite UnitDisplayImage;
+    public Sprite UnitOccupationImage;
 }

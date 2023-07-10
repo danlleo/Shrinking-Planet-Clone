@@ -1,6 +1,8 @@
 using UnityEngine;
 
+// <-------NOTATION------->
 // T should be normalized time
+// <-------NOTATION------->
 
 public static class InterpolateUtils
 {

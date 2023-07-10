@@ -53,9 +53,9 @@ public class WorkingProgressBarUI : MonoBehaviour
         InvokeTimer();
     }
 
-    public void InvokeTimer() => _countDownCoroutine = StartCoroutine(StartTimerCountDownInSeconds());
+    public void InvokeTimer() => _countDownCoroutine = StartCoroutine(TimerCountDownInSecondsRoutine());
 
-    private IEnumerator StartTimerCountDownInSeconds()
+    private IEnumerator TimerCountDownInSecondsRoutine()
     {
         float timer = 0f;
 
