@@ -14,12 +14,12 @@ public class UnitPickerUI : MonoBehaviour
 
     private void Awake()
     {
-        Show();
+        ShowUI();
         HideProceedButton();
 
         _proceedButton.onClick.AddListener(() =>
         {
-            Hide();
+            HideUI();
             OnUnitsPicked?.Invoke(this, EventArgs.Empty);
         });
     }
@@ -46,9 +46,9 @@ public class UnitPickerUI : MonoBehaviour
         HideProceedButton();
     }
 
-    private void Show() => _unitPickerUI.SetActive(true);
+    private void ShowUI() => _unitPickerUI.SetActive(true);
 
-    private void Hide() => _unitPickerUI.SetActive(false);
+    private void HideUI() => _unitPickerUI.SetActive(false);
 
     private void ShowProceedButton() => _proceedButton.gameObject.SetActive(true);
 

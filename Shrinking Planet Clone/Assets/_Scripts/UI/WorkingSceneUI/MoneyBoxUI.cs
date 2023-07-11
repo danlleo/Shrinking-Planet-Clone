@@ -27,7 +27,7 @@ public class MoneyBoxUI : MonoBehaviour
 
     private void DayManager_OnDayEnded(object sender, System.EventArgs e)
     {
-        Hide();
+        HideUI();
     }
 
     private void UnitWorkingState_OnUnitReceivedPayment(object sender, UnitRecievedPaymentEventArgs e)
@@ -66,7 +66,7 @@ public class MoneyBoxUI : MonoBehaviour
     // Display total current money amount text
     private void UpdateMoneyAmountUI() => _moneyAmountText.text = EconomyManager.Instance.GetTotalCurrentMoneyAmount().ToString();
 
-    private void Show() => _moneyBoxUI.SetActive(true);
+    private void ShowUI() => _moneyBoxUI.SetActive(true);
 
-    private void Hide() => _moneyBoxUI.SetActive(false);
+    private void HideUI() => _moneyBoxUI.SetActive(false);
 }

@@ -21,7 +21,7 @@ public class EndDayUI : MonoBehaviour
 
     private void Start()
     {
-        Hide();
+        HideUI();
         DayManager.Instance.OnDayEnded += DayManager_OnDayEnded;
     }
 
@@ -32,15 +32,15 @@ public class EndDayUI : MonoBehaviour
 
     private void DayManager_OnDayEnded(object sender, EventArgs e)
     {
-        Show();
-        AddUnitDisplaySingleUI();
+        ShowUI();
+        ShowUnitsDisplaySingleUI();
     }
 
-    private void Show() => _endDayUI.SetActive(true);
+    private void ShowUI() => _endDayUI.SetActive(true);
 
-    private void Hide() => _endDayUI.SetActive(false);
+    private void HideUI() => _endDayUI.SetActive(false);
 
-    private void AddUnitDisplaySingleUI()
+    private void ShowUnitsDisplaySingleUI()
     {
         List<Unit> unitList = UnitManager.Instance.GetAllUnits();
 
@@ -53,7 +53,12 @@ public class EndDayUI : MonoBehaviour
             string unitDisplayName = unit.GetUnitName();
             string unitDisplayLevel = unitLevel.GetUnitCurrentLevel().ToString();
 
-            unitDisplaySingleUI.Setup(unitDisplayImage, unitDisplayName, unitDisplayLevel, unitLevel);
+            unitDisplaySingleUI.Setup(
+                unitDisplayImage, 
+                unitDisplayName, 
+                unitDisplayLevel, 
+                unitLevel
+            );
         }
     }
 }

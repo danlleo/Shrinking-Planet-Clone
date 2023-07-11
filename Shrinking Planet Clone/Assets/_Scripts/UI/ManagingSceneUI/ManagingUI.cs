@@ -23,7 +23,7 @@ public class ManagingUI : MonoBehaviour
 
         _buyButton.onClick.AddListener(() =>
         {
-            Hide();
+            HideUI();
             OnOpenBuyUI?.Invoke(this, EventArgs.Empty);
         });
 
@@ -58,12 +58,12 @@ public class ManagingUI : MonoBehaviour
 
     private void BuyUI_OnOpenBuyUIClose(object sender, EventArgs e)
     {
-        Show();
+        ShowUI();
     }
 
-    private void Show() => _managingUI.SetActive(true);
+    private void ShowUI() => _managingUI.SetActive(true);
 
-    private void Hide() => _managingUI.SetActive(false);
+    private void HideUI() => _managingUI.SetActive(false);
 
     private void ShowStartButton() => _startButton.gameObject.SetActive(true);
 

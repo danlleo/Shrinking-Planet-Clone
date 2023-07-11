@@ -13,7 +13,7 @@ public class BuyUI : MonoBehaviour
     {
         _closeButton.onClick.AddListener(() =>
         {
-            Hide();
+            HideUI();
             OnOpenBuyUIClose?.Invoke(this, EventArgs.Empty);
         });
     }
@@ -30,10 +30,10 @@ public class BuyUI : MonoBehaviour
 
     private void ManagingUI_OnOpenBuyUI(object sender, System.EventArgs e)
     {
-        Show();
+        ShowUI();
     }
 
-    private void Show() => _buyUI.SetActive(true);
+    private void ShowUI() => _buyUI.SetActive(true);
 
-    private void Hide() => _buyUI.SetActive(false);
+    private void HideUI() => _buyUI.SetActive(false);
 }

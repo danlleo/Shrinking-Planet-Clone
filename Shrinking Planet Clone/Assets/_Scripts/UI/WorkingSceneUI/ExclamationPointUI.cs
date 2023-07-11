@@ -11,7 +11,7 @@ public class ExclamationPointUI : MonoBehaviour
         _unitEconomy.OnUnitReceivedMoney += UnitEconomy_OnUnitReceivedMoney;
         DayManager.Instance.OnDayEnded += DayManager_OnDayEnded;
 
-        Hide();
+        HideUI();
     }
 
     private void OnDestroy()
@@ -21,21 +21,21 @@ public class ExclamationPointUI : MonoBehaviour
 
     private void DayManager_OnDayEnded(object sender, System.EventArgs e)
     {
-        Hide();
+        HideUI();
     }
 
     private void UnitEconomy_OnUnitReceivedMoney(object sender, System.EventArgs e)
     {
-        Hide();
+        HideUI();
     }
 
     private void UnitEconomy_OnUnitReadyToReceiveMoney(object sender, UnitEconomy.UnitReadyToReceiveMoneyEventArgs e)
     {
         if (e.SuccessfullyFinishedWork)
-            Show();
+            ShowUI();
     }
 
-    private void Show() => _exclamationPointUI.SetActive(true);
+    private void ShowUI() => _exclamationPointUI.SetActive(true);
 
-    private void Hide() => _exclamationPointUI.SetActive(false);
+    private void HideUI() => _exclamationPointUI.SetActive(false);
 }

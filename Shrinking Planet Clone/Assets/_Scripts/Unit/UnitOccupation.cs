@@ -7,20 +7,20 @@ public class UnitOccupation : MonoBehaviour
 
     private UnitSO _unitSO;
 
-    private UnitOccupationTypes _occupation;
+    private UnitOccupationType _occupation;
 
     public void Initialize(UnitSO unitSO)
     {
         _unitSO = unitSO;
     }
 
-    public void SetUnitOccupation(UnitOccupationTypes occupation)
+    public void SetUnitOccupation(UnitOccupationType occupation)
     {
         _occupation = occupation;
         OnUnitOccupationSet?.Invoke(this, EventArgs.Empty);
     }
 
-    public UnitOccupationTypes GetUnitOccupation() => _occupation;
+    public UnitOccupationType GetUnitOccupation() => _occupation;
 
-    public UnitOccupationTypes GetDefaultUnitOccupation() => _unitSO.DefaultOccupation;
+    public UnitOccupationType GetDefaultUnitOccupation() => _unitSO.DefaultOccupation;
 }

@@ -13,19 +13,19 @@ public class JobPickUI : MonoBehaviour
 
     private void Awake()
     {
-        _artButton.onClick.AddListener(() => SetUnitOccupation(UnitOccupationTypes.Art));
+        _artButton.onClick.AddListener(() => SetUnitOccupation(UnitOccupationType.Art));
 
-        _supportButton.onClick.AddListener(() => SetUnitOccupation(UnitOccupationTypes.Support));
+        _supportButton.onClick.AddListener(() => SetUnitOccupation(UnitOccupationType.Support));
 
-        _developerButton.onClick.AddListener(() => SetUnitOccupation(UnitOccupationTypes.Developer));
+        _developerButton.onClick.AddListener(() => SetUnitOccupation(UnitOccupationType.Developer));
 
-        _moderatorButton.onClick.AddListener(() => SetUnitOccupation(UnitOccupationTypes.Moderator));
+        _moderatorButton.onClick.AddListener(() => SetUnitOccupation(UnitOccupationType.Moderator));
     }
 
     private void Start()
     {
         Unit.OnUnitSelectingJob += Unit_OnUnitSelectingJob;
-        Hide();
+        HideUI();
     }
 
     private void OnDestroy()
@@ -38,21 +38,21 @@ public class JobPickUI : MonoBehaviour
         Unit unit = (Unit)sender;
 
         SetUnit(unit);
-        Show();
+        ShowUI();
     }
 
-    private void Show() => _jobPickUI.SetActive(true);
+    private void ShowUI() => _jobPickUI.SetActive(true);
 
-    private void Hide() => _jobPickUI.SetActive(false);
+    private void HideUI() => _jobPickUI.SetActive(false);
 
     private void SetUnit(Unit unit) => _unit = unit;
 
-    private void SetUnitOccupation(UnitOccupationTypes occupation)
+    private void SetUnitOccupation(UnitOccupationType occupation)
     {
         if (_unit.TryGetComponent(out UnitOccupation unitOccupation))
         {
             unitOccupation.SetUnitOccupation(occupation);
-            Hide();
+            HideUI();
         }
     }
 }

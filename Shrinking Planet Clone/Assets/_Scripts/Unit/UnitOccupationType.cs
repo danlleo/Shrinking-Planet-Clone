@@ -1,4 +1,4 @@
-public enum UnitOccupationTypes
+public enum UnitOccupationType
 {
     Art,
     Support,

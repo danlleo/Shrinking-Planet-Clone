@@ -19,20 +19,20 @@ public class QuestionMarkUI : MonoBehaviour
 
     private void DayManager_OnDayEnded(object sender, System.EventArgs e)
     {
-        Hide();
+        HideUI();
     }
 
     private void Unit_OnUnitBeganWork(object sender, System.EventArgs e)
     {
-        Hide();
+        HideUI();
     }
 
     private void Unit_OnUnitReachedDesk(object sender, System.EventArgs e)
     {
-        Show();
+        ShowUI();
     }
     
-    private void Show() => _questionMarkUI.SetActive(true); 
+    private void ShowUI() => _questionMarkUI.SetActive(true); 
 
-    private void Hide() => _questionMarkUI.SetActive(false);
+    private void HideUI() => _questionMarkUI.SetActive(false);
 }

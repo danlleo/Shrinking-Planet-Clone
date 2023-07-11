@@ -1,5 +1,5 @@
-using System;
 using UnityEngine;
+using static Judge;
 
 public class JudgeThinkingState : JudgeBaseState
 {
@@ -9,7 +9,7 @@ public class JudgeThinkingState : JudgeBaseState
     private float _timer = 0f;
     private float _delayTime = 5f;
 
-    private bool _askedQuestion;
+    private bool _hasAskedQuestion;
 
     public override void EnterState(JudgeStateManager judgeStateManager)
     {
@@ -19,22 +19,44 @@ public class JudgeThinkingState : JudgeBaseState
         }
 
         _judge.InvokeJudgeThinkingEvent();
+        OnJudgeReceivedAnswer += Judge_OnJudgeReceivedAnswer;
+    }
+
+    private void Judge_OnJudgeReceivedAnswer(object sender, ReceivedAnswerArgs e)
+    {
+        ResetTimer();
+        ResetInterviewUnit();
+
+        if (JudgeQuestionsManager.Instance.HasAskedAllQuestions())
+        {
+            _judge.InvokeJudgeFinishedJobEvent();
+            return;
+        }
+        
+        _hasAskedQuestion = false;
+
+        int currentQuestionCount = JudgeQuestionsManager.Instance.GetCorrectlyAnsweredQuestionsCount();
+
+        QuestionsUI.Instance.UpdateQuestionCountText(currentQuestionCount);
     }
 
     public override void UpdateState(JudgeStateManager judgeStateManager)
     {
         DelayAskingQuestion();
 
-        if (!_askedQuestion)
+        if (!_hasAskedQuestion)
+            return;
+
+        if (_interviewUnit != null)
             return;
 
         if (InterviewUnitActionSystem.Instance.TryGetSelectedInterviewUnit(out InterviewUnit selectedInterviewUnit))
         {
-            if (ReferenceEquals(selectedInterviewUnit, _interviewUnit))
-                return;
-
             _interviewUnit = selectedInterviewUnit;
-            Debug.Log("test");
+
+            bool isAnswerCorrect = JudgeQuestionsManager.Instance.ValidateQuestion(_interviewUnit.GetInterviewUnitOccupationType());
+
+            _judge.InvokeJudgeReceivedAnswerEvent(isAnswerCorrect);
         }
     }
 
@@ -42,12 +64,17 @@ public class JudgeThinkingState : JudgeBaseState
     {
         _timer += Time.deltaTime;
 
-        if (_timer > _delayTime && !_askedQuestion)
+        if (_timer > _delayTime && !_hasAskedQuestion)
         {
+            JudgeQuestionsManager.Instance.IncreaseCurrentQuestionCount();
             JudgeQuestionsManager.Instance.SetRandomQuestion();
             _judge.InvokeJudgeAskingEvent();
             _timer = 0f;
-            _askedQuestion = true;
+            _hasAskedQuestion = true;
         }
     }
+
+    private void ResetTimer() => _timer = 0f;
+
+    private void ResetInterviewUnit() => _interviewUnit = null;
 }
