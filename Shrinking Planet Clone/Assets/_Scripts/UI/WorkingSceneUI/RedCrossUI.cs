@@ -8,7 +8,7 @@ public class RedCrossUI : MonoBehaviour
 
     private void Start()
     {
-        Hide();
+        HideUI();
 
         _unitEconomy.OnUnitReadyToReceiveMoney += UnitEconomy_OnUnitReadyToReceiveMoney;
         DayManager.Instance.OnDayEnded += DayManager_OnDayEnded;
@@ -24,7 +24,7 @@ public class RedCrossUI : MonoBehaviour
 
     private void DayManager_OnDayEnded(object sender, System.EventArgs e)
     {
-        Hide();
+        HideUI();
     }
 
     private void UnitWorkingState_OnUnitResolvedWorkIssue(object sender, System.EventArgs e)
@@ -33,7 +33,7 @@ public class RedCrossUI : MonoBehaviour
 
         if (ReferenceEquals(senderUnit, _unit))
         {
-            Hide();
+            HideUI();
         }
     }
 
@@ -41,11 +41,11 @@ public class RedCrossUI : MonoBehaviour
     {
         if (!e.SuccessfullyFinishedWork)
         {
-            Show();
+            ShowUI();
         }
     }
 
-    private void Show() => _redCrossUI.SetActive(true);
+    private void ShowUI() => _redCrossUI.SetActive(true);
 
-    private void Hide() => _redCrossUI.SetActive(false);
+    private void HideUI() => _redCrossUI.SetActive(false);
 }

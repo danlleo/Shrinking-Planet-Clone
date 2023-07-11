@@ -12,7 +12,7 @@ public class CheckmarkUI : MonoBehaviour
         DayManager.Instance.OnDayEnded += DayManager_OnDayEnded;
         _unitEconomy.OnUnitReceivedMoney += UnitEconomy_OnUnitReceivedMoney;
 
-        Hide();
+        HideUI();
     }
 
     private void OnDestroy()
@@ -24,12 +24,12 @@ public class CheckmarkUI : MonoBehaviour
 
     private void DayManager_OnDayEnded(object sender, System.EventArgs e)
     {
-        Hide();
+        HideUI();
     }
 
     private void UnitEconomy_OnUnitReceivedMoney(object sender, System.EventArgs e)
     {
-        Hide();
+        HideUI();
     }
 
     private void UnitWorkingState_OnUnitResolvedWorkIssue(object sender, System.EventArgs e)
@@ -38,11 +38,11 @@ public class CheckmarkUI : MonoBehaviour
 
         if (ReferenceEquals(senderUnit, _unit))
         {
-            Show();
+            ShowUI();
         }
     }
 
-    private void Show() => _checkmarkUI.SetActive(true);
+    private void ShowUI() => _checkmarkUI.SetActive(true);
 
-    private void Hide() => _checkmarkUI.SetActive(false);
+    private void HideUI() => _checkmarkUI.SetActive(false);
 }

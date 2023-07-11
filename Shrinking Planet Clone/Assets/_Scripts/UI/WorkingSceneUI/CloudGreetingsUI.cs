@@ -31,19 +31,19 @@ public class CloudGreetingsUI : MonoBehaviour
 
     private void UpdateCloudImageText(string targetText) => _cloudImageText.text = targetText;
 
-    private void Show() => _cloudGreetingsUI.SetActive(true);
+    private void ShowUI() => _cloudGreetingsUI.SetActive(true);
 
-    private void Hide() => _cloudGreetingsUI.SetActive(false);
+    private void HideUI() => _cloudGreetingsUI.SetActive(false);
 
     private void InvokeDisplayUICloudWithTextCoroutine() => StartCoroutine(DisplayUICloudWithTextCoroutine());
 
     private IEnumerator DisplayUICloudWithTextCoroutine()
     {
-        Show();
+        ShowUI();
         UpdateCloudImageText(_unit.GetUnitGreetingsText());
 
         yield return new WaitForSeconds(1.5f);
 
-        Hide();
+        HideUI();
     }
 }

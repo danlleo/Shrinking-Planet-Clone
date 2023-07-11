@@ -11,4 +11,6 @@ public class InterviewUnit : MonoBehaviour
     }
 
     public Sprite GetInterviewUnitSprite() => _unitSO.UnitOccupationImage;
+
+    public UnitOccupationType GetInterviewUnitOccupationType() => _unitSO.DefaultOccupation;
 }

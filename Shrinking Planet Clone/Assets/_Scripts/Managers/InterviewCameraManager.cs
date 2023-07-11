@@ -22,6 +22,18 @@ public class InterviewCameraManager : Singleton<InterviewCameraManager>
     {
         JudgeIdleState.OnJudgeEnteredIdleState += JudgeIdleState_OnJudgeEnteredIdleState;
         Judge.OnJudgeAsking += Judge_OnJudgeAsking;
+        Judge.OnJudgeReceivedAnswer += Judge_OnJudgeReceivedAnswer;
+        Judge.OnJudgeFinishedJob += Judge_OnJudgeFinishedJob;
+    }
+
+    private void Judge_OnJudgeFinishedJob(object sender, EventArgs e)
+    {
+        StartCoroutine(MoveCameraInSecondsRoutine(_defaultCamera, 1f));
+    }
+
+    private void Judge_OnJudgeReceivedAnswer(object sender, EventArgs e)
+    {
+        StartCoroutine(MoveCameraInSecondsRoutine(_judgeLockCamera, 1f));
     }
 
     private void Judge_OnJudgeAsking(object sender, EventArgs e)

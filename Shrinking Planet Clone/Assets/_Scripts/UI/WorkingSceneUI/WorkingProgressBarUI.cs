@@ -20,7 +20,7 @@ public class WorkingProgressBarUI : MonoBehaviour
         _unit.OnUnitPerformedWorkPiece += Unit_OnUnitPerformedWorkPiece;
         _unitEconomy.OnUnitReceivedMoney += UnitEconomy_OnUnitRecievedMoney;
         DayManager.Instance.OnDayEnded += DayManager_OnDayEnded;
-        Hide();
+        HideUI();
     }
 
     private void OnDestroy()
@@ -38,18 +38,18 @@ public class WorkingProgressBarUI : MonoBehaviour
             _countDownCoroutine = null;
         }
 
-        Hide();
+        HideUI();
     }
 
     private void UnitEconomy_OnUnitRecievedMoney(object sender, EventArgs e)
     {
-        Show();
+        ShowUI();
         InvokeTimer();
     }
 
     private void Unit_OnUnitPerformedWorkPiece(object sender, EventArgs e)
     {
-        Show();
+        ShowUI();
         InvokeTimer();
     }
 
@@ -71,10 +71,10 @@ public class WorkingProgressBarUI : MonoBehaviour
         bool HasUnitSuccessfullyFinishedWork = UnityEngine.Random.Range(0, 2) == 0;
 
         _unitEconomy.InvokeOnUnitReadyToReceiveMoney(HasUnitSuccessfullyFinishedWork);
-        Hide();
+        HideUI();
     }
 
-    private void Show() => _workingProgressBarUI.SetActive(true);
+    private void ShowUI() => _workingProgressBarUI.SetActive(true);
 
-    private void Hide() => _workingProgressBarUI.SetActive(false);
+    private void HideUI() => _workingProgressBarUI.SetActive(false);
 }

@@ -15,18 +15,18 @@ public class JudgeQuestionUI : MonoBehaviour
     {
         Judge.OnJudgeAsking += Judge_OnJudgeAsking;
 
-        Hide();
+        HideUI();
     }
 
     private void Judge_OnJudgeAsking(object sender, EventArgs e)
     {
-        Show();
+        ShowUI();
         DisplayQuestion();
     }
 
     private void DisplayQuestion()
     {
-        Question question = JudgeQuestionsManager.Instance.GetCurrenQuestion();
+        Question question = JudgeQuestionsManager.Instance.GetCurrentQuestion();
 
         _judgeQuestionImage.sprite = question.QuestionIcon;
 
@@ -37,10 +37,10 @@ public class JudgeQuestionUI : MonoBehaviour
     {
         yield return new WaitForSeconds(DISPLAY_QUESTION_TIME_IN_SECONDS);
 
-        Hide();
+        HideUI();
     }
 
-    private void Show() => _judgeQuestionUI.SetActive(true);
+    private void ShowUI() => _judgeQuestionUI.SetActive(true);
 
-    private void Hide() => _judgeQuestionUI.SetActive(false);
+    private void HideUI() => _judgeQuestionUI.SetActive(false);
 }

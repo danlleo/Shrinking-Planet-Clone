@@ -6,7 +6,7 @@ public class JudgeQuestionsManager : Singleton<JudgeQuestionsManager>
 
     private const int MAX_QUESTIONS = 5;
     private int _correctlyAnsweredQuestionsCount = 0;
-    private int _totalQuestionsCount = 0;
+    private int _currentQuestionsCount = 0;
 
     private Question _currentQuestion;
 
@@ -21,17 +21,9 @@ public class JudgeQuestionsManager : Singleton<JudgeQuestionsManager>
         _currentQuestion = _questionArray[randomIndex];
     }
 
-    public bool HasAskedAllQuestions()
-    {
-        _totalQuestionsCount++;
+    public bool HasAskedAllQuestions() => _currentQuestionsCount == MAX_QUESTIONS;
 
-        if (_totalQuestionsCount == MAX_QUESTIONS)
-            return true;
-
-        return false;
-    }
-
-    public bool ValidateQuestion(UnitOccupationTypes occupationType)
+    public bool ValidateQuestion(UnitOccupationType occupationType)
     {
         if (occupationType == _currentQuestion.QuestionType)
         {
@@ -42,5 +34,13 @@ public class JudgeQuestionsManager : Singleton<JudgeQuestionsManager>
         return false;
     }
 
-    public Question GetCurrenQuestion() => _currentQuestion;
+    public Question GetCurrentQuestion() => _currentQuestion;
+
+    public void IncreaseCurrentQuestionCount() => _currentQuestionsCount++;
+
+    public int GetCurrentQuestionCount() => _currentQuestionsCount;
+
+    public int GetMaxQuestionsCount() => MAX_QUESTIONS;
+
+    public int GetCorrectlyAnsweredQuestionsCount() => _correctlyAnsweredQuestionsCount;
 }

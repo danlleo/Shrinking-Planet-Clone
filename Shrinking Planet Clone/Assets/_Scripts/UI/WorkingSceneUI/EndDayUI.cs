@@ -21,7 +21,7 @@ public class EndDayUI : MonoBehaviour
 
     private void Start()
     {
-        Hide();
+        HideUI();
         DayManager.Instance.OnDayEnded += DayManager_OnDayEnded;
     }
 
@@ -32,13 +32,13 @@ public class EndDayUI : MonoBehaviour
 
     private void DayManager_OnDayEnded(object sender, EventArgs e)
     {
-        Show();
+        ShowUI();
         ShowUnitsDisplaySingleUI();
     }
 
-    private void Show() => _endDayUI.SetActive(true);
+    private void ShowUI() => _endDayUI.SetActive(true);
 
-    private void Hide() => _endDayUI.SetActive(false);
+    private void HideUI() => _endDayUI.SetActive(false);
 
     private void ShowUnitsDisplaySingleUI()
     {
