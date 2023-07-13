@@ -31,7 +31,7 @@ public class JudgeQuestionUI : MonoBehaviour
 
     private void DisplayQuestion()
     {
-        Question question = JudgeQuestionsManager.Instance.GetCurrentQuestion();
+        InterviewQuestion question = JudgeQuestionsManager.Instance.GetCurrentQuestion();
 
         _judgeQuestionImage.sprite = question.QuestionIcon;
 

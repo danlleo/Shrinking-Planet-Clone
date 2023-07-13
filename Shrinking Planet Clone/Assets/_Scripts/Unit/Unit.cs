@@ -22,6 +22,7 @@ public class Unit : MonoBehaviour
     public void Initialize(UnitSO unitSO)
     {
         _unitSO = unitSO;
+        transform.position = _unitSO.UnitSpawnPosition;
     }
 
     public void InvokeUnitSelectingJobEvent() => OnUnitSelectingJob?.Invoke(this, EventArgs.Empty);
@@ -41,6 +42,8 @@ public class Unit : MonoBehaviour
     public string GetUnitName() => _unitSO.UnitName;
 
     public Sprite GetUnitImage() => _unitSO.UnitDisplayImage;
+
+    public Sprite GetUnitOccupationImage() => _unitSO.UnitOccupationImage;
 
     public Vector3 GetUnitSpawnPosition() => _unitSO.UnitSpawnPosition;
 

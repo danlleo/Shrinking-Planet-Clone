@@ -22,16 +22,6 @@ public class CheckmarkUI : MonoBehaviour
         _unitEconomy.OnUnitReceivedMoney -= UnitEconomy_OnUnitReceivedMoney;
     }
 
-    private void DayManager_OnDayEnded(object sender, System.EventArgs e)
-    {
-        HideUI();
-    }
-
-    private void UnitEconomy_OnUnitReceivedMoney(object sender, System.EventArgs e)
-    {
-        HideUI();
-    }
-
     private void UnitWorkingState_OnUnitResolvedWorkIssue(object sender, System.EventArgs e)
     {
         Unit senderUnit = (Unit)sender;
@@ -40,6 +30,16 @@ public class CheckmarkUI : MonoBehaviour
         {
             ShowUI();
         }
+    }
+    
+    private void UnitEconomy_OnUnitReceivedMoney(object sender, System.EventArgs e)
+    {
+        HideUI();
+    }
+
+    private void DayManager_OnDayEnded(object sender, System.EventArgs e)
+    {
+        HideUI();
     }
 
     private void ShowUI() => _checkmarkUI.SetActive(true);
