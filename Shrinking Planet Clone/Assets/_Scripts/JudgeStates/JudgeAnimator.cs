@@ -11,6 +11,13 @@ public class JudgeAnimator : MonoBehaviour
         Judge.OnJudgeReceivedAnswer += Judge_OnJudgeReceivedAnswer;
     }
 
+    private void OnDestroy()
+    {
+        Judge.OnJudgeThinking -= Judge_OnJudgeThinking;
+        Judge.OnJudgeAsking -= Judge_OnJudgeAsking;
+        Judge.OnJudgeReceivedAnswer -= Judge_OnJudgeReceivedAnswer;
+    }
+
     private void Judge_OnJudgeReceivedAnswer(object sender, Judge.ReceivedAnswerArgs e)
     {
         if (e.IsAnswerCorrect)

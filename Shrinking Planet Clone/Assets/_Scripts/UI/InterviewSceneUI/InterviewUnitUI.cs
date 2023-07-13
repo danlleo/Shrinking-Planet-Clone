@@ -14,6 +14,11 @@ public class InterviewUnitUI : MonoBehaviour
         Hide();
     }
 
+    private void OnDestroy()
+    {
+        Judge.OnJudgeAsking -= Judge_OnJudgeAsking;
+    }
+
     private void Judge_OnJudgeAsking(object sender, System.EventArgs e)
     {
         Show();

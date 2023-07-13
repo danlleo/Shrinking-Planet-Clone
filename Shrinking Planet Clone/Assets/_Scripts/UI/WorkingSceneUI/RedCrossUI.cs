@@ -22,6 +22,15 @@ public class RedCrossUI : MonoBehaviour
         UnitWorkingState.OnUnitResolvedWorkIssue -= UnitWorkingState_OnUnitResolvedWorkIssue;
     }
 
+    private void UnitEconomy_OnUnitReadyToReceiveMoney(object sender, UnitEconomy.UnitReadyToReceiveMoneyEventArgs e)
+    {
+        // If Unit didn't finish the work successfully, show this UI 
+        if (!e.SuccessfullyFinishedWork)
+        {
+            ShowUI();
+        }
+    }
+    
     private void DayManager_OnDayEnded(object sender, System.EventArgs e)
     {
         HideUI();
@@ -34,14 +43,6 @@ public class RedCrossUI : MonoBehaviour
         if (ReferenceEquals(senderUnit, _unit))
         {
             HideUI();
-        }
-    }
-
-    private void UnitEconomy_OnUnitReadyToReceiveMoney(object sender, UnitEconomy.UnitReadyToReceiveMoneyEventArgs e)
-    {
-        if (!e.SuccessfullyFinishedWork)
-        {
-            ShowUI();
         }
     }
 

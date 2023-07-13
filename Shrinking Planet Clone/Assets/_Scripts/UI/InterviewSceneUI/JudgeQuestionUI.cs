@@ -18,6 +18,11 @@ public class JudgeQuestionUI : MonoBehaviour
         HideUI();
     }
 
+    private void OnDestroy()
+    {
+        Judge.OnJudgeAsking -= Judge_OnJudgeAsking;
+    }
+
     private void Judge_OnJudgeAsking(object sender, EventArgs e)
     {
         ShowUI();
@@ -26,7 +31,7 @@ public class JudgeQuestionUI : MonoBehaviour
 
     private void DisplayQuestion()
     {
-        Question question = JudgeQuestionsManager.Instance.GetCurrentQuestion();
+        InterviewQuestion question = JudgeQuestionsManager.Instance.GetCurrentQuestion();
 
         _judgeQuestionImage.sprite = question.QuestionIcon;
 

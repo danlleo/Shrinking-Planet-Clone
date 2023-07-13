@@ -8,6 +8,7 @@ public class UnitActionSystem : Singleton<UnitActionSystem>
         base.Awake();
     }
 
+    // Refactor this later...
     public bool TryGetSelectedUnit(out Unit selectedUnit)
     {
         if (InputManager.Instance.IsMouseButtonDownThisFrame())

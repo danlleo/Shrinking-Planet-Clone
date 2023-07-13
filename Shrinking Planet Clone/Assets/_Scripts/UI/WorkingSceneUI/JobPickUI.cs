@@ -4,6 +4,7 @@ using UnityEngine.UI;
 public class JobPickUI : MonoBehaviour
 {
     [SerializeField] private GameObject _jobPickUI;
+    [SerializeField] private Image _occupationImage;
     [SerializeField] private Button _artButton;
     [SerializeField] private Button _supportButton;
     [SerializeField] private Button _developerButton;
@@ -25,12 +26,19 @@ public class JobPickUI : MonoBehaviour
     private void Start()
     {
         Unit.OnUnitSelectingJob += Unit_OnUnitSelectingJob;
+        DayManager.Instance.OnDayEnded += DayManager_OnDayEnded;
+        HideUI();
+    }
+
+    private void DayManager_OnDayEnded(object sender, System.EventArgs e)
+    {
         HideUI();
     }
 
     private void OnDestroy()
     {
         Unit.OnUnitSelectingJob -= Unit_OnUnitSelectingJob;
+        DayManager.Instance.OnDayEnded -= DayManager_OnDayEnded;
     }
 
     private void Unit_OnUnitSelectingJob(object sender, System.EventArgs e)
@@ -39,6 +47,9 @@ public class JobPickUI : MonoBehaviour
 
         SetUnit(unit);
         ShowUI();
+
+        // Display Unit's occupation image
+        _occupationImage.sprite = unit.GetUnitOccupationImage();
     }
 
     private void ShowUI() => _jobPickUI.SetActive(true);

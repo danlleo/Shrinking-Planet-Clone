@@ -4,6 +4,7 @@ using static UnitEconomy;
 public class UnitWorkingState : UnitBaseState
 {
     public static event EventHandler<UnitRecievedPaymentEventArgs> OnUnitReceivedPayment;
+    public static event EventHandler OnUnitResolvingWorkIssue;
     public static event EventHandler OnUnitResolvedWorkIssue;
 
     public class UnitRecievedPaymentEventArgs : EventArgs
@@ -96,8 +97,8 @@ public class UnitWorkingState : UnitBaseState
                 // If unit didn't finish work successfully
                 if (!_hasUnitSuccessfullyFinishedWork)
                 {
-                    _hasUnitSuccessfullyFinishedWork = true;
-                    OnUnitResolvedWorkIssue?.Invoke(_unit, EventArgs.Empty);
+                    // _hasUnitSuccessfullyFinishedWork = true;
+                    OnUnitResolvingWorkIssue?.Invoke(_unit, EventArgs.Empty);
                     return;
                 }
 
