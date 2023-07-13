@@ -25,6 +25,12 @@ public class QuestionsUI : Singleton<QuestionsUI>
         Judge.OnJudgeAsking += Judge_OnJudgeAsking;
     }
 
+    private void OnDestroy()
+    {
+        UnitPickerUI.OnUnitsPicked -= UnitPickerUI_OnUnitsPicked;
+        Judge.OnJudgeAsking -= Judge_OnJudgeAsking;
+    }
+
     private void Judge_OnJudgeAsking(object sender, System.EventArgs e)
     {
         int currentQuestionCount = JudgeQuestionsManager.Instance.GetCurrentQuestionCount();

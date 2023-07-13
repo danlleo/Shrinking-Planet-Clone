@@ -10,6 +10,7 @@ public class EndInterviewDayUI : MonoBehaviour
     {
         _proceedButton.onClick.AddListener(() =>
         {
+            InterviewDayManager.Instance.EndDay();
             Loader.Load(Loader.Scene.ManagingScene);
         });
     }
@@ -18,6 +19,11 @@ public class EndInterviewDayUI : MonoBehaviour
     {
         HideUI();
         Judge.OnJudgeFinishedJob += Judge_OnJudgeFinishedJob;
+    }
+
+    private void OnDestroy()
+    {
+        Judge.OnJudgeFinishedJob -= Judge_OnJudgeFinishedJob;
     }
 
     private void Judge_OnJudgeFinishedJob(object sender, System.EventArgs e)

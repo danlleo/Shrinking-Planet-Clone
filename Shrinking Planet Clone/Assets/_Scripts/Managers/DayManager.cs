@@ -14,10 +14,8 @@ public class DayManager : Singleton<DayManager>
 
     private void Start()
     {
-        InvokeOnDayChangedEvent();
+        _currentDay = SaveGameManager.Instance.GetDayCount();
     }
-
-    public void InvokeOnDayChangedEvent() => OnDayChanged?.Invoke(this, EventArgs.Empty);
 
     public void InvokeOnDayEndedEvent() => OnDayEnded?.Invoke(this, EventArgs.Empty);
 
@@ -26,5 +24,6 @@ public class DayManager : Singleton<DayManager>
     public void ProceedToAnotherDay()
     {
         _currentDay++;
+        SaveGameManager.Instance.SaveGame(100, _currentDay, EconomyManager.Instance.GetTotalCurrentMoneyAmount());
     }
 }

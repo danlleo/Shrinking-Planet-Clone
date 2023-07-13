@@ -2,7 +2,9 @@ using UnityEngine;
 
 public class JudgeQuestionsManager : Singleton<JudgeQuestionsManager>
 {
-    [SerializeField] private Question[] _questionArray = new Question[8];
+    private const int JUDGE_QUESTION_COUNT = 8;
+
+    [SerializeField] private Question[] _questionArray = new Question[JUDGE_QUESTION_COUNT];
 
     private const int MAX_QUESTIONS = 5;
     private int _correctlyAnsweredQuestionsCount = 0;

@@ -35,7 +35,7 @@ public class ManagingUI : MonoBehaviour
 
     private void Start()
     {
-        _currentCompanyRankText.text = "Company Rank: ";
+        _currentCompanyRankText.text = "Company Rank: " + SaveGameManager.Instance.GetCompanyRankPosition();
         _currentDayText.text = "Current Day: " + DayManager.Instance.GetCurrentDay();
         BuyUI.OnOpenBuyUIClose += BuyUI_OnOpenBuyUIClose;
 

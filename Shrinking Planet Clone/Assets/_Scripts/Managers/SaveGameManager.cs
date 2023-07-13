@@ -8,6 +8,8 @@ public class SaveGameManager : Singleton<SaveGameManager>
     
     private List<UnitData> _unitDataList = new List<UnitData>();
 
+    private SaveData _saveData;
+
     private string _saveFilePath;
 
     private const string UNITS_PATH = "Units";
@@ -37,7 +39,7 @@ public class SaveGameManager : Singleton<SaveGameManager>
     {
         if (Input.GetKeyDown(KeyCode.S))
         {
-            SaveGame();
+            SaveGame(100, 20, 300);
         }
 
         if (Input.GetKeyDown(KeyCode.L))
@@ -51,12 +53,12 @@ public class SaveGameManager : Singleton<SaveGameManager>
         }
     }
 
-    public void SaveGame()
+    public void SaveGame(int companyRankPosition, int dayCount, int moneyAmount)
     {
         SaveData saveData = new SaveData();
-        saveData.CompanyRankPosition = 100;
-        saveData.DayCount = 1;
-        saveData.MoneyAmount = 100;
+        saveData.CompanyRankPosition = companyRankPosition;
+        saveData.DayCount = dayCount;
+        saveData.MoneyAmount = moneyAmount;
         saveData.UnitDataList = _unitDataList;
 
         string json = JsonUtility.ToJson(saveData);
@@ -72,9 +74,10 @@ public class SaveGameManager : Singleton<SaveGameManager>
         {
             string json = File.ReadAllText(_saveFilePath);
 
-            SaveData data = JsonUtility.FromJson<SaveData>(json);
+            SaveData saveData = JsonUtility.FromJson<SaveData>(json);
 
-            _unitDataList = data.UnitDataList;
+            _unitDataList = saveData.UnitDataList;
+            _saveData = saveData;
 
             return;
         }
@@ -100,9 +103,11 @@ public class SaveGameManager : Singleton<SaveGameManager>
         saveData.MoneyAmount = DEFAULT_MONEY_AMOUNT;
         saveData.UnitDataList = _unitDataList;
 
+        _saveData = saveData;
+
         string json = JsonUtility.ToJson(saveData);
 
-        File.WriteAllText( _saveFilePath, json);
+        File.WriteAllText(_saveFilePath, json);
 
         print("New Game Started");
     }
@@ -117,4 +122,10 @@ public class SaveGameManager : Singleton<SaveGameManager>
     }
 
     public bool SaveExists() => File.Exists(_saveFilePath);
+
+    public int GetDayCount() => _saveData.DayCount;
+
+    public int GetCompanyRankPosition() => _saveData.CompanyRankPosition;
+
+    public int GetMoneyAmount() => _saveData.MoneyAmount;
 }

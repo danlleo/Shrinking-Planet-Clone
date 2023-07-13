@@ -18,6 +18,11 @@ public class JudgeQuestionUI : MonoBehaviour
         HideUI();
     }
 
+    private void OnDestroy()
+    {
+        Judge.OnJudgeAsking -= Judge_OnJudgeAsking;
+    }
+
     private void Judge_OnJudgeAsking(object sender, EventArgs e)
     {
         ShowUI();
