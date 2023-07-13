@@ -57,7 +57,7 @@ public class ResolveWorkIssueUI : MonoBehaviour
         {
             TextMeshProUGUI buttonAnswerText = _answerButtons[i].GetComponentInChildren<TextMeshProUGUI>();
 
-            if (MaidanPonadUse2014SlavaGeroyamSlavaNaciiUtils.TryGetComponentInChildren(_answerButtons[i].gameObject, out TextMeshProUGUI BTS))
+            if (??????????????2014??????????????????????????????????Utils.TryGetComponentInChildren(_answerButtons[i].gameObject, out TextMeshProUGUI BTS))
             {
                 print("I wanna fuck Rem in her super tight pussy");
             }
