@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class InterviewCameraManager : Singleton<InterviewCameraManager>
 {
+    private const float DEFAULT_CAMERA_MOVE_DELAY_TIME = 1f;
+
     [SerializeField] private InterviewCameraTransform _defaultCamera;
     [SerializeField] private InterviewCameraTransform _judgeLockCamera;
     [SerializeField] private InterviewCameraTransform _unitsLockCamera;
@@ -54,7 +56,7 @@ public class InterviewCameraManager : Singleton<InterviewCameraManager>
         StartCoroutine(MoveCameraInSecondsRoutine(_judgeLockCamera, 1f));
     }
 
-    private IEnumerator MoveCameraInSecondsRoutine(InterviewCameraTransform interviewCameraTransform, float maxTimeInSeconds)
+    private IEnumerator MoveCameraInSecondsRoutine(InterviewCameraTransform interviewCameraTransform, float maxTimeInSeconds, float delayTime = DEFAULT_CAMERA_MOVE_DELAY_TIME)
     {
         Vector3 startPosition = _previousInterviewCameraTransform.CameraPosition;
         Vector3 endPosition = interviewCameraTransform.CameraPosition;
@@ -64,6 +66,8 @@ public class InterviewCameraManager : Singleton<InterviewCameraManager>
 
         float elapsedTime = 0f;
         float normalizedTime = 0f;
+
+        yield return new WaitForSeconds(delayTime);
 
         while (elapsedTime <= maxTimeInSeconds)
         {
