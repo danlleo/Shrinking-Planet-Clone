@@ -42,11 +42,14 @@ public class UnitReachedDeskState : UnitBaseState
 
     private void HandleUnitJobSelect()
     {
-        if (UnitActionSystem.Instance.TryGetSelectedUnit(out Unit selectedUnit))
+        if (InputManager.Instance.IsMouseButtonDownThisFrame())
         {
-            if (ReferenceEquals(selectedUnit, _unit))
+            if (UnitActionSystem.Instance.TryGetSelectedUnit(out Unit selectedUnit))
             {
-                _unit.InvokeUnitSelectingJobEvent();
+                if (ReferenceEquals(selectedUnit, _unit))
+                {
+                    _unit.InvokeUnitSelectingJobEvent();
+                }
             }
         }
     }

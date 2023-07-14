@@ -18,26 +18,8 @@ public class JudgeThinkingState : JudgeBaseState
             _judge = judge;
         }
 
-        _judge.InvokeJudgeThinkingEvent();
         OnJudgeReceivedAnswer += Judge_OnJudgeReceivedAnswer;
-    }
-
-    private void Judge_OnJudgeReceivedAnswer(object sender, ReceivedAnswerArgs e)
-    {
-        ResetTimer();
-        ResetInterviewUnit();
-
-        if (JudgeQuestionsManager.Instance.HasAskedAllQuestions())
-        {
-            _judge.InvokeJudgeFinishedJobEvent();
-            return;
-        }
-        
-        _hasAskedQuestion = false;
-
-        int currentQuestionCount = JudgeQuestionsManager.Instance.GetCorrectlyAnsweredQuestionsCount();
-
-        QuestionsUI.Instance.UpdateQuestionCountText(currentQuestionCount);
+        AskQuestion();
     }
 
     public override void UpdateState(JudgeStateManager judgeStateManager)
@@ -60,19 +42,42 @@ public class JudgeThinkingState : JudgeBaseState
         }
     }
 
+    private void Judge_OnJudgeReceivedAnswer(object sender, ReceivedAnswerArgs e)
+    {
+        ResetTimer();
+        ResetInterviewUnit();
+
+        if (JudgeQuestionsManager.Instance.HasAskedAllQuestions())
+        {
+            _judge.InvokeJudgeFinishedJobEvent();
+            return;
+        }
+
+        _hasAskedQuestion = false;
+
+        int currentQuestionCount = JudgeQuestionsManager.Instance.GetCorrectlyAnsweredQuestionsCount();
+
+        QuestionsUI.Instance.UpdateQuestionCountText(currentQuestionCount);
+    }
+
     private void DelayAskingQuestion()
     {
         _timer += Time.deltaTime;
 
         if (_timer > _delayTime && !_hasAskedQuestion)
         {
-            JudgeQuestionsManager.Instance.IncreaseCurrentQuestionCount();
-            JudgeQuestionsManager.Instance.SetRandomQuestion();
-            _judge.InvokeJudgeAskingEvent();
-            _timer = 0f;
-            _hasAskedQuestion = true;
+            AskQuestion();
+            ResetTimer();
         }
     }
+
+    private void AskQuestion()
+    {
+        JudgeQuestionsManager.Instance.IncreaseCurrentQuestionCount();
+        JudgeQuestionsManager.Instance.SetRandomQuestion();
+        _judge.InvokeJudgeAskingEvent();
+        _hasAskedQuestion = true;
+    } 
 
     private void ResetTimer() => _timer = 0f;
 

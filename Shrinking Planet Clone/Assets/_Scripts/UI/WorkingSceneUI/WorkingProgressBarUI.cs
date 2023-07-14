@@ -20,6 +20,7 @@ public class WorkingProgressBarUI : MonoBehaviour
         _unit.OnUnitPerformedWorkPiece += Unit_OnUnitPerformedWorkPiece;
         _unitEconomy.OnUnitReceivedMoney += UnitEconomy_OnUnitRecievedMoney;
         DayManager.Instance.OnDayEnded += DayManager_OnDayEnded;
+        ResolveWorkIssueUI.OnResolvingFailedWorkIssue += ResolveWorkIssueUI_OnResolvingFailedWorkIssue;
         HideUI();
     }
 
@@ -28,6 +29,7 @@ public class WorkingProgressBarUI : MonoBehaviour
         _unit.OnUnitPerformedWorkPiece -= Unit_OnUnitPerformedWorkPiece;
         _unitEconomy.OnUnitReceivedMoney -= UnitEconomy_OnUnitRecievedMoney;
         DayManager.Instance.OnDayEnded -= DayManager_OnDayEnded;
+        ResolveWorkIssueUI.OnResolvingFailedWorkIssue -= ResolveWorkIssueUI_OnResolvingFailedWorkIssue;
     }
 
     private void DayManager_OnDayEnded(object sender, EventArgs e)
@@ -41,16 +43,37 @@ public class WorkingProgressBarUI : MonoBehaviour
         HideUI();
     }
 
+    private void ResolveWorkIssueUI_OnResolvingFailedWorkIssue(object sender, EventArgs e)
+    {
+        Unit unit = (Unit)sender;
+
+        if (ReferenceEquals(unit, _unit))
+        {
+            ShowUI();
+            InvokeTimer();
+        }
+    }
+
     private void UnitEconomy_OnUnitRecievedMoney(object sender, EventArgs e)
     {
-        ShowUI();
-        InvokeTimer();
+        UnitEconomy unitEconomy = (UnitEconomy)sender;
+
+        if (ReferenceEquals(unitEconomy, _unitEconomy))
+        {
+            ShowUI();
+            InvokeTimer();
+        }
     }
 
     private void Unit_OnUnitPerformedWorkPiece(object sender, EventArgs e)
     {
-        ShowUI();
-        InvokeTimer();
+        Unit unit = (Unit)sender;
+
+        if (ReferenceEquals(unit, _unit))
+        {
+            ShowUI();
+            InvokeTimer();
+        }
     }
 
     public void InvokeTimer() => _countDownCoroutine = StartCoroutine(TimerCountDownInSecondsRoutine());
@@ -68,9 +91,9 @@ public class WorkingProgressBarUI : MonoBehaviour
         }
 
         // Calculate if unit successfully finished work, for now 50% chance
-        bool HasUnitSuccessfullyFinishedWork = UnityEngine.Random.Range(0, 2) == 0;
+        bool hasUnitSuccessfullyFinishedWork = UnityEngine.Random.Range(0, 2) == 0;
 
-        _unitEconomy.InvokeOnUnitReadyToReceiveMoney(HasUnitSuccessfullyFinishedWork);
+        _unitEconomy.InvokeOnUnitReadyToReceiveMoney(hasUnitSuccessfullyFinishedWork);
         HideUI();
     }
 

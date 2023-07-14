@@ -8,30 +8,43 @@ public class CheckmarkUI : MonoBehaviour
 
     private void Start()
     {
-        UnitWorkingState.OnUnitResolvedWorkIssue += UnitWorkingState_OnUnitResolvedWorkIssue;
         DayManager.Instance.OnDayEnded += DayManager_OnDayEnded;
         _unitEconomy.OnUnitReceivedMoney += UnitEconomy_OnUnitReceivedMoney;
+        ResolveWorkIssueUI.OnResolvedWorkIssue += ResolveWorkIssueUI_OnResolvedWorkIssue;
+        ResolveWorkIssueUI.OnResolvingFailedWorkIssue += ResolveWorkIssueUI_OnResolvingFailedWorkIssue;
 
         HideUI();
     }
 
     private void OnDestroy()
     {
-        UnitWorkingState.OnUnitResolvedWorkIssue -= UnitWorkingState_OnUnitResolvedWorkIssue;
         DayManager.Instance.OnDayEnded -= DayManager_OnDayEnded;
         _unitEconomy.OnUnitReceivedMoney -= UnitEconomy_OnUnitReceivedMoney;
+        ResolveWorkIssueUI.OnResolvedWorkIssue += ResolveWorkIssueUI_OnResolvedWorkIssue;
+        ResolveWorkIssueUI.OnResolvingFailedWorkIssue += ResolveWorkIssueUI_OnResolvingFailedWorkIssue;
     }
 
-    private void UnitWorkingState_OnUnitResolvedWorkIssue(object sender, System.EventArgs e)
+    private void ResolveWorkIssueUI_OnResolvedWorkIssue(object sender, System.EventArgs e)
     {
-        Unit senderUnit = (Unit)sender;
+        Unit unit = (Unit)sender;
 
-        if (ReferenceEquals(senderUnit, _unit))
+        if (ReferenceEquals(unit, _unit))
         {
             ShowUI();
         }
     }
-    
+
+    // Think if it's really needed in the future
+    private void ResolveWorkIssueUI_OnResolvingFailedWorkIssue(object sender, System.EventArgs e)
+    {
+        Unit unit = (Unit)sender;
+
+        if (ReferenceEquals(unit, _unit))
+        {
+            HideUI();
+        }
+    }
+
     private void UnitEconomy_OnUnitReceivedMoney(object sender, System.EventArgs e)
     {
         HideUI();

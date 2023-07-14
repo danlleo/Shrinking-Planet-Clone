@@ -12,14 +12,36 @@ public class RedCrossUI : MonoBehaviour
 
         _unitEconomy.OnUnitReadyToReceiveMoney += UnitEconomy_OnUnitReadyToReceiveMoney;
         DayManager.Instance.OnDayEnded += DayManager_OnDayEnded;
-        UnitWorkingState.OnUnitResolvedWorkIssue += UnitWorkingState_OnUnitResolvedWorkIssue;
+        ResolveWorkIssueUI.OnResolvedWorkIssue += ResolveWorkIssueUI_OnResolvedWorkIssue;
+        ResolveWorkIssueUI.OnResolvingFailedWorkIssue += ResolveWorkIssueUI_OnResolvingFailedWorkIssue;
     }
 
     private void OnDestroy()
     {
         _unitEconomy.OnUnitReadyToReceiveMoney -= UnitEconomy_OnUnitReadyToReceiveMoney;
         DayManager.Instance.OnDayEnded -= DayManager_OnDayEnded;
-        UnitWorkingState.OnUnitResolvedWorkIssue -= UnitWorkingState_OnUnitResolvedWorkIssue;
+        ResolveWorkIssueUI.OnResolvedWorkIssue -= ResolveWorkIssueUI_OnResolvedWorkIssue;
+        ResolveWorkIssueUI.OnResolvingFailedWorkIssue -= ResolveWorkIssueUI_OnResolvingFailedWorkIssue;
+    }
+
+    private void ResolveWorkIssueUI_OnResolvedWorkIssue(object sender, System.EventArgs e)
+    {
+        Unit unit = (Unit)sender;
+
+        if (ReferenceEquals(unit, _unit))
+        {
+            HideUI();
+        }
+    }
+
+    private void ResolveWorkIssueUI_OnResolvingFailedWorkIssue(object sender, System.EventArgs e)
+    {
+        Unit unit = (Unit)sender;
+
+        if (ReferenceEquals(unit,_unit))
+        {
+            HideUI();
+        }
     }
 
     private void UnitEconomy_OnUnitReadyToReceiveMoney(object sender, UnitEconomy.UnitReadyToReceiveMoneyEventArgs e)
@@ -34,16 +56,6 @@ public class RedCrossUI : MonoBehaviour
     private void DayManager_OnDayEnded(object sender, System.EventArgs e)
     {
         HideUI();
-    }
-
-    private void UnitWorkingState_OnUnitResolvedWorkIssue(object sender, System.EventArgs e)
-    {
-        Unit senderUnit = (Unit)sender;
-
-        if (ReferenceEquals(senderUnit, _unit))
-        {
-            HideUI();
-        }
     }
 
     private void ShowUI() => _redCrossUI.SetActive(true);
