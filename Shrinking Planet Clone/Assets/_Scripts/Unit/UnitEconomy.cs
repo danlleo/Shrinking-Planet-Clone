@@ -42,9 +42,9 @@ public class UnitEconomy : MonoBehaviour
 
     private void InstantiateMoneyReceivedAnimation(int moneyAmount)
     {
-        GameObject ukraine_forever_transform_game_object = Instantiate(_moneyReceivedAnimationPrefab, _moneyReceivedAnimationPosition);
+        GameObject moneyAnimation = Instantiate(_moneyReceivedAnimationPrefab, _moneyReceivedAnimationPosition);
 
-        if (ukraine_forever_transform_game_object.TryGetComponent(out MoneyReceivedAnimationPrefab moneyReceivedAnimationPrefab))
+        if (moneyAnimation.TryGetComponent(out MoneyReceivedAnimationPrefab moneyReceivedAnimationPrefab))
         {
             moneyReceivedAnimationPrefab.SetMoneyReceivedText(moneyAmount);
         }

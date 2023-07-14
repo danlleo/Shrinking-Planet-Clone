@@ -1,9 +1,13 @@
+using System;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class ResolveWorkIssueUI : MonoBehaviour
 {
+    public static event EventHandler OnResolvedWorkIssue;
+    public static event EventHandler OnResolvingFailedWorkIssue;
+
     private const int ANSWER_BUTTON_AMOUNT = 4;
 
     [SerializeField] private GameObject _resolveWorkIssueUI;
@@ -11,6 +15,7 @@ public class ResolveWorkIssueUI : MonoBehaviour
     [SerializeField] private Button[] _answerButtons = new Button[ANSWER_BUTTON_AMOUNT];
 
     private QandA _currentQAndA;
+    private Unit _unit;
 
     private void Awake()
     {
@@ -18,6 +23,18 @@ public class ResolveWorkIssueUI : MonoBehaviour
         {
             button.onClick.AddListener(() =>
             {
+                if (QandAManager.Instance.IsAnswerValid(_currentQAndA, Array.IndexOf(_answerButtons, button)))
+                {
+                    print(true);
+                    OnResolvedWorkIssue?.Invoke(_unit, EventArgs.Empty);
+                }
+                else
+                {
+                    print(false);
+                    OnResolvingFailedWorkIssue?.Invoke(_unit, EventArgs.Empty);
+                }
+
+
                 HideUI();
             });
         }
@@ -37,32 +54,28 @@ public class ResolveWorkIssueUI : MonoBehaviour
         DayManager.Instance.OnDayEnded -= DayManager_OnDayEnded;
     }
 
-    private void DayManager_OnDayEnded(object sender, System.EventArgs e)
+    private void DayManager_OnDayEnded(object sender, EventArgs e)
     {
         HideUI();
     }
 
-    private void UnitWorkingState_OnUnitResolvingWorkIssue(object sender, System.EventArgs e)
+    private void UnitWorkingState_OnUnitResolvingWorkIssue(object sender, EventArgs e)
     {
+        Unit unit = (Unit)sender;
+
         ShowUI();
-        Setup();
+        Setup(unit);
     }
 
-    private void Setup()
+    private void Setup(Unit unit)
     {
         _currentQAndA = QandAManager.Instance.GetRandomQandA();
         _questionTitleText.text = _currentQAndA.QuestionTitle;
+        _unit = unit;
 
         for (int i = 0; i < _answerButtons.Length; i++)
         {
-            TextMeshProUGUI buttonAnswerText = _answerButtons[i].GetComponentInChildren<TextMeshProUGUI>();
-
-            if (??????????????2014??????????????????????????????????Utils.TryGetComponentInChildren(_answerButtons[i].gameObject, out TextMeshProUGUI BTS))
-            {
-                print("I wanna fuck Rem in her super tight pussy");
-            }
-
-            if (buttonAnswerText != null)
+            if (ComponentUtils.TryGetComponentInChildren(_answerButtons[i].gameObject, out TextMeshProUGUI buttonAnswerText))
             {
                 buttonAnswerText.text = _currentQAndA.Answers[i];
             }

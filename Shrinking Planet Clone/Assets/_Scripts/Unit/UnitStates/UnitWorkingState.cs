@@ -5,7 +5,6 @@ public class UnitWorkingState : UnitBaseState
 {
     public static event EventHandler<UnitRecievedPaymentEventArgs> OnUnitReceivedPayment;
     public static event EventHandler OnUnitResolvingWorkIssue;
-    public static event EventHandler OnUnitResolvedWorkIssue;
 
     public class UnitRecievedPaymentEventArgs : EventArgs
     {
@@ -23,7 +22,7 @@ public class UnitWorkingState : UnitBaseState
     private UnitStateManager _unitStateManager;
 
     private bool _isReadyToRecievePayment;
-    private bool _hasUnitSuccessfullyFinishedWork;
+    private bool _canUnitWork;
 
     private int _defaultRecieveUnitMoney = 100;
 
@@ -39,17 +38,32 @@ public class UnitWorkingState : UnitBaseState
         _unit.InvokeUnitBeganWorkEvent();
         _unit.InvokeUnitPerformedWorkPiece();
 
-        _unitEconomy.OnUnitReceivedMoney += UnitEconomy_OnUnitRecievedMoney;
+        _unitEconomy.OnUnitReceivedMoney += UnitEconomy_OnUnitReceivedMoney; ;
         _unitEconomy.OnUnitReadyToReceiveMoney += UnitEconomy_OnUnitReadyToReceiveMoney;
         DayManager.Instance.OnDayEnded += DayManager_OnDayEnded;
+        ResolveWorkIssueUI.OnResolvedWorkIssue += ResolveWorkIssueUI_OnResolvedWorkIssue;
+        ResolveWorkIssueUI.OnResolvingFailedWorkIssue += ResolveWorkIssueUI_OnResolvingFailedWorkIssue;
     }
 
-    // Make a solution for below code for OnDestroy
-    private void OnDestroy()
+    private void ResolveWorkIssueUI_OnResolvingFailedWorkIssue(object sender, EventArgs e)
     {
-        _unitEconomy.OnUnitReceivedMoney -= UnitEconomy_OnUnitRecievedMoney;
-        _unitEconomy.OnUnitReadyToReceiveMoney -= UnitEconomy_OnUnitReadyToReceiveMoney;
-        DayManager.Instance.OnDayEnded -= DayManager_OnDayEnded;
+        Unit unit = (Unit)sender;
+
+        if (ReferenceEquals(unit, _unit))
+        {
+            _canUnitWork = true;
+            SetNotReadyToRecievePayment();
+        }
+    }
+
+    private void ResolveWorkIssueUI_OnResolvedWorkIssue(object sender, EventArgs e)
+    {
+        Unit unit = (Unit)sender;
+
+        if (ReferenceEquals(unit, _unit))
+        {
+            _canUnitWork = true;
+        }
     }
 
     private void DayManager_OnDayEnded(object sender, EventArgs e)
@@ -58,19 +72,19 @@ public class UnitWorkingState : UnitBaseState
     }
 
     private void UnitEconomy_OnUnitReadyToReceiveMoney(object sender, UnitReadyToReceiveMoneyEventArgs e)
-    {
+    {   
         SetReadyToRecievePayment();
-        
+
         if (!e.SuccessfullyFinishedWork)
         {
-            _hasUnitSuccessfullyFinishedWork = false;
+            _canUnitWork = false;
             return;
         }
         
-        _hasUnitSuccessfullyFinishedWork = true;
+        _canUnitWork = true;
     }
 
-    private void UnitEconomy_OnUnitRecievedMoney(object sender, EventArgs e)
+    private void UnitEconomy_OnUnitReceivedMoney(object sender, EventArgs e)
     {
         SetNotReadyToRecievePayment();
     }
@@ -85,26 +99,28 @@ public class UnitWorkingState : UnitBaseState
         if (!_isReadyToRecievePayment)
             return;
 
-        if (UnitActionSystem.Instance.TryGetSelectedUnit(out Unit selectedUnit))
+        if (InputManager.Instance.IsMouseButtonDownThisFrame())
         {
-            if (ReferenceEquals(selectedUnit, _unit))
+            if (UnitActionSystem.Instance.TryGetSelectedUnit(out Unit selectedUnit))
             {
-                // Calculate amount that unit received, if occupation set properly unit will receive full amount, otherwise - loose percent
-                int unitMoneyAmountReceived = _unitOccupation.GetUnitOccupation() == _unitOccupation.GetDefaultUnitOccupation() 
-                    ? _defaultRecieveUnitMoney 
-                    : _defaultRecieveUnitMoney - (int)(_defaultRecieveUnitMoney * _loseRecieveUnitMoneyPercentage);
-                
-                // If unit didn't finish work successfully
-                if (!_hasUnitSuccessfullyFinishedWork)
+                if (ReferenceEquals(selectedUnit, _unit))
                 {
-                    // _hasUnitSuccessfullyFinishedWork = true;
-                    OnUnitResolvingWorkIssue?.Invoke(_unit, EventArgs.Empty);
-                    return;
-                }
+                    // Calculate amount that unit received, if occupation set properly unit will receive full amount, otherwise - loose percent
+                    int unitMoneyAmountReceived = _unitOccupation.GetUnitOccupation() == _unitOccupation.GetDefaultUnitOccupation()
+                        ? _defaultRecieveUnitMoney
+                        : _defaultRecieveUnitMoney - (int)(_defaultRecieveUnitMoney * _loseRecieveUnitMoneyPercentage);
 
-                // Fire an event if everything was OK
-                _unitEconomy.InvokeOnUnitRecievedMoney();
-                OnUnitReceivedPayment?.Invoke(_unit, new UnitRecievedPaymentEventArgs(unitMoneyAmountReceived));
+                    // If unit didn't finish work successfully
+                    if (!_canUnitWork)
+                    {
+                        OnUnitResolvingWorkIssue?.Invoke(_unit, EventArgs.Empty);
+                        return;
+                    }
+
+                    // Fire an event if everything was OK
+                    _unitEconomy.InvokeOnUnitRecievedMoney();
+                    OnUnitReceivedPayment?.Invoke(_unit, new UnitRecievedPaymentEventArgs(unitMoneyAmountReceived));
+                }
             }
         }
     }
