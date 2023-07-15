@@ -3,7 +3,17 @@ using UnityEngine;
 
 public class InterviewUnit : MonoBehaviour, ISelectable
 {
-    public static event EventHandler OnInterviewUnitAnswered;
+    public static event EventHandler<InterviewUnitAnsweredEventArgs> OnInterviewUnitAnswered;
+
+    public class InterviewUnitAnsweredEventArgs : EventArgs
+    {
+        public InterviewCameraTransform UnitInterviewCameraTransform;
+
+        public InterviewUnitAnsweredEventArgs(InterviewCameraTransform unitInterviewCameraTransform)
+        {
+            UnitInterviewCameraTransform = unitInterviewCameraTransform;
+        }
+    }
 
     private const int DEFAULT_LAYER = 0;
     private const int OUTLINE_LAYER = 31;
@@ -11,11 +21,13 @@ public class InterviewUnit : MonoBehaviour, ISelectable
     [SerializeField] private GameObject _unitVisual;
 
     private UnitSO _unitSO;
+    private InterviewCameraTransform _interviewCameraTransform;
 
-    public void Setup(Vector3 spawnPosition, UnitSO unitSO)
+    public void Setup(Vector3 spawnPosition, UnitSO unitSO, InterviewCameraTransform interviewCameraTransform)
     {
         transform.position = spawnPosition;
         _unitSO = unitSO;
+        _interviewCameraTransform = interviewCameraTransform;
     }
 
     public Sprite GetInterviewUnitSprite() => _unitSO.UnitOccupationImage;
@@ -37,5 +49,5 @@ public class InterviewUnit : MonoBehaviour, ISelectable
         targetObject.layer = newLayer;
     }
 
-    public void InvokeInterviewUnitAnsweredEvent() => OnInterviewUnitAnswered?.Invoke(this, EventArgs.Empty);
+    public void InvokeInterviewUnitAnsweredEvent() => OnInterviewUnitAnswered?.Invoke(this, new InterviewUnitAnsweredEventArgs(_interviewCameraTransform));
 }

@@ -2354,6 +2354,15 @@ MonoBehaviour:
   _unitsLockCamera:
     CameraPosition: {x: 0, y: 2, z: -4.25}
     CameraRotation: {x: -0.0000000094608765, y: 0.976296, z: -0.21643962, w: -0.000000042675254}
+  _interviewUnitACamera:
+    CameraPosition: {x: -2.5, y: 1.25, z: -5}
+    CameraRotation: {x: 0, y: 1, z: 0, w: -0.00000004371139}
+  _interviewUnitBCamera:
+    CameraPosition: {x: 0, y: 1.25, z: -5}
+    CameraRotation: {x: 0, y: 1, z: 0, w: -0.00000004371139}
+  _interviewUnitCCamera:
+    CameraPosition: {x: 2.5, y: 1.25, z: -5}
+    CameraRotation: {x: 0, y: 1, z: 0, w: -0.00000004371139}
 --- !u!4 &1646916316
 Transform:
   m_ObjectHideFlags: 0

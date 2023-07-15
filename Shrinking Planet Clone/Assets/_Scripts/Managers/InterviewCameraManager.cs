@@ -1,14 +1,21 @@
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class InterviewCameraManager : Singleton<InterviewCameraManager>
 {
     private const float DEFAULT_CAMERA_MOVE_DELAY_TIME = 1f;
 
+    [Header("Main pointing cameras transform")]
     [SerializeField] private InterviewCameraTransform _defaultCamera;
     [SerializeField] private InterviewCameraTransform _judgeLockCamera;
     [SerializeField] private InterviewCameraTransform _unitsLockCamera;
+
+    [Header("Interview Units pointing cameras transform")]
+    [SerializeField] private InterviewCameraTransform _interviewUnitACamera;
+    [SerializeField] private InterviewCameraTransform _interviewUnitBCamera;
+    [SerializeField] private InterviewCameraTransform _interviewUnitCCamera;
 
     private InterviewCameraTransform _previousInterviewCameraTransform;
     private Camera _camera;
@@ -26,6 +33,7 @@ public class InterviewCameraManager : Singleton<InterviewCameraManager>
         Judge.OnJudgeAsking += Judge_OnJudgeAsking;
         Judge.OnJudgeReceivedAnswer += Judge_OnJudgeReceivedAnswer;
         Judge.OnJudgeFinishedJob += Judge_OnJudgeFinishedJob;
+        InterviewUnit.OnInterviewUnitAnswered += InterviewUnit_OnInterviewUnitAnswered;
     }
 
     private void OnDestroy()
@@ -33,7 +41,13 @@ public class InterviewCameraManager : Singleton<InterviewCameraManager>
         JudgeIdleState.OnJudgeEnteredIdleState -= JudgeIdleState_OnJudgeEnteredIdleState;
         Judge.OnJudgeAsking -= Judge_OnJudgeAsking;
         Judge.OnJudgeReceivedAnswer -= Judge_OnJudgeReceivedAnswer;
-        Judge.OnJudgeFinishedJob -= Judge_OnJudgeFinishedJob;
+        InterviewUnit.OnInterviewUnitAnswered += InterviewUnit_OnInterviewUnitAnswered;
+    }
+
+    private void InterviewUnit_OnInterviewUnitAnswered(object sender, InterviewUnit.InterviewUnitAnsweredEventArgs e)
+    {
+        print("Check");
+        StartCoroutine(MoveCameraInSecondsRoutine(e.UnitInterviewCameraTransform, 1f, 0f));
     }
 
     private void Judge_OnJudgeFinishedJob(object sender, EventArgs e)
@@ -51,7 +65,7 @@ public class InterviewCameraManager : Singleton<InterviewCameraManager>
         StartCoroutine(MoveCameraInSecondsRoutine(_unitsLockCamera, 1f));
     }
 
-    private void JudgeIdleState_OnJudgeEnteredIdleState(object sender, System.EventArgs e)
+    private void JudgeIdleState_OnJudgeEnteredIdleState(object sender, EventArgs e)
     {
         StartCoroutine(MoveCameraInSecondsRoutine(_judgeLockCamera, 1f));
     }
@@ -79,5 +93,17 @@ public class InterviewCameraManager : Singleton<InterviewCameraManager>
         }
 
         _previousInterviewCameraTransform = interviewCameraTransform;
+    }
+
+    public List<InterviewCameraTransform> GetUnitCameraTransformList()
+    {
+        List<InterviewCameraTransform> interviewCameraTransformsList = new List<InterviewCameraTransform>
+        {
+            _interviewUnitACamera,
+            _interviewUnitBCamera,
+            _interviewUnitCCamera
+        };
+
+        return interviewCameraTransformsList;
     }
 }
