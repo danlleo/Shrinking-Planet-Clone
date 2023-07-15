@@ -1,8 +1,11 @@
 using System;
 using UnityEngine;
 
-public class Unit : MonoBehaviour
+public class Unit : MonoBehaviour, ISelectable
 {
+    private const int DEFAULT_LAYER = 0;
+    private const int OUTLINE_LAYER = 31;
+
     public static event EventHandler OnUnitSelectingJob;
 
     public event EventHandler OnUnitReachedDesk;
@@ -10,6 +13,8 @@ public class Unit : MonoBehaviour
     public event EventHandler OnUnitMoved;
     public event EventHandler OnUnitBeganWork;
     public event EventHandler OnUnitPerformedWorkPiece;
+
+    [SerializeField] private GameObject _unitVisual;
 
     private UnitSO _unitSO;
 
@@ -48,4 +53,19 @@ public class Unit : MonoBehaviour
     public Vector3 GetUnitSpawnPosition() => _unitSO.UnitSpawnPosition;
 
     public Vector3 GetUnitDeskPosition() => _unitSO.UnitTargetDeskPosition;
+
+    public void OnMouseEnter()
+    {
+        ChangeLayerInObject(_unitVisual, OUTLINE_LAYER);
+    }
+
+    public void OnMouseExit()
+    {
+        ChangeLayerInObject(_unitVisual, DEFAULT_LAYER);
+    }
+
+    public void ChangeLayerInObject(GameObject targetObject, int newLayer)
+    {
+        targetObject.layer = newLayer;
+    }
 }
