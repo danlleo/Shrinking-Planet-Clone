@@ -18,7 +18,7 @@ public class JudgeThinkingState : JudgeBaseState
             _judge = judge;
         }
 
-        OnJudgeReceivedAnswer += Judge_OnJudgeReceivedAnswer;
+        OnJudgeReviewedAnswer += Judge_OnJudgeReceivedAnswer;
         AskQuestion();
     }
 
@@ -40,7 +40,7 @@ public class JudgeThinkingState : JudgeBaseState
 
                 bool isAnswerCorrect = JudgeQuestionsManager.Instance.ValidateQuestion(_interviewUnit.GetInterviewUnitOccupationType());
 
-                _interviewUnit.InvokeInterviewUnitAnsweredEvent();
+                _interviewUnit.InvokeInterviewUnitAnsweredEvent(_judge, isAnswerCorrect);
 
                 // _judge.InvokeJudgeReceivedAnswerEvent(isAnswerCorrect);
             }

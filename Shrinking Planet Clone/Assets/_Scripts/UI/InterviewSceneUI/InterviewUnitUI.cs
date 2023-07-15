@@ -8,6 +8,8 @@ public class InterviewUnitUI : MonoBehaviour
     [SerializeField] private Image _interviewUnitOccupationImage;
     [SerializeField] private InterviewUnit _interviewUnit;
 
+    private Judge _judge;
+
     private void Start()
     {
         Judge.OnJudgeAsking += Judge_OnJudgeAsking;
@@ -37,6 +39,10 @@ public class InterviewUnitUI : MonoBehaviour
 
     private void Judge_OnJudgeAsking(object sender, System.EventArgs e)
     {
+        Judge judge = (Judge)sender;
+
+        _judge = judge;
+
         ShowUI();
         SetInterviewUnitOccupationImage();
     }
@@ -60,6 +66,8 @@ public class InterviewUnitUI : MonoBehaviour
             HideUI();
             currentFlickingCount++;
         }
+
+        _judge.InvokeJudgeCameraFocus();
     }
 
     private void SetInterviewUnitOccupationImage()

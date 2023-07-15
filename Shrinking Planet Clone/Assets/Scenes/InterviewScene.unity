@@ -1344,7 +1344,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 9618c6b42230db7408b3b734da21470a, type: 2}
+  - {fileID: 2100000, guid: e18ded4b611aa8f4a9f0f261d2f29537, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1951,8 +1951,8 @@ Camera:
   m_GameObject: {fileID: 1229878267}
   m_Enabled: 1
   serializedVersion: 2
-  m_ClearFlags: 1
-  m_BackGroundColor: {r: 0, g: 0, b: 0, a: 0}
+  m_ClearFlags: 2
+  m_BackGroundColor: {r: 0.8352941, g: 0.9843137, b: 1, a: 0}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
   m_FOVAxisMode: 0
@@ -2353,7 +2353,7 @@ MonoBehaviour:
     CameraRotation: {x: 0.21643962, y: 0, z: 0, w: 0.976296}
   _unitsLockCamera:
     CameraPosition: {x: 0, y: 2, z: -4.25}
-    CameraRotation: {x: -0.0000000094608765, y: 0.976296, z: -0.21643962, w: -0.000000042675254}
+    CameraRotation: {x: -0.000000005705482, y: 0.9914449, z: -0.13052621, w: -0.000000043337433}
   _interviewUnitACamera:
     CameraPosition: {x: -2.5, y: 1.25, z: -5}
     CameraRotation: {x: 0, y: 1, z: 0, w: -0.00000004371139}

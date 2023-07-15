@@ -3,7 +3,9 @@ using UnityEngine;
 
 public class Judge : MonoBehaviour
 {
-    public static event EventHandler<ReceivedAnswerArgs> OnJudgeReceivedAnswer;
+    public static event EventHandler OnJudgeReviewingAnswer;
+    public static event EventHandler OnJudgeCameraFocus;
+    public static event EventHandler<ReceivedAnswerArgs> OnJudgeReviewedAnswer;
 
     public class ReceivedAnswerArgs : EventArgs
     {
@@ -36,7 +38,11 @@ public class Judge : MonoBehaviour
 
     public void InvokeJudgeAskingEvent() => OnJudgeAsking?.Invoke(this, EventArgs.Empty);
 
-    public void InvokeJudgeReceivedAnswerEvent(bool isAnswerCorrect) => OnJudgeReceivedAnswer?.Invoke(this, new ReceivedAnswerArgs(isAnswerCorrect));
+    public void InvokeJudgeReviewingEvent() => OnJudgeReviewingAnswer?.Invoke(this, EventArgs.Empty);
+
+    public void InvokeJudgeCameraFocus() => OnJudgeCameraFocus?.Invoke(this, EventArgs.Empty);
+
+    public void InvokeJudgeReviewedAnswerEvent(bool isAnswerCorrect) => OnJudgeReviewedAnswer?.Invoke(this, new ReceivedAnswerArgs(isAnswerCorrect));
 
     public void InvokeJudgeFinishedJobEvent() => OnJudgeFinishedJob?.Invoke(this, EventArgs.Empty);
 }
