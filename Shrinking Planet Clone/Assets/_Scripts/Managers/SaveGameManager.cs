@@ -37,11 +37,6 @@ public class SaveGameManager : Singleton<SaveGameManager>
     // For testing purposes
     public void Update()
     {
-        if (Input.GetKeyDown(KeyCode.S))
-        {
-            SaveGame(100, 20, 300);
-        }
-
         if (Input.GetKeyDown(KeyCode.L))
         {
             LoadGame();

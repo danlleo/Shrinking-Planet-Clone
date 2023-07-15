@@ -51,6 +51,10 @@ public class JudgeThinkingState : JudgeBaseState
         ResetTimer();
         ResetInterviewUnit();
 
+        int currentQuestionCount = JudgeQuestionsManager.Instance.GetCorrectlyAnsweredQuestionsCount();
+
+        QuestionsUI.Instance.UpdateQuestionCountText(currentQuestionCount);
+        
         if (JudgeQuestionsManager.Instance.HasAskedAllQuestions())
         {
             _judge.InvokeJudgeFinishedJobEvent();
@@ -58,10 +62,6 @@ public class JudgeThinkingState : JudgeBaseState
         }
 
         _hasAskedQuestion = false;
-
-        int currentQuestionCount = JudgeQuestionsManager.Instance.GetCorrectlyAnsweredQuestionsCount();
-
-        QuestionsUI.Instance.UpdateQuestionCountText(currentQuestionCount);
     }
 
     private void DelayAskingQuestion()

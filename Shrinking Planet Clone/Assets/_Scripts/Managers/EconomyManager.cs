@@ -17,12 +17,6 @@ public class EconomyManager : Singleton<EconomyManager>
     private void Start()
     {
         OnUnitReceivedPayment += UnitWorkingState_OnUnitReceivedPayment;
-        DayManager.Instance.OnDayEnded += DayManager_OnDayEnded;
-    }
-
-    private void DayManager_OnDayEnded(object sender, System.EventArgs e)
-    {
-        // Save money here
     }
 
     private void OnDestroy()

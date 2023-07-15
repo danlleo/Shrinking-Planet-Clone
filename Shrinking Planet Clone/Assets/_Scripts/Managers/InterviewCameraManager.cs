@@ -45,6 +45,7 @@ public class InterviewCameraManager : Singleton<InterviewCameraManager>
         Judge.OnJudgeAsking -= Judge_OnJudgeAsking;
         Judge.OnJudgeReviewingAnswer -= Judge_OnJudgeReviewingAnswer;
         Judge.OnJudgeCameraFocus -= Judge_OnJudgeCameraFocus;
+        Judge.OnJudgeFinishedJob -= Judge_OnJudgeFinishedJob;
         InterviewUnit.OnInterviewUnitAnswered += InterviewUnit_OnInterviewUnitAnswered;
     }
 
@@ -83,7 +84,7 @@ public class InterviewCameraManager : Singleton<InterviewCameraManager>
 
     private void JudgeIdleState_OnJudgeEnteredIdleState(object sender, EventArgs e)
     {
-        StartCoroutine(MoveCameraInSecondsRoutine(_judgeLockCamera, 1f));
+        StartCoroutine(MoveCameraInSecondsRoutine(_judgeLockCamera, 1f, 0f));
     }
 
     private IEnumerator MoveCameraInSecondsRoutine(

@@ -3,6 +3,7 @@ using UnityEngine;
 public class JudgeQuestionsManager : Singleton<JudgeQuestionsManager>
 {
     private const int JUDGE_QUESTION_COUNT = 8;
+    private const int QUESTION_COUNT_TO_PASS = 3;
 
     [SerializeField] private InterviewQuestion[] _questionArray = new InterviewQuestion[JUDGE_QUESTION_COUNT];
 
@@ -41,4 +42,6 @@ public class JudgeQuestionsManager : Singleton<JudgeQuestionsManager>
     public int GetMaxQuestionsCount() => MAX_QUESTIONS;
 
     public int GetCorrectlyAnsweredQuestionsCount() => _correctlyAnsweredQuestionsCount;
+
+    public bool HasFinishedInterviewWithSuccess() => _correctlyAnsweredQuestionsCount >= QUESTION_COUNT_TO_PASS;
 }
