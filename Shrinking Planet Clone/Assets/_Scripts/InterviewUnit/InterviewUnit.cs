@@ -1,7 +1,10 @@
+using System;
 using UnityEngine;
 
 public class InterviewUnit : MonoBehaviour, ISelectable
 {
+    public static event EventHandler OnInterviewUnitAnswered;
+
     private const int DEFAULT_LAYER = 0;
     private const int OUTLINE_LAYER = 31;
 
@@ -33,4 +36,6 @@ public class InterviewUnit : MonoBehaviour, ISelectable
     {
         targetObject.layer = newLayer;
     }
+
+    public void InvokeInterviewUnitAnsweredEvent() => OnInterviewUnitAnswered?.Invoke(this, EventArgs.Empty);
 }
