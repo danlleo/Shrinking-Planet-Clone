@@ -32,11 +32,16 @@ public class InterviewUnitManager : Singleton<InterviewUnitManager>
     public void SpawnInterviewUnits()
     {
         List<UnitSO> unitSOList = UnitUIPickerManager.Instance.GetUnitSOList();
+        List<InterviewCameraTransform> interviewCameraTransformsList = InterviewCameraManager.Instance.GetUnitCameraTransformList();
 
         for (int i = 0; i < unitSOList.Count; i++)
         {
             InterviewUnit interviewUnit = Instantiate(_interviewUnit);
-            interviewUnit.Setup(_interviewUnitsPredefinedPositions[i], unitSOList[i]);
+            interviewUnit.Setup(
+                _interviewUnitsPredefinedPositions[i],
+                unitSOList[i],
+                interviewCameraTransformsList[i]
+            );
         }
     }
 

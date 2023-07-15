@@ -1,9 +1,11 @@
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class EndInterviewDayUI : MonoBehaviour
 {
     [SerializeField] private GameObject _endInterviewDayUI;
+    [SerializeField] private TextMeshProUGUI _interviewResultText;
     [SerializeField] private Button _proceedButton;
 
     private void Awake()
@@ -29,6 +31,15 @@ public class EndInterviewDayUI : MonoBehaviour
     private void Judge_OnJudgeFinishedJob(object sender, System.EventArgs e)
     {
         ShowUI();
+
+        if (JudgeQuestionsManager.Instance.HasFinishedInterviewWithSuccess())
+        {
+            _interviewResultText.text = "Success";
+        }
+        else
+        {
+            _interviewResultText.text = "Fail";
+        }
     }
 
     private void ShowUI() => _endInterviewDayUI.SetActive(true);

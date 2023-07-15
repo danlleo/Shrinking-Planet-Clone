@@ -18,7 +18,7 @@ public class JudgeThinkingState : JudgeBaseState
             _judge = judge;
         }
 
-        OnJudgeReceivedAnswer += Judge_OnJudgeReceivedAnswer;
+        OnJudgeReviewedAnswer += Judge_OnJudgeReceivedAnswer;
         AskQuestion();
     }
 
@@ -32,14 +32,18 @@ public class JudgeThinkingState : JudgeBaseState
         if (_interviewUnit != null)
             return;
 
-        if (InterviewUnitActionSystem.Instance.TryGetSelectedInterviewUnit(out InterviewUnit selectedInterviewUnit))
+        if (InputManager.Instance.IsMouseButtonDownThisFrame())
         {
-            _interviewUnit = selectedInterviewUnit;
+            if (InterviewUnitActionSystem.Instance.TryGetSelectedInterviewUnit(out InterviewUnit selectedInterviewUnit))
+            {
+                _interviewUnit = selectedInterviewUnit;
 
-            bool isAnswerCorrect = JudgeQuestionsManager.Instance.ValidateQuestion(_interviewUnit.GetInterviewUnitOccupationType());
+                bool isAnswerCorrect = JudgeQuestionsManager.Instance.ValidateQuestion(_interviewUnit.GetInterviewUnitOccupationType());
 
-            _judge.InvokeJudgeReceivedAnswerEvent(isAnswerCorrect);
+                _interviewUnit.InvokeInterviewUnitAnsweredEvent(_judge, isAnswerCorrect);
+            }
         }
+
     }
 
     private void Judge_OnJudgeReceivedAnswer(object sender, ReceivedAnswerArgs e)
@@ -47,6 +51,10 @@ public class JudgeThinkingState : JudgeBaseState
         ResetTimer();
         ResetInterviewUnit();
 
+        int currentQuestionCount = JudgeQuestionsManager.Instance.GetCorrectlyAnsweredQuestionsCount();
+
+        QuestionsUI.Instance.UpdateQuestionCountText(currentQuestionCount);
+        
         if (JudgeQuestionsManager.Instance.HasAskedAllQuestions())
         {
             _judge.InvokeJudgeFinishedJobEvent();
@@ -54,10 +62,6 @@ public class JudgeThinkingState : JudgeBaseState
         }
 
         _hasAskedQuestion = false;
-
-        int currentQuestionCount = JudgeQuestionsManager.Instance.GetCorrectlyAnsweredQuestionsCount();
-
-        QuestionsUI.Instance.UpdateQuestionCountText(currentQuestionCount);
     }
 
     private void DelayAskingQuestion()

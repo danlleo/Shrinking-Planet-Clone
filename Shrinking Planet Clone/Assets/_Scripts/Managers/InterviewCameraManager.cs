@@ -1,17 +1,26 @@
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class InterviewCameraManager : Singleton<InterviewCameraManager>
 {
     private const float DEFAULT_CAMERA_MOVE_DELAY_TIME = 1f;
 
+    [Header("Main pointing cameras transform")]
     [SerializeField] private InterviewCameraTransform _defaultCamera;
     [SerializeField] private InterviewCameraTransform _judgeLockCamera;
     [SerializeField] private InterviewCameraTransform _unitsLockCamera;
 
+    [Header("Interview Units pointing cameras transform")]
+    [SerializeField] private InterviewCameraTransform _interviewUnitACamera;
+    [SerializeField] private InterviewCameraTransform _interviewUnitBCamera;
+    [SerializeField] private InterviewCameraTransform _interviewUnitCCamera;
+
     private InterviewCameraTransform _previousInterviewCameraTransform;
     private Camera _camera;
+
+    private bool _isAnswerCorrect;
 
     protected override void Awake()
     {
@@ -24,16 +33,43 @@ public class InterviewCameraManager : Singleton<InterviewCameraManager>
     {
         JudgeIdleState.OnJudgeEnteredIdleState += JudgeIdleState_OnJudgeEnteredIdleState;
         Judge.OnJudgeAsking += Judge_OnJudgeAsking;
-        Judge.OnJudgeReceivedAnswer += Judge_OnJudgeReceivedAnswer;
+        Judge.OnJudgeReviewingAnswer += Judge_OnJudgeReviewingAnswer;
+        Judge.OnJudgeCameraFocus += Judge_OnJudgeCameraFocus;
         Judge.OnJudgeFinishedJob += Judge_OnJudgeFinishedJob;
+        InterviewUnit.OnInterviewUnitAnswered += InterviewUnit_OnInterviewUnitAnswered;
     }
 
     private void OnDestroy()
     {
         JudgeIdleState.OnJudgeEnteredIdleState -= JudgeIdleState_OnJudgeEnteredIdleState;
         Judge.OnJudgeAsking -= Judge_OnJudgeAsking;
-        Judge.OnJudgeReceivedAnswer -= Judge_OnJudgeReceivedAnswer;
+        Judge.OnJudgeReviewingAnswer -= Judge_OnJudgeReviewingAnswer;
+        Judge.OnJudgeCameraFocus -= Judge_OnJudgeCameraFocus;
         Judge.OnJudgeFinishedJob -= Judge_OnJudgeFinishedJob;
+        InterviewUnit.OnInterviewUnitAnswered += InterviewUnit_OnInterviewUnitAnswered;
+    }
+
+    private void Judge_OnJudgeCameraFocus(object sender, EventArgs e)
+    {
+        Judge judge = (Judge)sender;
+
+        Action extraLogic = () =>
+        {
+            judge.InvokeJudgeReviewedAnswerEvent(_isAnswerCorrect);
+        };
+
+        StartCoroutine(MoveCameraInSecondsRoutine(_judgeLockCamera, 1f, 0f, extraLogic));
+    }
+
+    private void Judge_OnJudgeReviewingAnswer(object sender, EventArgs e)
+    {
+        StartCoroutine(MoveCameraInSecondsRoutine(_judgeLockCamera, 1f, 0f));
+    }
+
+    private void InterviewUnit_OnInterviewUnitAnswered(object sender, InterviewUnit.InterviewUnitAnsweredEventArgs e)
+    {
+        _isAnswerCorrect = e.IsAnswerCorrect;
+        StartCoroutine(MoveCameraInSecondsRoutine(e.UnitInterviewCameraTransform, 1f, 0f));
     }
 
     private void Judge_OnJudgeFinishedJob(object sender, EventArgs e)
@@ -41,22 +77,22 @@ public class InterviewCameraManager : Singleton<InterviewCameraManager>
         StartCoroutine(MoveCameraInSecondsRoutine(_defaultCamera, 1f));
     }
 
-    private void Judge_OnJudgeReceivedAnswer(object sender, EventArgs e)
-    {
-        StartCoroutine(MoveCameraInSecondsRoutine(_judgeLockCamera, 1f));
-    }
-
     private void Judge_OnJudgeAsking(object sender, EventArgs e)
     {
         StartCoroutine(MoveCameraInSecondsRoutine(_unitsLockCamera, 1f));
     }
 
-    private void JudgeIdleState_OnJudgeEnteredIdleState(object sender, System.EventArgs e)
+    private void JudgeIdleState_OnJudgeEnteredIdleState(object sender, EventArgs e)
     {
-        StartCoroutine(MoveCameraInSecondsRoutine(_judgeLockCamera, 1f));
+        StartCoroutine(MoveCameraInSecondsRoutine(_judgeLockCamera, 1f, 0f));
     }
 
-    private IEnumerator MoveCameraInSecondsRoutine(InterviewCameraTransform interviewCameraTransform, float maxTimeInSeconds, float delayTime = DEFAULT_CAMERA_MOVE_DELAY_TIME)
+    private IEnumerator MoveCameraInSecondsRoutine(
+            InterviewCameraTransform interviewCameraTransform, 
+            float maxTimeInSeconds, 
+            float delayTime = DEFAULT_CAMERA_MOVE_DELAY_TIME, 
+            Action action = null
+        )
     {
         Vector3 startPosition = _previousInterviewCameraTransform.CameraPosition;
         Vector3 endPosition = interviewCameraTransform.CameraPosition;
@@ -79,5 +115,18 @@ public class InterviewCameraManager : Singleton<InterviewCameraManager>
         }
 
         _previousInterviewCameraTransform = interviewCameraTransform;
+        action?.Invoke();
+    }
+
+    public List<InterviewCameraTransform> GetUnitCameraTransformList()
+    {
+        List<InterviewCameraTransform> interviewCameraTransformsList = new List<InterviewCameraTransform>
+        {
+            _interviewUnitACamera,
+            _interviewUnitBCamera,
+            _interviewUnitCCamera
+        };
+
+        return interviewCameraTransformsList;
     }
 }
