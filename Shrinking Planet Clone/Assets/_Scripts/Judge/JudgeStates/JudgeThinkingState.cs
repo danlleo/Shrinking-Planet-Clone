@@ -41,8 +41,6 @@ public class JudgeThinkingState : JudgeBaseState
                 bool isAnswerCorrect = JudgeQuestionsManager.Instance.ValidateQuestion(_interviewUnit.GetInterviewUnitOccupationType());
 
                 _interviewUnit.InvokeInterviewUnitAnsweredEvent(_judge, isAnswerCorrect);
-
-                // _judge.InvokeJudgeReceivedAnswerEvent(isAnswerCorrect);
             }
         }
 
