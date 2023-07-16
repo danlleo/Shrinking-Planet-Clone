@@ -24,6 +24,7 @@ public class DayManager : Singleton<DayManager>
     public void ProceedToAnotherDay()
     {
         _currentDay++;
+        int stashedMoneyAmount = SaveGameManager.Instance.GetMoneyAmount();
         SaveGameManager.Instance.SaveGame(100, _currentDay, EconomyManager.Instance.GetTotalCurrentMoneyAmount());
     }
 }
