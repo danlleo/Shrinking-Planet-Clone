@@ -3,6 +3,7 @@ using static UnitWorkingState;
 
 public class EconomyManager : Singleton<EconomyManager>
 {
+    // Remove it later!!!
     [SerializeField] private Transform _moneyIconPrefab;
     [SerializeField] private Transform _canvasUI;
     [SerializeField] private Transform _moneyBoxUI;
@@ -16,6 +17,7 @@ public class EconomyManager : Singleton<EconomyManager>
 
     private void Start()
     {
+        _totalCurrentMoneyAmount = SaveGameManager.Instance.GetMoneyAmount();
         OnUnitReceivedPayment += UnitWorkingState_OnUnitReceivedPayment;
     }
 
