@@ -18,8 +18,8 @@ MonoBehaviour:
   UnitFail: {fileID: 8300000, guid: 7971be7cf0280dc4f857b0df8b9db45b, type: 3}
   UnitSuccess: {fileID: 8300000, guid: 0ede4224bd43c0a4a962a761d5369d02, type: 3}
   EndDay: {fileID: 8300000, guid: 03181e9b89044a542893c10cf3497765, type: 3}
-  UIElementSelect: {fileID: 0}
-  UIElementClick: {fileID: 0}
+  UIElementSelect: {fileID: 8300000, guid: a7f5bd34b24a48c4581386e3bf14ddd7, type: 3}
+  UIElementClick: {fileID: 8300000, guid: 7cdcf5596b7b82d4390992a3c032238a, type: 3}
   CollectCoin: {fileID: 8300000, guid: a7f0df5369550454d83aaab1ba11d777, type: 3}
   JudgeAsking: {fileID: 8300000, guid: a2052a849a11f744887153b553cff731, type: 3}
   CorrectInterviewQuestion: {fileID: 8300000, guid: f6dea355b6dfeb2488b67ab3d68c3cab,

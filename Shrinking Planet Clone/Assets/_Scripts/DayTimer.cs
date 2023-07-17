@@ -11,13 +11,7 @@ public class DayTimer : MonoBehaviour
 
     private void Start()
     {
-        DayManager.Instance.OnDayChanged += DayManager_OnDayChanged;
         InvokeTimer();
-    }
-
-    private void DayManager_OnDayChanged(object sender, System.EventArgs e)
-    {
-        //InvokeTimer();
     }
 
     protected void InvokeTimer() => StartCoroutine(TimerCountDownInSecondsRoutine());

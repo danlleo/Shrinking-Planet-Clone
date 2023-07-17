@@ -15,6 +15,8 @@ public class SoundManager : Singleton<SoundManager>
         DayManager.Instance.OnDayEnded += DayManager_OnDayEnded;
         Judge.OnJudgeAsking += Judge_OnJudgeAsking;
         Judge.OnJudgeReviewedAnswer += Judge_OnJudgeReviewedAnswer;
+        ButtonSounds.OnButtonHover += ButtonHover_OnButtonHover;
+        ButtonSounds.OnButtonPressed += ButtonSounds_OnButtonPressed;
     }
 
     private void OnDestroy()
@@ -23,6 +25,18 @@ public class SoundManager : Singleton<SoundManager>
         DayManager.Instance.OnDayEnded -= DayManager_OnDayEnded;
         Judge.OnJudgeAsking -= Judge_OnJudgeAsking;
         Judge.OnJudgeReviewedAnswer -= Judge_OnJudgeReviewedAnswer;
+        ButtonSounds.OnButtonHover -= ButtonHover_OnButtonHover;
+        ButtonSounds.OnButtonPressed -= ButtonSounds_OnButtonPressed;
+    }
+
+    private void ButtonSounds_OnButtonPressed(object sender, System.EventArgs e)
+    {
+        PlaySound(_audioClipRefsSO.UIElementClick, transform.position);
+    }
+
+    private void ButtonHover_OnButtonHover(object sender, System.EventArgs e)
+    {
+        PlaySound(_audioClipRefsSO.UIElementSelect, transform.position);
     }
 
     private void Judge_OnJudgeReviewedAnswer(object sender, Judge.ReceivedAnswerArgs e)
