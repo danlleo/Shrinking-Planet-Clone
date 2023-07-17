@@ -37,6 +37,7 @@ public class UnitEconomy : MonoBehaviour
         {
             AddMoneyToCurrentAmount(e.MoneyAmount);
             InstantiateMoneyReceivedAnimation(e.MoneyAmount);
+            SoundManager.Instance.PlayCoinCollectSound();
         }
     }
 

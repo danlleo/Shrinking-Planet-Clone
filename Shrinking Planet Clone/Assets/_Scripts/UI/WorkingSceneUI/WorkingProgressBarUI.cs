@@ -90,8 +90,17 @@ public class WorkingProgressBarUI : MonoBehaviour
             yield return null;
         }
 
-        // Calculate if unit successfully finished work, for now 50% chance
-        bool hasUnitSuccessfullyFinishedWork = UnityEngine.Random.Range(0, 2) == 0;
+        // Calculate if unit successfully finished work, for now 15% chance
+        bool hasUnitSuccessfullyFinishedWork = UnityEngine.Random.value > .15f;
+
+        if (hasUnitSuccessfullyFinishedWork)
+        {
+            SoundManager.Instance.PlayUnitSuccess();
+        }
+        else
+        {
+            SoundManager.Instance.PlayUnitFail();
+        }
 
         _unitEconomy.InvokeOnUnitReadyToReceiveMoney(hasUnitSuccessfullyFinishedWork);
         HideUI();

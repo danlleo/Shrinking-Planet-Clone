@@ -30,15 +30,15 @@ public class JobPickUI : MonoBehaviour
         HideUI();
     }
 
-    private void DayManager_OnDayEnded(object sender, System.EventArgs e)
-    {
-        HideUI();
-    }
-
     private void OnDestroy()
     {
         Unit.OnUnitSelectingJob -= Unit_OnUnitSelectingJob;
         DayManager.Instance.OnDayEnded -= DayManager_OnDayEnded;
+    }
+
+    private void DayManager_OnDayEnded(object sender, System.EventArgs e)
+    {
+        HideUI();
     }
 
     private void Unit_OnUnitSelectingJob(object sender, System.EventArgs e)
@@ -62,6 +62,7 @@ public class JobPickUI : MonoBehaviour
     {
         if (_unit.TryGetComponent(out UnitOccupation unitOccupation))
         {
+            SoundManager.Instance.PlayUnitSetOccupation();
             unitOccupation.SetUnitOccupation(occupation);
             HideUI();
         }

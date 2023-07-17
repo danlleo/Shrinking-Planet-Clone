@@ -65,6 +65,7 @@ public class InterviewUnitUI : MonoBehaviour
             yield return new WaitForSeconds(flickingTimeInSeconds);
             HideUI();
             currentFlickingCount++;
+            SoundManager.Instance.PlayInterviewUnitTalking();
         }
 
         _judge.InvokeJudgeCameraFocus();

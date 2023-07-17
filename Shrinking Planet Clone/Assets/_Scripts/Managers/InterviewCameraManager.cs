@@ -46,7 +46,7 @@ public class InterviewCameraManager : Singleton<InterviewCameraManager>
         Judge.OnJudgeReviewingAnswer -= Judge_OnJudgeReviewingAnswer;
         Judge.OnJudgeCameraFocus -= Judge_OnJudgeCameraFocus;
         Judge.OnJudgeFinishedJob -= Judge_OnJudgeFinishedJob;
-        InterviewUnit.OnInterviewUnitAnswered += InterviewUnit_OnInterviewUnitAnswered;
+        InterviewUnit.OnInterviewUnitAnswered -= InterviewUnit_OnInterviewUnitAnswered;
     }
 
     private void Judge_OnJudgeCameraFocus(object sender, EventArgs e)
@@ -104,6 +104,8 @@ public class InterviewCameraManager : Singleton<InterviewCameraManager>
         float normalizedTime = 0f;
 
         yield return new WaitForSeconds(delayTime);
+
+        SoundManager.Instance.PlayCameraWhooshSound();
 
         while (elapsedTime <= maxTimeInSeconds)
         {

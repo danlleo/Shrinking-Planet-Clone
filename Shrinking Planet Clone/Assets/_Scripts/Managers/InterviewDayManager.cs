@@ -28,9 +28,21 @@ public class InterviewDayManager : Singleton<InterviewDayManager>
 
     public void EndDay()
     {
-        int moneyAmount = SaveGameManager.Instance.GetMoneyAmount();
-        int day = DayManager.Instance.GetCurrentDay() + 1;
+        int companyPosition;
 
-        SaveGameManager.Instance.SaveGame(100, day, moneyAmount);
+        if (JudgeQuestionsManager.Instance.HasFinishedInterviewWithSuccess())
+        {
+            companyPosition = SaveGameManager.Instance.GetCompanyRankPosition() - 10;
+        }
+        else
+        {
+            // Stays the same
+            companyPosition = SaveGameManager.Instance.GetCompanyRankPosition();
+        }
+
+        int day = DayManager.Instance.GetCurrentDay() + 1;
+        int moneyAmount = SaveGameManager.Instance.GetMoneyAmount();
+
+        SaveGameManager.Instance.SaveGame(companyPosition, day, moneyAmount);
     }
 }
