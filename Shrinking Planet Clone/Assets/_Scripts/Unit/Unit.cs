@@ -56,6 +56,7 @@ public class Unit : MonoBehaviour, ISelectable
 
     public void OnMouseEnter()
     {
+        SoundManager.Instance.PlayUnitMouseHover();
         ChangeLayerInObject(_unitVisual, OUTLINE_LAYER);
     }
 

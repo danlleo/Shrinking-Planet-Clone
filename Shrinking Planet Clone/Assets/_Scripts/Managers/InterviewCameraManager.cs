@@ -105,6 +105,8 @@ public class InterviewCameraManager : Singleton<InterviewCameraManager>
 
         yield return new WaitForSeconds(delayTime);
 
+        SoundManager.Instance.PlayCameraWhooshSound();
+
         while (elapsedTime <= maxTimeInSeconds)
         {
             elapsedTime += Time.deltaTime;
