@@ -15,7 +15,7 @@ MonoBehaviour:
   UnitHover: {fileID: 8300000, guid: e4a006c8872c7624daca07effb5c75af, type: 3}
   UnitSelect: {fileID: 8300000, guid: e8d1ba45615cc6a428c273551f772431, type: 3}
   SetUnitOccupation: {fileID: 8300000, guid: faaf5f05df6b4d64cb021f2b0b541d30, type: 3}
-  UnitFail: {fileID: 8300000, guid: 7971be7cf0280dc4f857b0df8b9db45b, type: 3}
+  UnitFail: {fileID: 8300000, guid: b9fd2cd7c58605445a5ea8d5cf4a8cd7, type: 3}
   UnitSuccess: {fileID: 8300000, guid: 0ede4224bd43c0a4a962a761d5369d02, type: 3}
   EndDay: {fileID: 8300000, guid: 03181e9b89044a542893c10cf3497765, type: 3}
   UIElementSelect: {fileID: 8300000, guid: a7f5bd34b24a48c4581386e3bf14ddd7, type: 3}

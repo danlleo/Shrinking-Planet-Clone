@@ -24,6 +24,6 @@ public class DayUI : MonoBehaviour
     private void UpdateDayUI()
     {
         int currentDay = DayManager.Instance.GetCurrentDay();
-        _currentDayText.text = $"Current Day -> {currentDay}";
+        _currentDayText.text = $"Current Day :: {currentDay}";
     }
 }

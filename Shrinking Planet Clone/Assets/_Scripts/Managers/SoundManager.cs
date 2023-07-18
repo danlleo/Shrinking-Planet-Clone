@@ -17,6 +17,7 @@ public class SoundManager : Singleton<SoundManager>
         Judge.OnJudgeReviewedAnswer += Judge_OnJudgeReviewedAnswer;
         ButtonSounds.OnButtonHover += ButtonHover_OnButtonHover;
         ButtonSounds.OnButtonPressed += ButtonSounds_OnButtonPressed;
+        ResolveWorkIssueUI.OnResolvingFailedWorkIssue += ResolveWorkIssueUI_OnResolvingFailedWorkIssue;
     }
 
     private void OnDestroy()
@@ -27,6 +28,12 @@ public class SoundManager : Singleton<SoundManager>
         Judge.OnJudgeReviewedAnswer -= Judge_OnJudgeReviewedAnswer;
         ButtonSounds.OnButtonHover -= ButtonHover_OnButtonHover;
         ButtonSounds.OnButtonPressed -= ButtonSounds_OnButtonPressed;
+        ResolveWorkIssueUI.OnResolvingFailedWorkIssue -= ResolveWorkIssueUI_OnResolvingFailedWorkIssue;
+    }
+
+    private void ResolveWorkIssueUI_OnResolvingFailedWorkIssue(object sender, System.EventArgs e)
+    {
+        PlayUnitFail();
     }
 
     private void ButtonSounds_OnButtonPressed(object sender, System.EventArgs e)

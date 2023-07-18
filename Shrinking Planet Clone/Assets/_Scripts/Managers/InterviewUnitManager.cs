@@ -45,5 +45,5 @@ public class InterviewUnitManager : Singleton<InterviewUnitManager>
         }
     }
 
-    public List<UnitSO> GetInterviewUnitSOList() => _unitInterviewSOList;
+    public IEnumerable<UnitSO> GetInterviewUnitSOList() => _unitInterviewSOList;
 }

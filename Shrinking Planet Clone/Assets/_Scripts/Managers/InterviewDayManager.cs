@@ -33,6 +33,7 @@ public class InterviewDayManager : Singleton<InterviewDayManager>
         if (JudgeQuestionsManager.Instance.HasFinishedInterviewWithSuccess())
         {
             companyPosition = SaveGameManager.Instance.GetCompanyRankPosition() - 10;
+            print(companyPosition);
         }
         else
         {

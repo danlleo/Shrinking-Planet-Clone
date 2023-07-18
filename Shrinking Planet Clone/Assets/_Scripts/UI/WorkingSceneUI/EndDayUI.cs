@@ -42,7 +42,7 @@ public class EndDayUI : MonoBehaviour
 
     private void ShowUnitsDisplaySingleUI()
     {
-        List<Unit> unitList = UnitManager.Instance.GetAllUnits();
+        IEnumerable<Unit> unitList = UnitManager.Instance.GetAllUnits();
 
         foreach (var unit in unitList)
         {

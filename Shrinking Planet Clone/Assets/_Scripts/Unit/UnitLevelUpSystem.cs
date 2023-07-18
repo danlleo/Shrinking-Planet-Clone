@@ -21,13 +21,11 @@ public class UnitLevelUpSystem : Singleton<UnitLevelUpSystem>
 
     private void DayManager_OnDayEnded(object sender, System.EventArgs e)
     {
-        List<Unit> units = UnitManager.Instance.GetAllUnits();
+        IEnumerable<Unit> units = UnitManager.Instance.GetAllUnits();
 
         foreach (var unit in units)
         {
-            UnitLevel unitLevel = unit.GetComponent<UnitLevel>();
-
-            if (unitLevel != null)
+            if (unit.TryGetComponent<UnitLevel>(out var unitLevel))
             {
                 CheckLevelUp(unitLevel);
             }

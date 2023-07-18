@@ -857,12 +857,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _unitVisual: {fileID: 2851192559487154845}
-  _outlineObjectsLayerMask:
-    serializedVersion: 2
-    m_Bits: 2147483648
-  _defaultLayerMask:
-    serializedVersion: 2
-    m_Bits: 1
 --- !u!114 &-7126275568921923396
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1336,6 +1330,21 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 6a776dd0ccafa8b4ba161f5f7ea7745c,
         type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.85
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 6a776dd0ccafa8b4ba161f5f7ea7745c,
+        type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.85
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 6a776dd0ccafa8b4ba161f5f7ea7745c,
+        type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0.85
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 6a776dd0ccafa8b4ba161f5f7ea7745c,
+        type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
       objectReference: {fileID: 0}
@@ -1383,6 +1392,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 6a776dd0ccafa8b4ba161f5f7ea7745c,
+        type: 3}
+      propertyPath: m_ConstrainProportionsScale
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: -8183481454299698827, guid: 6a776dd0ccafa8b4ba161f5f7ea7745c,
         type: 3}
