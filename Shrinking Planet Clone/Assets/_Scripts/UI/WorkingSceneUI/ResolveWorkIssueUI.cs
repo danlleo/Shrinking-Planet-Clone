@@ -25,12 +25,11 @@ public class ResolveWorkIssueUI : MonoBehaviour
             {
                 if (QandAManager.Instance.IsAnswerValid(_currentQAndA, Array.IndexOf(_answerButtons, button)))
                 {
-                    print(true);
                     OnResolvedWorkIssue?.Invoke(_unit, EventArgs.Empty);
                 }
                 else
                 {
-                    print(false);
+                    ScreenShake.Instance.InvokeScreenShake();
                     OnResolvingFailedWorkIssue?.Invoke(_unit, EventArgs.Empty);
                 }
 

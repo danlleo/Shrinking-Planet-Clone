@@ -1,7 +1,7 @@
 using System.Collections;
 using UnityEngine;
 
-public class ScreenShake : MonoBehaviour
+public class ScreenShake : Singleton<ScreenShake>
 {
     private Camera _camera;
 
@@ -9,8 +9,9 @@ public class ScreenShake : MonoBehaviour
     [SerializeField] private float _shakeDuration;
     [SerializeField] private float _shakeReturnToInitialPositionTime;
 
-    private void Awake()
+    protected override void Awake()
     {
+        base.Awake();
         _camera = Camera.main;
     }
 
@@ -32,7 +33,7 @@ public class ScreenShake : MonoBehaviour
         }
     }
 
-    private void InvokeScreenShake()
+    public void InvokeScreenShake()
     {
         StartCoroutine(ScreenShakeRoutine());
     }

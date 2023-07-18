@@ -98,5 +98,5 @@ public class UnitManager : Singleton<UnitManager>
 
     public void RemoveUnit(Unit unit) => _unitList.Remove(unit);
 
-    public List<Unit> GetAllUnits() => _unitList;
+    public IEnumerable<Unit> GetAllUnits() => _unitList;
 }

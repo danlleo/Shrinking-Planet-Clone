@@ -56,7 +56,7 @@ public class UnitPickerUI : MonoBehaviour
 
     private void ShowUnitsInterviewDisplaySingleUI()
     {
-        List<UnitSO> unitSOList = InterviewUnitManager.Instance.GetInterviewUnitSOList();
+        IEnumerable<UnitSO> unitSOList = InterviewUnitManager.Instance.GetInterviewUnitSOList();
 
         foreach (UnitSO unitSO in unitSOList)
         {
