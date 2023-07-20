@@ -24,7 +24,6 @@ public class UnitWalkingState : UnitBaseState
         
         if (Vector3.Distance(_unit.transform.position, _targetDeskPosition) <= _stoppingDistance)
         {
-            Debug.Log("Reached");
             _navmeshAgent.isStopped = true;
             unitStateManager.SwitchState(unitStateManager._reachedDeskState);
         }
