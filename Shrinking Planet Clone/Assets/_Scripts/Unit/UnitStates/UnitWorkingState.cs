@@ -34,6 +34,7 @@ public class UnitWorkingState : UnitBaseState
         _unit = unitStateManager.GetComponent<Unit>();
         _unitEconomy = unitStateManager.GetComponent<UnitEconomy>();
         _unitOccupation = unitStateManager.GetComponent<UnitOccupation>();
+        _unit.transform.rotation = _unit.GetUnitReachedDeskRotaion();
 
         _unit.InvokeUnitBeganWorkEvent();
         _unit.InvokeUnitPerformedWorkPiece();
