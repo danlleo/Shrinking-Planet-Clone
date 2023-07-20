@@ -57,6 +57,8 @@ public class Unit : MonoBehaviour, ISelectable
 
     public Vector3 GetUnitDeskPosition() => _unitSO.UnitTargetDeskPosition;
 
+    public Vector3 GetUnitPlaceOnChairPosition() => _unitSO.UnitPlaceOnChairPosition;
+
     public Quaternion GetUnitReachedDeskRotaion() => Quaternion.Euler(_unitSO.UnitTargetReachedDeskRotation);
 
     public NavMeshAgent GetUnitNavmeshAgent() => _navmeshAgent;

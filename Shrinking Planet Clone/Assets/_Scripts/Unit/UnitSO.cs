@@ -10,6 +10,7 @@ public class UnitSO : ScriptableObject
     public Vector3 UnitSpawnRotation;
     public Vector3 UnitTargetDeskPosition;
     public Vector3 UnitTargetReachedDeskRotation;
+    public Vector3 UnitPlaceOnChairPosition;
     public Sprite UnitDisplayImage;
     public Sprite UnitOccupationImage;
 }

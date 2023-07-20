@@ -16,9 +16,10 @@ MonoBehaviour:
   Greetings: Hello!
   DefaultOccupation: 0
   UnitSpawnPosition: {x: 1.85, y: 0, z: 3.9}
-  UnitSpawnRotation: {x: 0, y: 180, z: 0}
-  UnitTargetDeskPosition: {x: 0.36600006, y: 0.031, z: 3.5239997}
-  UnitTargetReachedDeskRotation: {x: 0, y: -90, z: 0}
+  UnitSpawnRotation: {x: 0, y: -180, z: 0}
+  UnitTargetDeskPosition: {x: -1.019, y: 0.031, z: 2.713}
+  UnitTargetReachedDeskRotation: {x: 0, y: 0, z: 0}
+  UnitPlaceOnChairPosition: {x: -1.019, y: 0.07500002, z: 2.6000001}
   UnitDisplayImage: {fileID: 21300000, guid: 0a02e8caba0ff974195ed73db8a9aba4, type: 3}
   UnitOccupationImage: {fileID: 21300000, guid: 3a4074a13d154e1438931fa53cf9fa06,
     type: 3}

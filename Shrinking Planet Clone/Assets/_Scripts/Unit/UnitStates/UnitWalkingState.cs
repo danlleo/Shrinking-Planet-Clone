@@ -6,7 +6,7 @@ public class UnitWalkingState : UnitBaseState
     private Unit _unit;
     private NavMeshAgent _navmeshAgent;
 
-    private float _stoppingDistance = .01f;
+    private float _stoppingDistance = .25f;
 
     private Vector3 _targetDeskPosition;
 
@@ -22,9 +22,10 @@ public class UnitWalkingState : UnitBaseState
     {
         _navmeshAgent.SetDestination(_targetDeskPosition);
         
-        if (_navmeshAgent.remainingDistance <= _stoppingDistance)
+        if (Vector3.Distance(_unit.transform.position, _targetDeskPosition) <= _stoppingDistance)
         {
             Debug.Log("Reached");
+            _navmeshAgent.isStopped = true;
             unitStateManager.SwitchState(unitStateManager._reachedDeskState);
         }
     }
