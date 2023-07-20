@@ -1,33 +1,30 @@
 using UnityEngine;
+using UnityEngine.AI;
 
 public class UnitWalkingState : UnitBaseState
 {
     private Unit _unit;
+    private NavMeshAgent _navmeshAgent;
 
-    private float _moveSpeed = 4f;
-    private float _rotateSpeed = 10f;
-    private float _stoppingDistance = .1f;
+    private float _stoppingDistance = .25f;
+
+    private Vector3 _targetDeskPosition;
 
     public override void EnterState(UnitStateManager unitStateManager)
     {
         _unit = unitStateManager.GetComponent<Unit>();
+        _navmeshAgent = _unit.GetUnitNavmeshAgent();
+        _targetDeskPosition = _unit.GetUnitDeskPosition();
         _unit.InvokeUnitMovedEvent();
     }
 
     public override void UpdateState(UnitStateManager unitStateManager)
     {
-        Vector3 moveDirection = (_unit.GetUnitDeskPosition() - _unit.transform.position).normalized;
-
-        // Set rotation in which Unit is looking
-        _unit.transform.forward = Vector3.Slerp(_unit.transform.forward, moveDirection, Time.deltaTime * _rotateSpeed);
-
-        if (Vector3.Distance(_unit.transform.position, _unit.GetUnitDeskPosition()) > _stoppingDistance)
+        _navmeshAgent.SetDestination(_targetDeskPosition);
+        
+        if (Vector3.Distance(_unit.transform.position, _targetDeskPosition) <= _stoppingDistance)
         {
-            // If can move -> move
-            _unit.transform.position += _moveSpeed * Time.deltaTime * moveDirection;
-        }
-        else
-        {
+            _navmeshAgent.isStopped = true;
             unitStateManager.SwitchState(unitStateManager._reachedDeskState);
         }
     }

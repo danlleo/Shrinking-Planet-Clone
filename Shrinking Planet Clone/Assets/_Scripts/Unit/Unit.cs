@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class Unit : MonoBehaviour, ISelectable
 {
@@ -15,6 +16,7 @@ public class Unit : MonoBehaviour, ISelectable
     public event EventHandler OnUnitPerformedWorkPiece;
 
     [SerializeField] private GameObject _unitVisual;
+    [SerializeField] private NavMeshAgent _navmeshAgent;
 
     private UnitSO _unitSO;
 
@@ -28,6 +30,7 @@ public class Unit : MonoBehaviour, ISelectable
     {
         _unitSO = unitSO;
         transform.position = _unitSO.UnitSpawnPosition;
+        transform.rotation = Quaternion.Euler(_unitSO.UnitSpawnRotation);
     }
 
     public void InvokeUnitSelectingJobEvent() => OnUnitSelectingJob?.Invoke(this, EventArgs.Empty);
@@ -53,6 +56,12 @@ public class Unit : MonoBehaviour, ISelectable
     public Vector3 GetUnitSpawnPosition() => _unitSO.UnitSpawnPosition;
 
     public Vector3 GetUnitDeskPosition() => _unitSO.UnitTargetDeskPosition;
+
+    public Vector3 GetUnitPlaceOnChairPosition() => _unitSO.UnitPlaceOnChairPosition;
+
+    public Quaternion GetUnitReachedDeskRotaion() => Quaternion.Euler(_unitSO.UnitTargetReachedDeskRotation);
+
+    public NavMeshAgent GetUnitNavmeshAgent() => _navmeshAgent;
 
     public void OnMouseEnter()
     {

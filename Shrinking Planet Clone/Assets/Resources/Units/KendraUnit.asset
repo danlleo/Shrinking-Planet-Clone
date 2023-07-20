@@ -15,8 +15,11 @@ MonoBehaviour:
   UnitName: Kendra
   Greetings: Greetings!
   DefaultOccupation: 3
-  UnitSpawnPosition: {x: 2.5, y: 0, z: 0}
-  UnitTargetDeskPosition: {x: 2.5, y: 0, z: 2.5}
+  UnitSpawnPosition: {x: 1.85, y: 0, z: 3.9}
+  UnitSpawnRotation: {x: 0, y: 180, z: 0}
+  UnitTargetDeskPosition: {x: -0.1690002, y: 0.030999988, z: -0.031000227}
+  UnitTargetReachedDeskRotation: {x: 0, y: -90, z: 0}
+  UnitPlaceOnChairPosition: {x: -0.29143238, y: 0.07500002, z: -0.05140557}
   UnitDisplayImage: {fileID: 21300000, guid: acea65b43b1d26b45a243fb8c183e037, type: 3}
   UnitOccupationImage: {fileID: 21300000, guid: 3d6448eb6f4877346963cc32be2c5d94,
     type: 3}

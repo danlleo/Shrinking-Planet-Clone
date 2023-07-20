@@ -12,6 +12,6 @@ public class MoneyReceivedAnimationPrefab : MonoBehaviour
 
     public void SetMoneyReceivedText(int moneyAmount)
     {
-        _moneyReceivedText.text = "+" + moneyAmount.ToString();
+        _moneyReceivedText.text = "$" + moneyAmount.ToString();
     }
 }

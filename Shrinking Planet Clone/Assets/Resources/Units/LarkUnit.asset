@@ -15,8 +15,11 @@ MonoBehaviour:
   UnitName: Lark
   Greetings: Hey!
   DefaultOccupation: 2
-  UnitSpawnPosition: {x: 0, y: 0, z: 0}
-  UnitTargetDeskPosition: {x: 0, y: 0, z: 2.5}
+  UnitSpawnPosition: {x: 1.85, y: 0, z: 3.9}
+  UnitSpawnRotation: {x: 0, y: 180, z: 0}
+  UnitTargetDeskPosition: {x: 1.865998, y: 0.031, z: 0.77399963}
+  UnitTargetReachedDeskRotation: {x: 0, y: 180, z: 0}
+  UnitPlaceOnChairPosition: {x: 1.865998, y: 0.07500002, z: 0.458}
   UnitDisplayImage: {fileID: 21300000, guid: 50a43e4df2ecd2b4085a51d060794d9a, type: 3}
   UnitOccupationImage: {fileID: 21300000, guid: a38fc54087960da45874a70d978d6912,
     type: 3}
