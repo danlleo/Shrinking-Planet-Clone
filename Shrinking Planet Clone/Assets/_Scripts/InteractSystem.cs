@@ -4,6 +4,8 @@ public class InteractSystem : MonoBehaviour
 {
     private Camera _camera;
 
+    private bool _areHandsBusy;
+
     private void Awake()
     {
         _camera = Camera.main;
@@ -12,6 +14,9 @@ public class InteractSystem : MonoBehaviour
     private void Update()
     {
         if (!InputManager.Instance.IsMouseButtonDownThisFrame())
+            return;
+
+        if (_areHandsBusy)
             return;
 
         Vector3 cameraPosition = _camera.transform.position;

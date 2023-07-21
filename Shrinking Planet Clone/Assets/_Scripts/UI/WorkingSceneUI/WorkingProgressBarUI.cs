@@ -10,6 +10,7 @@ public class WorkingProgressBarUI : MonoBehaviour
     [SerializeField] private UnitEconomy _unitEconomy;
     [SerializeField] private Image _progressBarForeground;
 
+    private float _chanceToFinishWorkWithTroubles = .15f;
     private float _maxTimeInSeconds = 5f;
     private float _normalizedTime = 0f;
 
@@ -90,8 +91,7 @@ public class WorkingProgressBarUI : MonoBehaviour
             yield return null;
         }
 
-        // Calculate if unit successfully finished work, for now 15% chance
-        bool hasUnitSuccessfullyFinishedWork = UnityEngine.Random.value > .15f;
+        bool hasUnitSuccessfullyFinishedWork = UnityEngine.Random.value > _chanceToFinishWorkWithTroubles;
 
         if (hasUnitSuccessfullyFinishedWork)
         {

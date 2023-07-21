@@ -1,4 +1,5 @@
 using System;
+using System.Diagnostics;
 using static UnitEconomy;
 
 public class UnitWorkingState : UnitBaseState
@@ -83,7 +84,9 @@ public class UnitWorkingState : UnitBaseState
             _canUnitWork = false;
             return;
         }
-        
+
+        // ... 
+
         _canUnitWork = true;
     }
 
