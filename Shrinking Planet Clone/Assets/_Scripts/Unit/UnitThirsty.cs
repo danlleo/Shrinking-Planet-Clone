@@ -1,21 +1,20 @@
 using UnityEngine;
 
-public class TrashBin : MonoBehaviour, IInteractable
+public class UnitThirsty : MonoBehaviour, IInteractable
 {
+    [SerializeField] private Unit _unit;
     [SerializeField] private UnitNeedType _unitNeedType;
 
     public void Interact()
     {
-        if (!InteractSystem.Instance.AreHandsBusy()) 
+        if (!InteractSystem.Instance.AreHandsBusy())
             return;
 
         if (UnitNeedManager.Instance.GetCurrentNeed().Type == _unitNeedType)
         {
-            Unit unit = UnitNeedManager.Instance.GetUnitWithNeed();
+            _unit.InvokeUnitNeedFulfilled();
 
-            unit.InvokeUnitNeedFulfilled();
-
-            print("Recycled");
+            print("Drank water");
 
             return;
         }

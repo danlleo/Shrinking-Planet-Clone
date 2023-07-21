@@ -11,7 +11,20 @@ public class DayTimer : MonoBehaviour
 
     private void Start()
     {
+        ShowTimer();
         InvokeTimer();
+
+        DayManager.Instance.OnDayEnded += DayManager_OnDayEnded;
+    }
+
+    private void OnDestroy()
+    {
+        DayManager.Instance.OnDayEnded -= DayManager_OnDayEnded;
+    }
+
+    private void DayManager_OnDayEnded(object sender, System.EventArgs e)
+    {
+        HideTimer();
     }
 
     protected void InvokeTimer() => StartCoroutine(TimerCountDownInSecondsRoutine());
@@ -30,4 +43,8 @@ public class DayTimer : MonoBehaviour
 
         DayManager.Instance.InvokeOnDayEndedEvent();
     }
+
+    private void ShowTimer() => gameObject.SetActive(true);
+
+    private void HideTimer() => gameObject.SetActive(false);
 }

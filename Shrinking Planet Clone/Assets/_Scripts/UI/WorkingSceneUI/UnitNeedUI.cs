@@ -12,6 +12,18 @@ public class UnitNeedUI : MonoBehaviour
         HideUI();
 
         _unit.OnUnitNeedRequested += Unit_OnUnitNeedRequested;
+        _unit.OnUnitNeedFulfilled += Unit_OnUnitNeedFulfilled;
+    }
+
+    private void OnDestroy()
+    {
+        _unit.OnUnitNeedRequested -= Unit_OnUnitNeedRequested;
+        _unit.OnUnitNeedFulfilled -= Unit_OnUnitNeedFulfilled;
+    }
+
+    private void Unit_OnUnitNeedFulfilled(object sender, System.EventArgs e)
+    {
+        HideUI();
     }
 
     private void Unit_OnUnitNeedRequested(object sender, Unit.UnitNeedRequestedArgs e)

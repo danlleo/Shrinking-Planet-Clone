@@ -10,8 +10,10 @@ public class WaterDrinkerUI : MonoBehaviour
     [SerializeField] private Sprite _readyToFillSprite;
     [SerializeField] private Sprite _readyToDrinkSprite;
     [SerializeField] private Image _progressBarBackground;
+    [SerializeField] private UnitNeedType _unitNeedType;
 
     private bool _isFilling;
+    private bool _isFilled;
 
     private float _fillingTimeInSeconds = 3.5f;
 
@@ -32,9 +34,18 @@ public class WaterDrinkerUI : MonoBehaviour
     {
         if (!_isFilling)
         {
+            // Start filling it...
+
             ShowProgressBar();
             HideWaterStateIcon();
             StartCoroutine(FillWaterDrinkerProgressBarRoutine());
+        }
+
+        if (_isFilled)
+        {
+            // Grab the water to give it to the unit
+            print("Filled");
+            InteractSystem.Instance.SetHandsBusyBy(_unitNeedType);
         }
     }
 
@@ -50,6 +61,8 @@ public class WaterDrinkerUI : MonoBehaviour
 
     private IEnumerator FillWaterDrinkerProgressBarRoutine()
     {
+        _isFilling = true;
+
         float timer = 0f;
         while (timer <  _fillingTimeInSeconds)
         {
@@ -62,5 +75,7 @@ public class WaterDrinkerUI : MonoBehaviour
         HideProgressBar();
         ShowWaterStateIcon();
         SetWaterIconStateSprite(_readyToDrinkSprite);
+
+        _isFilled = true;
     }
 }

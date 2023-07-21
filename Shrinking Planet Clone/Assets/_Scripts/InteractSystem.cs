@@ -1,22 +1,22 @@
 using UnityEngine;
 
-public class InteractSystem : MonoBehaviour
+public class InteractSystem : Singleton<InteractSystem>
 {
     private Camera _camera;
 
     private bool _areHandsBusy;
 
-    private void Awake()
+    private UnitNeedType _unitNeedType;
+
+    protected override void Awake()
     {
+        base.Awake();
         _camera = Camera.main;
     }
 
     private void Update()
     {
         if (!InputManager.Instance.IsMouseButtonDownThisFrame())
-            return;
-
-        if (_areHandsBusy)
             return;
 
         Vector3 cameraPosition = _camera.transform.position;
@@ -26,7 +26,18 @@ public class InteractSystem : MonoBehaviour
             if (hitInfo.collider.TryGetComponent(out IInteractable interactable))
             {
                 interactable.Interact();
+                return;
             }
         }
     }
+
+    public void SetHandsBusyBy(UnitNeedType unitNeedType)
+    {
+        _areHandsBusy = true;
+        _unitNeedType = unitNeedType;
+    }
+
+    public void SetHandsFree() => _areHandsBusy = false;
+
+    public bool AreHandsBusy() => _areHandsBusy;
 }
