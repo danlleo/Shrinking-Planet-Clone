@@ -937,6 +937,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _unit: {fileID: 2131034762636864313}
+  _unitNeed:
+    Icon: {fileID: 0}
+    Type: 3
   _unitNeedType: 0
 --- !u!195 &4634508288576432035
 NavMeshAgent:

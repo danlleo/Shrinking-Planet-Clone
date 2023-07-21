@@ -125,9 +125,13 @@ public class UnitWorkingState : UnitBaseState
                 {
                     if (_hasRequest)
                     {
-                        InteractSystem.Instance.SetHandsBusyBy(_unitNeedType);
-                        UnitNeedManager.Instance.SetCurrentNeed(_unitNeed);
-                        UnitNeedManager.Instance.SetUnitWithNeed(_unit);
+                        if (_unitNeed.Type != UnitNeedType.Thirsty)
+                        {
+                            InteractSystem.Instance.SetHandsBusyBy(_unitNeedType);
+                            UnitNeedManager.Instance.SetCurrentNeed(_unitNeed);
+                            UnitNeedManager.Instance.SetUnitWithNeed(_unit);
+                        }
+
                         return;
                     }
     

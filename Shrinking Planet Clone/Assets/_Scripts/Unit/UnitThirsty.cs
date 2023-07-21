@@ -3,6 +3,7 @@ using UnityEngine;
 public class UnitThirsty : MonoBehaviour, IInteractable
 {
     [SerializeField] private Unit _unit;
+    [SerializeField] private UnitNeed _unitNeed;
     [SerializeField] private UnitNeedType _unitNeedType;
 
     public void Interact()
@@ -14,8 +15,7 @@ public class UnitThirsty : MonoBehaviour, IInteractable
         {
             _unit.InvokeUnitNeedFulfilled();
 
-            print("Drank water");
-
+            InteractSystem.Instance.SetHandsFree();
             return;
         }
     }

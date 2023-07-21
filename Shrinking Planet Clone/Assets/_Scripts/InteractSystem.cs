@@ -28,6 +28,10 @@ public class InteractSystem : Singleton<InteractSystem>
                 interactable.Interact();
                 return;
             }
+            else
+            {
+                SetHandsFree();
+            }
         }
     }
 

@@ -2345,6 +2345,7 @@ GameObject:
   - component: {fileID: 640126321}
   - component: {fileID: 640126323}
   - component: {fileID: 640126322}
+  - component: {fileID: 640126324}
   m_Layer: 0
   m_Name: OfficeCabinetIcon
   m_TagString: Untagged
@@ -2410,6 +2411,27 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 640126320}
   m_CullTransparentMesh: 1
+--- !u!95 &640126324
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 640126320}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: b2c15a1cbc0eb24409d60bd99242a15f, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!4 &647518766 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8962783884462150239, guid: 2ac7e6eb682174e7f8af567817914142,
@@ -5298,6 +5320,7 @@ GameObject:
   - component: {fileID: 1341415113}
   - component: {fileID: 1341415115}
   - component: {fileID: 1341415114}
+  - component: {fileID: 1341415116}
   m_Layer: 0
   m_Name: WaterStateIcon
   m_TagString: Untagged
@@ -5363,6 +5386,27 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1341415112}
   m_CullTransparentMesh: 1
+--- !u!95 &1341415116
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1341415112}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 6f53bf6b0a7b10a44a478be45dc96eea, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &1355657656
 GameObject:
   m_ObjectHideFlags: 0
@@ -8951,6 +8995,10 @@ MonoBehaviour:
   _readyToDrinkSprite: {fileID: 21300000, guid: cb5c5efc663e2364ab0b2dc4b476a66a,
     type: 3}
   _progressBarBackground: {fileID: 5633327}
+  _unitNeed:
+    Icon: {fileID: 21300000, guid: d822d817e947dc74dac860e4f327e69b, type: 3}
+    Type: 0
+  _unitNeedType: 0
 --- !u!114 &2085827337
 MonoBehaviour:
   m_ObjectHideFlags: 0

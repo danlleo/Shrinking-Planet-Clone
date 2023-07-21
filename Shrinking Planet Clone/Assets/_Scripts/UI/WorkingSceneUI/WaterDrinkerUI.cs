@@ -10,6 +10,7 @@ public class WaterDrinkerUI : MonoBehaviour
     [SerializeField] private Sprite _readyToFillSprite;
     [SerializeField] private Sprite _readyToDrinkSprite;
     [SerializeField] private Image _progressBarBackground;
+    [SerializeField] private UnitNeed _unitNeed;
     [SerializeField] private UnitNeedType _unitNeedType;
 
     private bool _isFilling;
@@ -43,9 +44,13 @@ public class WaterDrinkerUI : MonoBehaviour
 
         if (_isFilled)
         {
-            // Grab the water to give it to the unit
-            print("Filled");
             InteractSystem.Instance.SetHandsBusyBy(_unitNeedType);
+            UnitNeedManager.Instance.SetCurrentNeed(_unitNeed);
+
+            _isFilled = false;
+            _isFilling = false;
+
+            SetWaterIconStateSprite(_readyToFillSprite);
         }
     }
 
