@@ -5735,7 +5735,7 @@ GameObject:
   - component: {fileID: 1387779804}
   - component: {fileID: 1387779803}
   m_Layer: 0
-  m_Name: NeedManager
+  m_Name: UnitNeedManager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5753,6 +5753,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7170585c4c215d943876b39e0eecf576, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _unitNeedList:
+  - Icon: {fileID: 21300000, guid: d822d817e947dc74dac860e4f327e69b, type: 3}
+    Type: 0
+  - Icon: {fileID: 21300000, guid: 1584e44a835401c43bd15fd13627c8b9, type: 3}
+    Type: 1
+  - Icon: {fileID: 21300000, guid: 9da6e33e03c55ef4f87831beda769d57, type: 3}
+    Type: 2
 --- !u!4 &1387779804
 Transform:
   m_ObjectHideFlags: 0

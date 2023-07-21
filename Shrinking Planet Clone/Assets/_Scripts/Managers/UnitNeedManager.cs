@@ -1,17 +1,14 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 public class UnitNeedManager : Singleton<UnitNeedManager>
 {
-    private string[] _needs = new string[3];
+    [SerializeField] private List<UnitNeed> _unitNeedList = new List<UnitNeed>();
 
     protected override void Awake()
     {
         base.Awake();
-
-        _needs[0] = "Water";
-        _needs[1] = "Documents";
-        _needs[2] = "Trash";
     }
 
-    public string GetRandomNeed() => _needs[Random.Range(0, _needs.Length)];
+    public UnitNeed GetRandomNeed() => _unitNeedList[Random.Range(0, _unitNeedList.Count)];
 }

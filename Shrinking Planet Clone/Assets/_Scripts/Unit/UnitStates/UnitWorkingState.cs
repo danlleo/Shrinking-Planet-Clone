@@ -24,6 +24,7 @@ public class UnitWorkingState : UnitBaseState
 
     private bool _isReadyToRecievePayment;
     private bool _canUnitWork;
+    private bool _hasRequest;
 
     private int _defaultRecieveUnitMoney = 100;
 
@@ -85,8 +86,11 @@ public class UnitWorkingState : UnitBaseState
             return;
         }
 
-        // ... 
+        UnitNeed randomUnitNeed = UnitNeedManager.Instance.GetRandomNeed();
 
+        _unit.InvokeUnitNeedRequest(randomUnitNeed);
+
+        _hasRequest = true;
         _canUnitWork = true;
     }
 
@@ -102,6 +106,9 @@ public class UnitWorkingState : UnitBaseState
 
     private void HandleUnitRecievedPayment()
     {
+        if (_hasRequest)
+            return;
+
         if (!_isReadyToRecievePayment)
             return;
 
