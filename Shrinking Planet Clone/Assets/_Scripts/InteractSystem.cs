@@ -1,11 +1,16 @@
 using UnityEngine;
 
-public class InteractSystem : MonoBehaviour
+public class InteractSystem : Singleton<InteractSystem>
 {
     private Camera _camera;
 
-    private void Awake()
+    private bool _areHandsBusy;
+
+    private UnitNeedType _unitNeedType;
+
+    protected override void Awake()
     {
+        base.Awake();
         _camera = Camera.main;
     }
 
@@ -21,7 +26,22 @@ public class InteractSystem : MonoBehaviour
             if (hitInfo.collider.TryGetComponent(out IInteractable interactable))
             {
                 interactable.Interact();
+                return;
+            }
+            else
+            {
+                SetHandsFree();
             }
         }
     }
+
+    public void SetHandsBusyBy(UnitNeedType unitNeedType)
+    {
+        _areHandsBusy = true;
+        _unitNeedType = unitNeedType;
+    }
+
+    public void SetHandsFree() => _areHandsBusy = false;
+
+    public bool AreHandsBusy() => _areHandsBusy;
 }

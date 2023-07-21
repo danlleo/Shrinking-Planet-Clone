@@ -2,8 +2,22 @@ using UnityEngine;
 
 public class TrashBin : MonoBehaviour, IInteractable
 {
+    [SerializeField] private UnitNeedType _unitNeedType;
+
     public void Interact()
     {
-        print("Tash Bin");
+        if (!InteractSystem.Instance.AreHandsBusy()) 
+            return;
+
+        if (UnitNeedManager.Instance.GetCurrentNeed().Type == _unitNeedType)
+        {
+            Unit unit = UnitNeedManager.Instance.GetUnitWithNeed();
+
+            unit.InvokeUnitNeedFulfilled();
+
+            print("Recycled");
+
+            return;
+        }
     }
 }

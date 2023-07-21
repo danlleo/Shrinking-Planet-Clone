@@ -1,4 +1,5 @@
 using System;
+using System.Diagnostics;
 using static UnitEconomy;
 
 public class UnitWorkingState : UnitBaseState
@@ -20,9 +21,12 @@ public class UnitWorkingState : UnitBaseState
     private UnitEconomy _unitEconomy;
     private UnitOccupation _unitOccupation;
     private UnitStateManager _unitStateManager;
+    private UnitNeed _unitNeed;
+    private UnitNeedType _unitNeedType;
 
     private bool _isReadyToRecievePayment;
     private bool _canUnitWork;
+    private bool _hasRequest;
 
     private int _defaultRecieveUnitMoney = 100;
 
@@ -41,11 +45,17 @@ public class UnitWorkingState : UnitBaseState
         _unit.InvokeUnitBeganWorkEvent();
         _unit.InvokeUnitPerformedWorkPiece();
 
+        _unit.OnUnitNeedFulfilled += Unit_OnUnitNeedFulfilled;
         _unitEconomy.OnUnitReceivedMoney += UnitEconomy_OnUnitReceivedMoney; ;
         _unitEconomy.OnUnitReadyToReceiveMoney += UnitEconomy_OnUnitReadyToReceiveMoney;
         DayManager.Instance.OnDayEnded += DayManager_OnDayEnded;
         ResolveWorkIssueUI.OnResolvedWorkIssue += ResolveWorkIssueUI_OnResolvedWorkIssue;
         ResolveWorkIssueUI.OnResolvingFailedWorkIssue += ResolveWorkIssueUI_OnResolvingFailedWorkIssue;
+    }
+
+    private void Unit_OnUnitNeedFulfilled(object sender, EventArgs e)
+    {
+        _hasRequest = false;
     }
 
     private void ResolveWorkIssueUI_OnResolvingFailedWorkIssue(object sender, EventArgs e)
@@ -83,7 +93,15 @@ public class UnitWorkingState : UnitBaseState
             _canUnitWork = false;
             return;
         }
-        
+
+        UnitNeed randomUnitNeed = UnitNeedManager.Instance.GetRandomNeed();
+
+        _unitNeed = randomUnitNeed;
+        _unitNeedType = randomUnitNeed.Type;
+
+        _unit.InvokeUnitNeedRequest(randomUnitNeed);
+
+        _hasRequest = true;
         _canUnitWork = true;
     }
 
@@ -99,15 +117,27 @@ public class UnitWorkingState : UnitBaseState
 
     private void HandleUnitRecievedPayment()
     {
-        if (!_isReadyToRecievePayment)
-            return;
-
         if (InputManager.Instance.IsMouseButtonDownThisFrame())
         {
             if (UnitActionSystem.Instance.TryGetSelectedUnit(out Unit selectedUnit))
             {
                 if (ReferenceEquals(selectedUnit, _unit))
                 {
+                    if (_hasRequest)
+                    {
+                        if (_unitNeed.Type != UnitNeedType.Thirsty)
+                        {
+                            InteractSystem.Instance.SetHandsBusyBy(_unitNeedType);
+                            UnitNeedManager.Instance.SetCurrentNeed(_unitNeed);
+                            UnitNeedManager.Instance.SetUnitWithNeed(_unit);
+                        }
+
+                        return;
+                    }
+    
+                    if (!_isReadyToRecievePayment)
+                        return;
+
                     // Calculate amount that unit received, if occupation set properly unit will receive full amount, otherwise - loose percent
                     int unitMoneyAmountReceived = _unitOccupation.GetUnitOccupation() == _unitOccupation.GetDefaultUnitOccupation()
                         ? _defaultRecieveUnitMoney

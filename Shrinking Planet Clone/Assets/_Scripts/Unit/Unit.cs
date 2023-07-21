@@ -14,6 +14,19 @@ public class Unit : MonoBehaviour, ISelectable
     public event EventHandler OnUnitMoved;
     public event EventHandler OnUnitBeganWork;
     public event EventHandler OnUnitPerformedWorkPiece;
+    public event EventHandler<UnitNeedRequestedArgs> OnUnitNeedRequested;
+
+    public class UnitNeedRequestedArgs : EventArgs
+    {
+        public UnitNeed RequestedNeed;
+
+        public UnitNeedRequestedArgs (UnitNeed requestedNeed)
+        {
+            RequestedNeed = requestedNeed;
+        }
+    }
+
+    public event EventHandler OnUnitNeedFulfilled;
 
     [SerializeField] private GameObject _unitVisual;
     [SerializeField] private NavMeshAgent _navmeshAgent;
@@ -42,6 +55,10 @@ public class Unit : MonoBehaviour, ISelectable
     public void InvokeUnitBeganWorkEvent() => OnUnitBeganWork?.Invoke(this, EventArgs.Empty);
 
     public void InvokeUnitPerformedWorkPiece() => OnUnitPerformedWorkPiece?.Invoke(this, EventArgs.Empty);
+
+    public void InvokeUnitNeedRequest(UnitNeed unitNeed) => OnUnitNeedRequested?.Invoke(this, new UnitNeedRequestedArgs(unitNeed));
+
+    public void InvokeUnitNeedFulfilled() => OnUnitNeedFulfilled?.Invoke(this, EventArgs.Empty);
 
     public string GetUnitSOName() => _unitSO.name;
 

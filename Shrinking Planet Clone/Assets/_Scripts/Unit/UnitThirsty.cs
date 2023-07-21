@@ -1,7 +1,9 @@
 using UnityEngine;
 
-public class OfficeCabinet : MonoBehaviour, IInteractable
+public class UnitThirsty : MonoBehaviour, IInteractable
 {
+    [SerializeField] private Unit _unit;
+    [SerializeField] private UnitNeed _unitNeed;
     [SerializeField] private UnitNeedType _unitNeedType;
 
     public void Interact()
@@ -11,12 +13,9 @@ public class OfficeCabinet : MonoBehaviour, IInteractable
 
         if (UnitNeedManager.Instance.GetCurrentNeed().Type == _unitNeedType)
         {
-            Unit unit = UnitNeedManager.Instance.GetUnitWithNeed();
+            _unit.InvokeUnitNeedFulfilled();
 
-            unit.InvokeUnitNeedFulfilled();
-
-            print("Placed documents");
-
+            InteractSystem.Instance.SetHandsFree();
             return;
         }
     }
