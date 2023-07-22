@@ -45,6 +45,7 @@ public class WaterDrinkerUI : MonoBehaviour
         if (_isFilled)
         {
             InteractSystem.Instance.SetHandsBusyBy(_unitNeedType);
+            InteractSystem.Instance.InvokeObjectPickUp(_unitNeed.PickUpIcon);
             UnitNeedManager.Instance.SetCurrentNeed(_unitNeed);
 
             _isFilled = false;

@@ -9,7 +9,7 @@ public class UnitManager : Singleton<UnitManager>
     private List<Unit> _unitList = new List<Unit>();
     private List<UnitData> _unitDataList = new List<UnitData>();
 
-    private float _spawnUnitDelayInSeconds = 2f;
+    private float _spawnUnitDelayInSeconds = 4f;
 
     protected override void Awake()
     {

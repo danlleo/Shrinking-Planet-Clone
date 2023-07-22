@@ -4,20 +4,30 @@ public class UnitAnimator : MonoBehaviour
 {
     [SerializeField] private Animator _animator;
 
+    private Unit _unit;
+
     private void Start()
     {
         if (TryGetComponent<Unit>(out Unit unit))
         {
-            unit.OnUnitSpawned += Unit_OnUnitSpawned;
-            unit.OnUnitMoved += Unit_OnUnitMoved;
-            unit.OnUnitBeganWork += Unit_OnUnitBeganWork;
-            unit.OnUnitReachedDesk += Unit_OnUnitReachedDesk;
+            _unit = unit;
+
+            _unit.OnUnitMoved += Unit_OnUnitMoved;
+            _unit.OnUnitBeganWork += Unit_OnUnitBeganWork;
+            _unit.OnUnitReachedDesk += Unit_OnUnitReachedDesk;
         }
+
+        UnitIdleState.OnUnitSpawned += UnitIdleState_OnUnitSpawned;
     }
 
     private void OnDestroy()
     {
-        // Think about it here later
+        UnitIdleState.OnUnitSpawned -= UnitIdleState_OnUnitSpawned;
+    }
+
+    private void UnitIdleState_OnUnitSpawned(object sender, System.EventArgs e)
+    {
+        _animator.SetTrigger(UnitAnimationParams.OnUnitSpawn);
     }
 
     private void Unit_OnUnitReachedDesk(object sender, System.EventArgs e)
@@ -34,10 +44,5 @@ public class UnitAnimator : MonoBehaviour
     private void Unit_OnUnitMoved(object sender, System.EventArgs e)
     {
         _animator.SetBool(UnitAnimationParams.IsWalking, true);
-    }
-
-    private void Unit_OnUnitSpawned(object sender, System.EventArgs e)
-    {
-        _animator.SetTrigger(UnitAnimationParams.OnUnitSpawn);
     }
 }

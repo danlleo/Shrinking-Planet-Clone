@@ -56,7 +56,7 @@ public class QuestionsUI : Singleton<QuestionsUI>
         int maxQuestionCount = JudgeQuestionsManager.Instance.GetMaxQuestionsCount();
 
         _maxQuestionCount = maxQuestionCount;
-        _correctQuestionsText.text = $"Correct Questions: 0 / {_maxQuestionCount}";
+        _correctQuestionsText.text = $"Correct Questions :: 0 / {_maxQuestionCount}";
     }
 
     private void ShowUI() => _questionsUI.SetActive(true);

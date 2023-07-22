@@ -19,7 +19,7 @@ public class UnitIdleState : UnitBaseState
     {
         _timer += Time.deltaTime;
 
-        if (_timer >= 1f)
+        if (_timer >= 3f)
             unitStateManager.SwitchState(unitStateManager._walkingState);
     }
 }
