@@ -1,11 +1,12 @@
 using System;
-using System.Diagnostics;
 using static UnitEconomy;
 
 public class UnitWorkingState : UnitBaseState
 {
     public static event EventHandler<UnitRecievedPaymentEventArgs> OnUnitReceivedPayment;
     public static event EventHandler OnUnitResolvingWorkIssue;
+    public static event EventHandler OnUnitNeedRequested;
+    public static event EventHandler OnUnitPickedObject;
 
     public class UnitRecievedPaymentEventArgs : EventArgs
     {
@@ -94,6 +95,8 @@ public class UnitWorkingState : UnitBaseState
             return;
         }
 
+        OnUnitNeedRequested?.Invoke(_unit, EventArgs.Empty);
+
         UnitNeed randomUnitNeed = UnitNeedManager.Instance.GetRandomNeed();
 
         _unitNeed = randomUnitNeed;
@@ -125,12 +128,15 @@ public class UnitWorkingState : UnitBaseState
                 {
                     if (_hasRequest)
                     {
-                        if (_unitNeed.Type != UnitNeedType.Thirsty)
-                        {
-                            InteractSystem.Instance.SetHandsBusyBy(_unitNeedType);
-                            UnitNeedManager.Instance.SetCurrentNeed(_unitNeed);
-                            UnitNeedManager.Instance.SetUnitWithNeed(_unit);
-                        }
+                        if (_unitNeedType == UnitNeedType.Thirsty)
+                            return;
+
+                        InteractSystem.Instance.InvokeObjectPickUp(_unitNeed.PickUpIcon);
+                        InteractSystem.Instance.SetHandsBusyBy(_unitNeedType);
+                        UnitNeedManager.Instance.SetCurrentNeed(_unitNeed);
+                        UnitNeedManager.Instance.SetUnitWithNeed(_unit);
+
+                        OnUnitPickedObject?.Invoke(_unit, EventArgs.Empty);
 
                         return;
                     }

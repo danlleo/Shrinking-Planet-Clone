@@ -11,11 +11,13 @@ public class UnitThirsty : MonoBehaviour, IInteractable
         if (!InteractSystem.Instance.AreHandsBusy())
             return;
 
-        if (UnitNeedManager.Instance.GetCurrentNeed().Type == _unitNeedType)
+        if (UnitNeedManager.Instance.GetCurrentNeed().Type == _unitNeedType && _unit.GetUnitRequestedNeed().Type == _unitNeedType)
         {
             _unit.InvokeUnitNeedFulfilled();
 
             InteractSystem.Instance.SetHandsFree();
+            InteractSystem.Instance.InvokeObjectDrop();
+
             return;
         }
     }

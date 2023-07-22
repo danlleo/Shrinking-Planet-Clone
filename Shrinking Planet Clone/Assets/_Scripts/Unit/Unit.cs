@@ -32,6 +32,7 @@ public class Unit : MonoBehaviour, ISelectable
     [SerializeField] private NavMeshAgent _navmeshAgent;
 
     private UnitSO _unitSO;
+    private UnitNeed _unitNeed;
 
     private void Start()
     {
@@ -56,7 +57,11 @@ public class Unit : MonoBehaviour, ISelectable
 
     public void InvokeUnitPerformedWorkPiece() => OnUnitPerformedWorkPiece?.Invoke(this, EventArgs.Empty);
 
-    public void InvokeUnitNeedRequest(UnitNeed unitNeed) => OnUnitNeedRequested?.Invoke(this, new UnitNeedRequestedArgs(unitNeed));
+    public void InvokeUnitNeedRequest(UnitNeed unitNeed)
+    {
+        OnUnitNeedRequested?.Invoke(this, new UnitNeedRequestedArgs(unitNeed));
+        _unitNeed = unitNeed;
+    }
 
     public void InvokeUnitNeedFulfilled() => OnUnitNeedFulfilled?.Invoke(this, EventArgs.Empty);
 
@@ -79,6 +84,8 @@ public class Unit : MonoBehaviour, ISelectable
     public Quaternion GetUnitReachedDeskRotaion() => Quaternion.Euler(_unitSO.UnitTargetReachedDeskRotation);
 
     public NavMeshAgent GetUnitNavmeshAgent() => _navmeshAgent;
+
+    public UnitNeed GetUnitRequestedNeed() => _unitNeed;
 
     public void OnMouseEnter()
     {

@@ -5,5 +5,6 @@ using UnityEngine;
 public struct UnitNeed 
 {
     public Sprite Icon;
+    public Sprite PickUpIcon;
     public UnitNeedType Type;
 }

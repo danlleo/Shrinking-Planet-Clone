@@ -14,6 +14,8 @@ public class OfficeCabinet : MonoBehaviour, IInteractable
             Unit unit = UnitNeedManager.Instance.GetUnitWithNeed();
 
             unit.InvokeUnitNeedFulfilled();
+            InteractSystem.Instance.SetHandsFree();
+            InteractSystem.Instance.InvokeObjectDrop();
 
             print("Placed documents");
 
