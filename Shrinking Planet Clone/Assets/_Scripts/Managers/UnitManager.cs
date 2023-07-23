@@ -7,7 +7,7 @@ public class UnitManager : Singleton<UnitManager>
     [SerializeField] private GameObject _unitPrefab;
 
     private List<Unit> _unitList = new List<Unit>();
-    private List<UnitData> _unitDataList = new List<UnitData>();
+    private IEnumerable<UnitData> _unitDataList = new List<UnitData>();
 
     private float _spawnUnitDelayInSeconds = 4f;
 

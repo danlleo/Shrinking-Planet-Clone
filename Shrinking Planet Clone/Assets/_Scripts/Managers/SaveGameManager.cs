@@ -107,7 +107,7 @@ public class SaveGameManager : Singleton<SaveGameManager>
         print("New Game Started");
     }
 
-    public List<UnitData> GetUnitDataList() => _unitDataList;
+    public IEnumerable<UnitData> GetUnitDataList() => _unitDataList;
 
     public UnitSO GetUnitSO(string name)
     {

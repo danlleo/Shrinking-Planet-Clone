@@ -9,7 +9,7 @@ public class InterviewUnitManager : Singleton<InterviewUnitManager>
 
     [SerializeField] private Vector3[] _interviewUnitsPredefinedPositions = new Vector3[MAX_SELECTED_UNITS];
 
-    private List<UnitData> _unitDataList = new List<UnitData>();
+    private IEnumerable<UnitData> _unitDataList = new List<UnitData>();
     private List<UnitSO> _unitInterviewSOList = new List<UnitSO>();
 
     protected override void Awake()
