@@ -45,6 +45,7 @@ public class UnitWorkingState : UnitBaseState
 
         _unit.InvokeUnitBeganWorkEvent();
         _unit.InvokeUnitPerformedWorkPiece();
+        _unit.PlayTypingSound();
 
         _unit.OnUnitNeedFulfilled += Unit_OnUnitNeedFulfilled;
         _unitEconomy.OnUnitReceivedMoney += UnitEconomy_OnUnitReceivedMoney; ;

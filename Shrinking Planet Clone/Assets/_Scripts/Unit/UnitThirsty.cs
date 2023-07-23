@@ -15,6 +15,8 @@ public class UnitThirsty : MonoBehaviour, IInteractable
         {
             _unit.InvokeUnitNeedFulfilled();
 
+            SoundManager.Instance.PlayWaterDrankSound();
+
             InteractSystem.Instance.SetHandsFree();
             InteractSystem.Instance.InvokeObjectDrop();
 

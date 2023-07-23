@@ -13,4 +13,6 @@ public class UnitSO : ScriptableObject
     public Vector3 UnitPlaceOnChairPosition;
     public Sprite UnitDisplayImage;
     public Sprite UnitOccupationImage;
+    public AudioClip GreetingSound;
+    public AudioClip TypingSound;
 }

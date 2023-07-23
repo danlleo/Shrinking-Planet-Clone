@@ -1,21 +1,13 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 public class ShopManager : Singleton<ShopManager>
 {
-    [SerializeField] private ShopItemBase _samUnitItem;
+    [SerializeField] private List<PurchasableItem> _purchasableItemList;
 
     protected override void Awake()
     {
         base.Awake();
-    }
-
-    public void Update()
-    {
-        // For testing purposes
-        if (Input.GetKeyDown(KeyCode.B))
-        {
-            _samUnitItem.Purchase();
-        }
     }
 
     public bool CanPurchase(int itemPrice)
@@ -24,4 +16,6 @@ public class ShopManager : Singleton<ShopManager>
 
         return totalMoney >= itemPrice;
     }
+
+    public IEnumerable<PurchasableItem> GetPurchasableItemList() => _purchasableItemList;
 }

@@ -19,4 +19,13 @@ public class AudioClipRefsSO : ScriptableObject
     public AudioClip[] UnitResponse;
 
     public AudioClip CameraWhoosh;
+
+    public AudioClip TrashDispose;
+    public AudioClip DocumentDelivered;
+    public AudioClip WaterDrank;
+    public AudioClip WaterPouring;
+    public AudioClip ItemPick;
+    public AudioClip ItemDrop;
+
+    public AudioClip[] Steps;
 }

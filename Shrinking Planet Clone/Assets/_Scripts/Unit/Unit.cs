@@ -14,7 +14,10 @@ public class Unit : MonoBehaviour, ISelectable
     public event EventHandler OnUnitMoved;
     public event EventHandler OnUnitBeganWork;
     public event EventHandler OnUnitPerformedWorkPiece;
+    public event EventHandler OnUnitObjectDrop;
     public event EventHandler<UnitNeedRequestedArgs> OnUnitNeedRequested;
+
+    private AudioSource _audioSource;
 
     public class UnitNeedRequestedArgs : EventArgs
     {
@@ -42,9 +45,13 @@ public class Unit : MonoBehaviour, ISelectable
 
     public void Initialize(UnitSO unitSO)
     {
+        _audioSource = GetComponent<AudioSource>();
+
         _unitSO = unitSO;
         transform.position = _unitSO.UnitSpawnPosition;
         transform.rotation = Quaternion.Euler(_unitSO.UnitSpawnRotation);
+        _audioSource.clip = unitSO.GreetingSound;
+        _audioSource.Play();
     }
 
     public void InvokeUnitSelectingJobEvent() => OnUnitSelectingJob?.Invoke(this, EventArgs.Empty);
@@ -64,6 +71,8 @@ public class Unit : MonoBehaviour, ISelectable
     }
 
     public void InvokeUnitNeedFulfilled() => OnUnitNeedFulfilled?.Invoke(this, EventArgs.Empty);
+
+    public void InvokeUnitObjectDrop() => OnUnitObjectDrop?.Invoke(this, EventArgs.Empty);
 
     public string GetUnitSOName() => _unitSO.name;
 
@@ -86,6 +95,14 @@ public class Unit : MonoBehaviour, ISelectable
     public NavMeshAgent GetUnitNavmeshAgent() => _navmeshAgent;
 
     public UnitNeed GetUnitRequestedNeed() => _unitNeed;
+
+    public void PlayTypingSound()
+    {
+        _audioSource.loop = true;
+        _audioSource.clip = _unitSO.TypingSound;
+        _audioSource.volume = .1f;
+        _audioSource.Play();
+    }
 
     public void OnMouseEnter()
     {

@@ -29,3 +29,14 @@ MonoBehaviour:
   UnitResponse:
   - {fileID: 8300000, guid: 7e8146e0737f3814ab5c15c1b21c45f9, type: 3}
   CameraWhoosh: {fileID: 8300000, guid: 7c0898e17452e1b4ea8791aae7574a48, type: 3}
+  TrashDispose: {fileID: 8300000, guid: 91d210dc6ec41ea47b6d53f4c98250aa, type: 3}
+  DocumentDelivered: {fileID: 8300000, guid: 6e27a1a86510467499692a93ff713400, type: 3}
+  WaterDrank: {fileID: 8300000, guid: e0b65767ccd28bb44ada1c000e1995c5, type: 3}
+  WaterPouring: {fileID: 8300000, guid: 8ad31026f09cbf44baf34554917d585e, type: 3}
+  ItemPick: {fileID: 8300000, guid: 49b42248f10b12e44ab9285bec843ee4, type: 3}
+  ItemDrop: {fileID: 8300000, guid: 414e4412b9b6e5043a56315da5bb8b3b, type: 3}
+  Steps:
+  - {fileID: 8300000, guid: efff6f5711755744da7c514bbd62d966, type: 3}
+  - {fileID: 8300000, guid: 43372220ae79c94438897006391ee654, type: 3}
+  - {fileID: 8300000, guid: a6a895fe77970734688496a6cd07c8d3, type: 3}
+  - {fileID: 8300000, guid: 419bcab6e071a9245acafb74ea81e045, type: 3}

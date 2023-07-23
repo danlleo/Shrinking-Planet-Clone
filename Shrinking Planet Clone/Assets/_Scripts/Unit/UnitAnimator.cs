@@ -27,7 +27,12 @@ public class UnitAnimator : MonoBehaviour
 
     private void UnitIdleState_OnUnitSpawned(object sender, System.EventArgs e)
     {
-        _animator.SetTrigger(UnitAnimationParams.OnUnitSpawn);
+        Unit senderUnit = (Unit)sender;
+
+        if (ReferenceEquals(senderUnit, _unit))
+        {
+            _animator.SetTrigger(UnitAnimationParams.OnUnitSpawn);
+        }
     }
 
     private void Unit_OnUnitReachedDesk(object sender, System.EventArgs e)

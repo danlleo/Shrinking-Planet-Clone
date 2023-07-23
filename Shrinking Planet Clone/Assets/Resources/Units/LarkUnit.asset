@@ -23,3 +23,5 @@ MonoBehaviour:
   UnitDisplayImage: {fileID: 21300000, guid: 50a43e4df2ecd2b4085a51d060794d9a, type: 3}
   UnitOccupationImage: {fileID: 21300000, guid: a38fc54087960da45874a70d978d6912,
     type: 3}
+  GreetingSound: {fileID: 8300000, guid: e684fa0321f6d60499ff53716e2a4dbe, type: 3}
+  TypingSound: {fileID: 8300000, guid: 57a7116ccbf00a640aad7d3b2f178e45, type: 3}
