@@ -13,6 +13,7 @@ public class UnitNeedUI : MonoBehaviour
 
         _unit.OnUnitNeedRequested += Unit_OnUnitNeedRequested;
         _unit.OnUnitNeedFulfilled += Unit_OnUnitNeedFulfilled;
+        _unit.OnUnitObjectDrop += Unit_OnUnitObjectDrop;
         UnitWorkingState.OnUnitPickedObject += UnitWorkingState_OnUnitPickedObject;
     }
 
@@ -20,7 +21,13 @@ public class UnitNeedUI : MonoBehaviour
     {
         _unit.OnUnitNeedRequested -= Unit_OnUnitNeedRequested;
         _unit.OnUnitNeedFulfilled -= Unit_OnUnitNeedFulfilled;
+        _unit.OnUnitObjectDrop -= Unit_OnUnitObjectDrop;
         UnitWorkingState.OnUnitPickedObject -= UnitWorkingState_OnUnitPickedObject;
+    }
+
+    private void Unit_OnUnitObjectDrop(object sender, System.EventArgs e)
+    {
+        ShowUI();
     }
 
     private void UnitWorkingState_OnUnitPickedObject(object sender, System.EventArgs e)

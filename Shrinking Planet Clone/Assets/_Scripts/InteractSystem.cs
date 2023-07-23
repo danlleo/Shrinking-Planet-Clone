@@ -16,6 +16,7 @@ public class InteractSystem : Singleton<InteractSystem>
     }
 
     public event EventHandler OnObjectDrop;
+    public event EventHandler OnObjectDispose;
 
     private Camera _camera;
 
@@ -43,10 +44,13 @@ public class InteractSystem : Singleton<InteractSystem>
                 interactable.Interact();
                 return;
             }
-            else
+            
+            if (_areHandsBusy)
             {
                 SetHandsFree();
                 InvokeObjectDrop();
+                OnObjectDispose?.Invoke(this, EventArgs.Empty);
+                UnitNeedManager.Instance.GetUnitWithNeed().InvokeUnitObjectDrop();
             }
         }
     }

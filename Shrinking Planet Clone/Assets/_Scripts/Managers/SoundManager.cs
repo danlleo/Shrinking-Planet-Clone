@@ -18,6 +18,8 @@ public class SoundManager : Singleton<SoundManager>
         ButtonSounds.OnButtonHover += ButtonHover_OnButtonHover;
         ButtonSounds.OnButtonPressed += ButtonSounds_OnButtonPressed;
         ResolveWorkIssueUI.OnResolvingFailedWorkIssue += ResolveWorkIssueUI_OnResolvingFailedWorkIssue;
+        InteractSystem.Instance.OnObjectPickUp += InteractSystem_OnObjectPickUp;
+        InteractSystem.Instance.OnObjectDispose += InteractSystem_OnObjectDispose;
     }
 
     private void OnDestroy()
@@ -29,6 +31,18 @@ public class SoundManager : Singleton<SoundManager>
         ButtonSounds.OnButtonHover -= ButtonHover_OnButtonHover;
         ButtonSounds.OnButtonPressed -= ButtonSounds_OnButtonPressed;
         ResolveWorkIssueUI.OnResolvingFailedWorkIssue -= ResolveWorkIssueUI_OnResolvingFailedWorkIssue;
+        InteractSystem.Instance.OnObjectPickUp -= InteractSystem_OnObjectPickUp;
+        InteractSystem.Instance.OnObjectDispose -= InteractSystem_OnObjectDispose;
+    }
+
+    private void InteractSystem_OnObjectDispose(object sender, System.EventArgs e)
+    {
+        PlayDropSound();
+    }
+
+    private void InteractSystem_OnObjectPickUp(object sender, InteractSystem.ObjectPickUpArgs e)
+    {
+        PlayPickUpSound();
     }
 
     private void ResolveWorkIssueUI_OnResolvingFailedWorkIssue(object sender, System.EventArgs e)
@@ -55,6 +69,11 @@ public class SoundManager : Singleton<SoundManager>
         }
 
         PlaySound(_audioClipRefsSO.WrongInterviewQuestion, transform.position);
+    }
+
+    public void PlayFootStepsSound(Vector3 position, float volume)
+    {
+        PlaySound(_audioClipRefsSO.Steps, position, volume);
     }
 
     public void PlayCameraWhooshSound()
@@ -90,6 +109,36 @@ public class SoundManager : Singleton<SoundManager>
     public void PlayCoinCollectSound()
     {
         PlaySound(_audioClipRefsSO.CollectCoin, transform.position);
+    }
+
+    public void PlayWaterPouringSound()
+    {
+        PlaySound(_audioClipRefsSO.WaterPouring, transform.position);
+    }
+
+    public void PlayTrashDisposeSound()
+    {
+        PlaySound(_audioClipRefsSO.TrashDispose, transform.position);
+    }
+
+    public void PlayDocumentDeliveredSound()
+    {
+        PlaySound(_audioClipRefsSO.DocumentDelivered, transform.position);
+    }
+
+    public void PlayWaterDrankSound()
+    {
+        PlaySound(_audioClipRefsSO.WaterDrank, transform.position);
+    }
+
+    public void PlayPickUpSound()
+    {
+        PlaySound(_audioClipRefsSO.ItemPick, transform.position);
+    }
+
+    public void PlayDropSound()
+    {
+        PlaySound(_audioClipRefsSO.ItemDrop, transform.position);
     }
 
     private void Judge_OnJudgeAsking(object sender, System.EventArgs e)

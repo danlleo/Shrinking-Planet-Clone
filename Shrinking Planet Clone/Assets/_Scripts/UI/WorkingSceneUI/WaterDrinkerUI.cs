@@ -37,6 +37,7 @@ public class WaterDrinkerUI : MonoBehaviour
         {
             // Start filling it...
 
+            SoundManager.Instance.PlayWaterPouringSound();
             ShowProgressBar();
             HideWaterStateIcon();
             StartCoroutine(FillWaterDrinkerProgressBarRoutine());
