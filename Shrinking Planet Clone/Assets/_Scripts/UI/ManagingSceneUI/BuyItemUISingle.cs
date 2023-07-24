@@ -1,3 +1,4 @@
+using System;
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -5,15 +6,30 @@ using UnityEngine.UI;
 
 public class BuyItemUISingle : MonoBehaviour, IPurchasable, IPointerClickHandler
 {
+    public static event EventHandler<BuyItemClickArgs> OnBuyItemClick;
+
+    public class BuyItemClickArgs : EventArgs
+    {
+        public PurchasableItem PurchasableItemArgs;
+
+        public BuyItemClickArgs(PurchasableItem purchasableItem)
+        {
+            PurchasableItemArgs = purchasableItem;
+        }
+    }
+
     [SerializeField] private Image _iconImage;
     [SerializeField] private TextMeshProUGUI _titleText;
     [SerializeField] private TextMeshProUGUI _descriptionText;
 
-    public void Initialize(Sprite sprite, string title, string description)
+    private PurchasableItem _purchasableItem;
+
+    public void Initialize(PurchasableItem purchasableItem)
     {
-        _iconImage.sprite = sprite;
-        _titleText.text = title;
-        _descriptionText.text = description;
+        _iconImage.sprite = purchasableItem.Icon;
+        _titleText.text = purchasableItem.Title;
+        _descriptionText.text = purchasableItem.Description;
+        _purchasableItem = purchasableItem;
     }
 
     public void OnPointerClick(PointerEventData eventData)
@@ -23,6 +39,6 @@ public class BuyItemUISingle : MonoBehaviour, IPurchasable, IPointerClickHandler
 
     public void Purchase()
     {
-        print($"You bought: {_titleText.text}");
+        OnBuyItemClick?.Invoke(this, new BuyItemClickArgs(_purchasableItem));
     }
 }

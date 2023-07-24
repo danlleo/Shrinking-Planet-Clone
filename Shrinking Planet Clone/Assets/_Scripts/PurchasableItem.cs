@@ -8,4 +8,6 @@ public struct PurchasableItem
     public string Title;
     public string Description;
     public int Price;
+    public int ID;
+    public PurchasableItemSO ItemSO;
 }

@@ -28,4 +28,6 @@ public class AudioClipRefsSO : ScriptableObject
     public AudioClip ItemDrop;
 
     public AudioClip[] Steps;
+
+    public AudioClip SuccessPurchase;
 }

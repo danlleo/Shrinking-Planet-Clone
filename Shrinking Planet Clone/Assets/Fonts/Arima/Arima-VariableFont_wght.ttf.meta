@@ -1,0 +1,27 @@
+fileFormatVersion: 2
+guid: caf6aa38c5fd58a438b091240caef24d
+TrueTypeFontImporter:
+  externalObjects: {}
+  serializedVersion: 4
+  fontSize: 16
+  forceTextureCase: -2
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontNames:
+  - Arima
+  fallbackFontReferences:
+  - {fileID: 12800000, guid: 801fdac7a6996c24d8a68fed72402b26, type: 3}
+  - {fileID: 12800000, guid: aa906950f561dea47ae1abc2cbbc96ff, type: 3}
+  - {fileID: 12800000, guid: a7025c24105e03e45a3222d075448e0c, type: 3}
+  - {fileID: 12800000, guid: f4d6fc1afb2c64f4db88d0624f39519d, type: 3}
+  - {fileID: 12800000, guid: 38864b7d412356148ad6bfe88d24a283, type: 3}
+  - {fileID: 12800000, guid: 7903c52fa298c18459d1969e584857b9, type: 3}
+  customCharacters: 
+  fontRenderingMode: 0
+  ascentCalculationMode: 1
+  useLegacyBoundsCalculation: 0
+  shouldRoundAdvanceValue: 1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

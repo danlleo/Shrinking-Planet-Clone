@@ -6,4 +6,5 @@ public class SaveData
     public int DayCount;
     public int MoneyAmount;
     public List<UnitData> UnitDataList;
+    public List<PurchasableItem> PurchasedItems;
 }
