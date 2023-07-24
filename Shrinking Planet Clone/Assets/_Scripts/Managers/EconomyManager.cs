@@ -18,6 +18,7 @@ public class EconomyManager : Singleton<EconomyManager>
     private void Start()
     {
         _totalCurrentMoneyAmount = SaveGameManager.Instance.GetMoneyAmount();
+       
         OnUnitReceivedPayment += UnitWorkingState_OnUnitReceivedPayment;
     }
 
@@ -32,6 +33,14 @@ public class EconomyManager : Singleton<EconomyManager>
     }
 
     public void AddMoneyToCurrentAmount(int moneyAmount) => _totalCurrentMoneyAmount += moneyAmount;
+
+    public void SubstractCurrentMoneyAmountBy(int substructAmount)
+    {
+        if (substructAmount <= 0)
+            throw new System.Exception("An error occured: sustract amount has negative value or null");
+
+        _totalCurrentMoneyAmount -= substructAmount;
+    }
 
     public int GetTotalCurrentMoneyAmount() => _totalCurrentMoneyAmount;
 }

@@ -15,6 +15,7 @@ public class UnitNeedUI : MonoBehaviour
         _unit.OnUnitNeedFulfilled += Unit_OnUnitNeedFulfilled;
         _unit.OnUnitObjectDrop += Unit_OnUnitObjectDrop;
         UnitWorkingState.OnUnitPickedObject += UnitWorkingState_OnUnitPickedObject;
+        DayManager.Instance.OnDayEnded += DayManager_OnDayEnded;
     }
 
     private void OnDestroy()
@@ -23,6 +24,12 @@ public class UnitNeedUI : MonoBehaviour
         _unit.OnUnitNeedFulfilled -= Unit_OnUnitNeedFulfilled;
         _unit.OnUnitObjectDrop -= Unit_OnUnitObjectDrop;
         UnitWorkingState.OnUnitPickedObject -= UnitWorkingState_OnUnitPickedObject;
+        DayManager.Instance.OnDayEnded -= DayManager_OnDayEnded;
+    }
+
+    private void DayManager_OnDayEnded(object sender, System.EventArgs e)
+    {
+        HideUI();
     }
 
     private void Unit_OnUnitObjectDrop(object sender, System.EventArgs e)

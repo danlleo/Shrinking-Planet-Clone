@@ -1,21 +1,44 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class ShopManager : Singleton<ShopManager>
 {
+    public event EventHandler OnItemBought;
+    public event EventHandler OnItemFailedPurchase;
+
     [SerializeField] private List<PurchasableItem> _purchasableItemList;
+
+    int _selectedItemPrice;
 
     protected override void Awake()
     {
         base.Awake();
     }
 
-    public bool CanPurchase(int itemPrice)
+    public bool TryPurchaseItem(PurchasableItem purchaseItem, out Action resultAction)
     {
-        int totalMoney = EconomyManager.Instance.GetTotalCurrentMoneyAmount();
+        if (purchaseItem.Price <= EconomyManager.Instance.GetTotalCurrentMoneyAmount())
+        {
+            _selectedItemPrice = purchaseItem.Price;
+            resultAction = Success;
+            return true;
+        }
 
-        return totalMoney >= itemPrice;
+        resultAction = Failed;
+        return false;
     }
 
     public IEnumerable<PurchasableItem> GetPurchasableItemList() => _purchasableItemList;
+
+    private void Failed()
+    {
+        OnItemFailedPurchase?.Invoke(this, EventArgs.Empty);
+    }
+
+    private void Success()
+    {
+        EconomyManager.Instance.SubstractCurrentMoneyAmountBy(_selectedItemPrice);
+        OnItemBought?.Invoke(this, EventArgs.Empty);
+    }
 }

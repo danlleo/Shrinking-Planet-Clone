@@ -13,12 +13,19 @@ public class IconFollowCursorUI : MonoBehaviour
 
         InteractSystem.Instance.OnObjectPickUp += InteractSystem_OnObjectPickUp;
         InteractSystem.Instance.OnObjectDrop += InteractSystem_OnObjectDrop;
+        DayManager.Instance.OnDayEnded += DayManager_OnDayEnded;
     }
 
     private void OnDestroy()
     {
         InteractSystem.Instance.OnObjectPickUp -= InteractSystem_OnObjectPickUp;
         InteractSystem.Instance.OnObjectDrop -= InteractSystem_OnObjectDrop;
+        DayManager.Instance.OnDayEnded -= DayManager_OnDayEnded;
+    }
+
+    private void DayManager_OnDayEnded(object sender, System.EventArgs e)
+    {
+        HideUI();
     }
 
     private void Update()

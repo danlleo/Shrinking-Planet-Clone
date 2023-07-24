@@ -20,6 +20,7 @@ public class SoundManager : Singleton<SoundManager>
         ResolveWorkIssueUI.OnResolvingFailedWorkIssue += ResolveWorkIssueUI_OnResolvingFailedWorkIssue;
         InteractSystem.Instance.OnObjectPickUp += InteractSystem_OnObjectPickUp;
         InteractSystem.Instance.OnObjectDispose += InteractSystem_OnObjectDispose;
+        ShopManager.Instance.OnItemBought += ShopManager_OnItemBought;
     }
 
     private void OnDestroy()
@@ -33,6 +34,12 @@ public class SoundManager : Singleton<SoundManager>
         ResolveWorkIssueUI.OnResolvingFailedWorkIssue -= ResolveWorkIssueUI_OnResolvingFailedWorkIssue;
         InteractSystem.Instance.OnObjectPickUp -= InteractSystem_OnObjectPickUp;
         InteractSystem.Instance.OnObjectDispose -= InteractSystem_OnObjectDispose;
+        ShopManager.Instance.OnItemBought -= ShopManager_OnItemBought;
+    }
+
+    private void ShopManager_OnItemBought(object sender, System.EventArgs e)
+    {
+        PlaySound(_audioClipRefsSO.SuccessPurchase, transform.position);
     }
 
     private void InteractSystem_OnObjectDispose(object sender, System.EventArgs e)

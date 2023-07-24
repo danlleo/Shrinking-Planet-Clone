@@ -40,3 +40,4 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 43372220ae79c94438897006391ee654, type: 3}
   - {fileID: 8300000, guid: a6a895fe77970734688496a6cd07c8d3, type: 3}
   - {fileID: 8300000, guid: 419bcab6e071a9245acafb74ea81e045, type: 3}
+  SuccessPurchase: {fileID: 8300000, guid: 81a3bfa3a46189a46a225570fa3e0ff9, type: 3}
