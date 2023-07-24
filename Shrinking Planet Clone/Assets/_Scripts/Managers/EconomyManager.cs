@@ -36,6 +36,8 @@ public class EconomyManager : Singleton<EconomyManager>
 
     public void SubstractCurrentMoneyAmountBy(int substructAmount)
     {
+        print(substructAmount);
+
         if (substructAmount <= 0)
             throw new System.Exception("An error occured: sustract amount has negative value or null");
 

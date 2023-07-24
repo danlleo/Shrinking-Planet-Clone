@@ -24,10 +24,16 @@ public class ConfirmationMessageUI : MonoBehaviour
         ShopManager.Instance.OnItemFailedPurchase += ShopManager_OnItemFailedPurchase;
     }
 
+    private void OnDestroy()
+    {
+        ShopManager.Instance.OnItemBought -= ShopManager_OnItemBought;
+        ShopManager.Instance.OnItemFailedPurchase -= ShopManager_OnItemFailedPurchase;
+    }
+
     private void ShopManager_OnItemFailedPurchase(object sender, System.EventArgs e)
     {
         ShowUI();
-        SetConfirmationMessageText("Not enough money!");
+        SetConfirmationMessageText("Failed to purchase!");
     }
 
     private void ShopManager_OnItemBought(object sender, System.EventArgs e)

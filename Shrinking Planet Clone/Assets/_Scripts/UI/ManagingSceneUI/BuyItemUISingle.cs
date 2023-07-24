@@ -24,14 +24,11 @@ public class BuyItemUISingle : MonoBehaviour, IPurchasable, IPointerClickHandler
 
     private PurchasableItem _purchasableItem;
 
-    private int _price;
-
     public void Initialize(PurchasableItem purchasableItem)
     {
         _iconImage.sprite = purchasableItem.Icon;
         _titleText.text = purchasableItem.Title;
         _descriptionText.text = purchasableItem.Description;
-        _price = purchasableItem.Price;
         _purchasableItem = purchasableItem;
     }
 

@@ -9,7 +9,8 @@ public class ShopManager : Singleton<ShopManager>
 
     [SerializeField] private List<PurchasableItem> _purchasableItemList;
 
-    int _selectedItemPrice;
+    private PurchasableItem _selectedPurchasableItem;
+    private int _selectedItemPrice;
 
     protected override void Awake()
     {
@@ -18,15 +19,23 @@ public class ShopManager : Singleton<ShopManager>
 
     public bool TryPurchaseItem(PurchasableItem purchaseItem, out Action resultAction)
     {
-        if (purchaseItem.Price <= EconomyManager.Instance.GetTotalCurrentMoneyAmount())
+        if (purchaseItem.Price > EconomyManager.Instance.GetTotalCurrentMoneyAmount())
         {
-            _selectedItemPrice = purchaseItem.Price;
-            resultAction = Success;
-            return true;
+            resultAction = Failed;
+            return false;
         }
 
-        resultAction = Failed;
-        return false;
+        if (ItemStashManager.Instance.HasPurchasedItem(purchaseItem.ID))
+        {
+            resultAction = Failed;
+            return false;
+        }
+
+        _selectedPurchasableItem = purchaseItem;
+        _selectedItemPrice = purchaseItem.Price;
+        resultAction = Success;
+
+        return true;
     }
 
     public IEnumerable<PurchasableItem> GetPurchasableItemList() => _purchasableItemList;
@@ -40,5 +49,6 @@ public class ShopManager : Singleton<ShopManager>
     {
         EconomyManager.Instance.SubstractCurrentMoneyAmountBy(_selectedItemPrice);
         OnItemBought?.Invoke(this, EventArgs.Empty);
+        ItemStashManager.Instance.AddPurchasedItem(_selectedPurchasableItem);
     }
 }

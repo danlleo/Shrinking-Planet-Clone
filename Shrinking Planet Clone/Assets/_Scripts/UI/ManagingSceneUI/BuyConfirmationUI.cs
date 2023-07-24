@@ -33,12 +33,19 @@ public class BuyConfirmationUI : MonoBehaviour
     {
         OnBuyItemClick += BuyItemUISingle_OnBuyItemClick;
         ShopManager.Instance.OnItemBought += ShopManager_OnItemBought;
+        ShopManager.Instance.OnItemFailedPurchase += ShopManager_OnItemFailedPurchase;
     }
 
     private void OnDestroy()
     {
         OnBuyItemClick -= BuyItemUISingle_OnBuyItemClick;
         ShopManager.Instance.OnItemBought -= ShopManager_OnItemBought;
+        ShopManager.Instance.OnItemFailedPurchase -= ShopManager_OnItemFailedPurchase;
+    }
+
+    private void ShopManager_OnItemFailedPurchase(object sender, EventArgs e)
+    {
+        HideUI();
     }
 
     private void ShopManager_OnItemBought(object sender, EventArgs e)

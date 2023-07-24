@@ -1,5 +1,7 @@
+using System.Collections;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using UnityEngine;
 
 public class SaveGameManager : Singleton<SaveGameManager>
@@ -7,6 +9,7 @@ public class SaveGameManager : Singleton<SaveGameManager>
     [SerializeField] private List<UnitData> _defaultUnitDataList = new List<UnitData>();
     
     private List<UnitData> _unitDataList = new List<UnitData>();
+    private List<PurchasableItem> _purchasedItemsList;
 
     private SaveData _saveData;
 
@@ -46,6 +49,15 @@ public class SaveGameManager : Singleton<SaveGameManager>
         {
             NewGame();
         }
+
+        if (Input.GetKeyDown(KeyCode.S))
+        {
+            int companyRankPosition = GetCompanyRankPosition();
+            int dayCount = GetDayCount();
+            int moneyAmount = GetMoneyAmount();
+
+            SaveGame(companyRankPosition, dayCount, moneyAmount);
+        }
     }
 
     public void SaveGame(int companyRankPosition, int dayCount, int moneyAmount)
@@ -55,6 +67,7 @@ public class SaveGameManager : Singleton<SaveGameManager>
         saveData.DayCount = dayCount;
         saveData.MoneyAmount = moneyAmount;
         saveData.UnitDataList = _unitDataList;
+        saveData.PurchasedItems = ItemStashManager.Instance.GetPurchasedItems().ToList();
 
         string json = JsonUtility.ToJson(saveData);
 
@@ -91,12 +104,14 @@ public class SaveGameManager : Singleton<SaveGameManager>
 
         // Copying and pasting items from default list
         _unitDataList = new List<UnitData>(_defaultUnitDataList);
+        _purchasedItemsList = new List<PurchasableItem>();
 
         SaveData saveData = new SaveData();
         saveData.CompanyRankPosition = DEFAULT_COMPANY_RANK_POSITION;
         saveData.DayCount = DEFAULT_DAY_COUNT;
         saveData.MoneyAmount = DEFAULT_MONEY_AMOUNT;
         saveData.UnitDataList = _unitDataList;
+        saveData.PurchasedItems = _purchasedItemsList;
 
         _saveData = saveData;
 
@@ -123,4 +138,6 @@ public class SaveGameManager : Singleton<SaveGameManager>
     public int GetCompanyRankPosition() => _saveData.CompanyRankPosition;
 
     public int GetMoneyAmount() => _saveData.MoneyAmount;
+
+    public IEnumerable<PurchasableItem> RetrievePurchasedItems() => _saveData.PurchasedItems;
 }
