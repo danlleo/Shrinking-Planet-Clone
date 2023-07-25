@@ -1,8 +1,9 @@
 using UnityEngine;
 
-// <-------NOTATION------->
-// T should be normalized time
-// <-------NOTATION------->
+/// <summary>
+///     Class that provides different variations of interpolation effects
+///     T should be normalized time
+/// </summary>
 
 public static class InterpolateUtils
 {

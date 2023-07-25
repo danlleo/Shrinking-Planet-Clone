@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b3bdad724b04653428ae1859e6e83edc, type: 3}
   m_Name: FlowerSO
   m_EditorClassIdentifier: 
-  ItemGameObject: {fileID: 7425838284820148179, guid: 4ff5a917ee05d4e27a188b977e58d326,
+  ItemGameObject: {fileID: 1565929935352107097, guid: 58d4a1174cc90514dbfb1381f1388f6c,
     type: 3}
-  SpawnPosition: {x: 0, y: 3, z: 0}
+  SpawnPosition: {x: -0.55, y: 0.656, z: 3.77}
   SpawnRotation: {x: 0, y: 0, z: 0}

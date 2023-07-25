@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b3bdad724b04653428ae1859e6e83edc, type: 3}
   m_Name: WaterCoolerSO
   m_EditorClassIdentifier: 
-  ItemGameObject: {fileID: 7425838284820148179, guid: 4ff5a917ee05d4e27a188b977e58d326,
+  ItemGameObject: {fileID: 2471291183166241940, guid: 89b0ec0ad36c762478c7f1ade8de348a,
     type: 3}
-  SpawnPosition: {x: 0, y: 1, z: 0}
-  SpawnRotation: {x: 0, y: 0, z: 0}
+  SpawnPosition: {x: -2.168, y: 0.093, z: 4.192}
+  SpawnRotation: {x: 0, y: 180, z: 0}

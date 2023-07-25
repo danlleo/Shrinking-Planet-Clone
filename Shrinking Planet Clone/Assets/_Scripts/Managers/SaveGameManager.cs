@@ -85,6 +85,7 @@ public class SaveGameManager : Singleton<SaveGameManager>
             SaveData saveData = JsonUtility.FromJson<SaveData>(json);
 
             _unitDataList = saveData.UnitDataList;
+            _purchasedItemsList = saveData.PurchasedItems;
             _saveData = saveData;
 
             return;

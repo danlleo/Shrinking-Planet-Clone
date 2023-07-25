@@ -49,15 +49,18 @@ public class EndDayUI : MonoBehaviour
             Transform unitDisplaySingle = Instantiate(_unitDispalySinglePrefab, _unitDisplayGroup);
             UnitDisplaySingleUI unitDisplaySingleUI = unitDisplaySingle.GetComponent<UnitDisplaySingleUI>();
             UnitLevel unitLevel = unit.GetComponent<UnitLevel>();
+            UnitEconomy unitEconomy = unit.GetComponent<UnitEconomy>();
             Sprite unitDisplayImage = unit.GetUnitImage();
+            
             string unitDisplayName = unit.GetUnitName();
-            string unitDisplayLevel = unitLevel.GetUnitCurrentLevel().ToString();
+            string unitDisplayLevel = unitLevel.GetCurrentLevel().ToString();
 
-            unitDisplaySingleUI.Setup(
+            unitDisplaySingleUI.Initialize(
                 unitDisplayImage, 
                 unitDisplayName, 
                 unitDisplayLevel, 
-                unitLevel
+                unitLevel, 
+                unitEconomy
             );
         }
     }

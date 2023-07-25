@@ -7,9 +7,9 @@ public class DisplayItemsManager : MonoBehaviour
     {
         IEnumerable<PurchasableItem> purchasableItemList = ItemStashManager.Instance.GetPurchasedItems();
 
-        foreach (var pur in purchasableItemList)
+        foreach (var purchasableItem in purchasableItemList)
         {
-            Instantiate(pur.ItemSO.ItemGameObject, pur.ItemSO.SpawnPosition, Quaternion.Euler(pur.ItemSO.SpawnRotation));
+            Instantiate(purchasableItem.ItemSO.ItemGameObject, purchasableItem.ItemSO.SpawnPosition, Quaternion.Euler(purchasableItem.ItemSO.SpawnRotation));
         }
     }
 }
