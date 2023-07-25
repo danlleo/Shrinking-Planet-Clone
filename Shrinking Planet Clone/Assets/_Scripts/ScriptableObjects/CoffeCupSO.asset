@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b3bdad724b04653428ae1859e6e83edc, type: 3}
   m_Name: CoffeCupSO
   m_EditorClassIdentifier: 
-  ItemGameObject: {fileID: 7425838284820148179, guid: 4ff5a917ee05d4e27a188b977e58d326,
+  ItemGameObject: {fileID: 2363495721125222533, guid: cc0eee474758d284a9bc6a089ff9cdea,
     type: 3}
-  SpawnPosition: {x: 0, y: 0, z: 0}
+  SpawnPosition: {x: 1.282, y: 0.64, z: -0.23}
   SpawnRotation: {x: 0, y: 0, z: 0}

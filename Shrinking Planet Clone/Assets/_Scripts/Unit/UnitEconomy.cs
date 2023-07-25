@@ -29,6 +29,11 @@ public class UnitEconomy : MonoBehaviour
         UnitWorkingState.OnUnitReceivedPayment += UnitWorkingState_OnUnitReceivedPayment;
     }
 
+    private void OnDestroy()
+    {
+        UnitWorkingState.OnUnitReceivedPayment -= UnitWorkingState_OnUnitReceivedPayment;
+    }
+
     private void UnitWorkingState_OnUnitReceivedPayment(object sender, UnitWorkingState.UnitRecievedPaymentEventArgs e)
     {
         Unit selectedUnit = (Unit)sender;

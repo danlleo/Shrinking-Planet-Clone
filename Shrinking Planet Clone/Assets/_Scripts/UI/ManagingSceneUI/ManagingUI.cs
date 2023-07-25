@@ -18,6 +18,11 @@ public class ManagingUI : MonoBehaviour
     {
         _startButton.onClick.AddListener(() =>
         {
+            int companyRankPosition = SaveGameManager.Instance.GetCompanyRankPosition();
+            int dayCount = SaveGameManager.Instance.GetDayCount();
+            int moneyAmount = EconomyManager.Instance.GetTotalCurrentMoneyAmount();
+
+            SaveGameManager.Instance.SaveGame(companyRankPosition, dayCount, moneyAmount);
             Loader.Load(Loader.Scene.WorkingScene);
         });
 

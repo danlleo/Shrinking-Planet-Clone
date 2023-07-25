@@ -13,41 +13,80 @@ public class UnitDisplaySingleUI : MonoBehaviour
     private UnitLevel _unitLevel;
 
     private float _maxTimeInSeconds = 1f;
-    private float _normalizedTime = 0f;
 
-    public void Setup(Sprite unitDisplayImage, string unitDisplayNameText, string unitDisplayLevelText, UnitLevel unitLevel)
+    private bool _leveledUp;
+
+    private void OnDestroy()
     {
-        _unitDisplayImage.sprite = unitDisplayImage;
+        _unitLevel.OnLevelUp -= UnitLevel_OnLevelUp;
+    }
 
-        _unitDisplayNameText.text = unitDisplayNameText;
-        _unitDisplayLevelText.text = "Lvl. " + unitDisplayLevelText;
+    public void Initialize(Sprite unitDisplayImage, string unitDisplayNameText, string unitDisplayLevelText, UnitLevel unitLevel, UnitEconomy unitEconomy)
+    {
         _unitLevel = unitLevel;
+
+        if (_unitLevel.HasReachedMaxLevel(_unitLevel.GetCurrentLevel()))
+        {
+            _unitDisplayLevelText.text = $"Lvl. MAX";
+            return;        
+        }
+
+        _unitDisplayImage.sprite = unitDisplayImage;
+        _unitDisplayNameText.text = unitDisplayNameText;
+        _unitDisplayLevelText.text = $"Lvl. {unitDisplayLevelText}";
+
+        _unitLevel.SetCurrentXP(unitEconomy.GetCurrentUnitMoneyAmount() / 5);
+        
+        StartCoroutine(StartLevelProgressMoveBarInSeconds());
+
+        _unitLevel.OnLevelUp += UnitLevel_OnLevelUp;
+    }
+
+    private void UnitLevel_OnLevelUp(object sender, System.EventArgs e)
+    {
+        if (_unitLevel.HasReachedMaxLevel(_unitLevel.GetCurrentLevel()))
+        {
+            _unitDisplayLevelText.text = $"Lvl. MAX";
+            return;
+        }
 
         StartCoroutine(StartLevelProgressMoveBarInSeconds());
     }
 
     private IEnumerator StartLevelProgressMoveBarInSeconds()
     {
-        int previousXP = _unitLevel.GetPreviousXPValue();
-        int currentXP = _unitLevel.GetUnitCurrentXPValue();
-        int xpToNextLevel = UnitLevelUpSystem.Instance.GetXPToNextLevel();
-
-        int XPsum = previousXP + currentXP;
+        int currentXP = _unitLevel.GetCurrentXP();
+        int xpToNextLevel = _unitLevel.GetXPToLevelUP();
+        int xpLeftOvers = !_leveledUp ? _unitLevel.GetXPLevtOvers() : 0;
 
         float timer = 0f;
 
         while (timer <= _maxTimeInSeconds)
         {
             timer += Time.deltaTime;
-            _normalizedTime = timer / _maxTimeInSeconds;
-            
-            // Bug below
-            // _progressBarForeground.fillAmount = Mathf.Lerp((float)previousXP / XPsum, (float)currentXP / XPsum, _normalizedTime);
+
+            float normalizedTime = timer / _maxTimeInSeconds;
+            float currentXPnormalizedValue = MathUtils.NormalizeValue(currentXP, 0, xpToNextLevel);
+            float xpLeftOversNormalizedValue = MathUtils.NormalizeValue(xpLeftOvers, 0, xpToNextLevel);
+
+            _progressBarForeground.fillAmount = Mathf.Lerp(xpLeftOversNormalizedValue, currentXPnormalizedValue, InterpolateUtils.EaseInCubic(normalizedTime));
             
             yield return null;
         }
 
-        if (currentXP > xpToNextLevel)
-            yield return StartCoroutine(StartLevelProgressMoveBarInSeconds());
+        if (currentXP >= xpToNextLevel)
+        {
+            _unitLevel.IncreaseLevel();
+            UpdateLevelText(_unitLevel.GetCurrentLevel());
+            _unitLevel.InvokeLevelUPEvent();
+            _leveledUp = true;
+        }
+        else
+        {
+            // Save left over XPs
+            // ...
+        }
     }
+
+    private void UpdateLevelText(int newLevel) => _unitDisplayLevelText.text = $"Lvl. {newLevel}";
 }

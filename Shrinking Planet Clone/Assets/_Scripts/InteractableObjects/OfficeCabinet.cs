@@ -15,7 +15,7 @@ public class OfficeCabinet : MonoBehaviour, IInteractable, ISelectable
 
         if (UnitNeedManager.Instance.GetCurrentNeed().Type == _unitNeedType)
         {
-            SoundManager.Instance.PlayTrashDisposeSound();
+            SoundManager.Instance.PlayDocumentDeliveredSound();
 
             Unit unit = UnitNeedManager.Instance.GetUnitWithNeed();
 
