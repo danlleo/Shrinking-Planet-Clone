@@ -12,16 +12,18 @@ public class UnitDisplaySingleUI : MonoBehaviour
 
     private UnitLevel _unitLevel;
 
-    private float _maxTimeInSeconds = 1f;
+    private float _maxTimeInSeconds = .5f;
 
     private bool _leveledUp;
+
+    private string _unitSOName;
 
     private void OnDestroy()
     {
         _unitLevel.OnLevelUp -= UnitLevel_OnLevelUp;
     }
 
-    public void Initialize(Sprite unitDisplayImage, string unitDisplayNameText, string unitDisplayLevelText, UnitLevel unitLevel, UnitEconomy unitEconomy)
+    public void Initialize(Sprite unitDisplayImage, string unitDisplayNameText, string unitDisplayLevelText, UnitLevel unitLevel, UnitEconomy unitEconomy, string unitSOName)
     {
         _unitLevel = unitLevel;
 
@@ -31,6 +33,7 @@ public class UnitDisplaySingleUI : MonoBehaviour
             return;        
         }
 
+        _unitSOName = unitSOName;
         _unitDisplayImage.sprite = unitDisplayImage;
         _unitDisplayNameText.text = unitDisplayNameText;
         _unitDisplayLevelText.text = $"Lvl. {unitDisplayLevelText}";
@@ -83,8 +86,11 @@ public class UnitDisplaySingleUI : MonoBehaviour
         }
         else
         {
-            // Save left over XPs
-            // ...
+            // Save left over XPs and level
+            _unitLevel.SetXPLeftOver(currentXP);
+
+            SaveGameManager.Instance.TrySaveUnitLevel(_unitSOName, _unitLevel.GetCurrentLevel());
+            SaveGameManager.Instance.TrySaveUnitLeftOverXPs(_unitSOName, _unitLevel.GetXPLevtOvers());
         }
     }
 

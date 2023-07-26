@@ -46,6 +46,11 @@ public class UnitManager : Singleton<UnitManager>
                 unitOccupation.Initialize(unitSO);
             }
 
+            if (unitGameObject.TryGetComponent(out UnitLevel unitLevel))
+            {
+                unitLevel.SetCurrentLevel(unitData.UnitLevel);
+            }
+
             yield return new WaitForSeconds(_spawnUnitDelayInSeconds);
         }
     }

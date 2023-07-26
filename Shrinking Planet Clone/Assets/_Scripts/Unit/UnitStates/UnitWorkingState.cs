@@ -3,6 +3,9 @@ using static UnitEconomy;
 
 public class UnitWorkingState : UnitBaseState
 {
+    private const float DEFAULT_NEED_OCCURRENCE_CHANCE = 80f;
+    private const float OCCURENCE_CHANCE_DIVISOR = 10f;
+
     public static event EventHandler<UnitRecievedPaymentEventArgs> OnUnitReceivedPayment;
     public static event EventHandler OnUnitResolvingWorkIssue;
     public static event EventHandler OnUnitNeedRequested;
@@ -19,6 +22,7 @@ public class UnitWorkingState : UnitBaseState
     }
 
     private Unit _unit;
+    private UnitLevel _unitLevel;
     private UnitEconomy _unitEconomy;
     private UnitOccupation _unitOccupation;
     private UnitStateManager _unitStateManager;
@@ -39,6 +43,7 @@ public class UnitWorkingState : UnitBaseState
         _unit = unitStateManager.GetComponent<Unit>();
         _unitEconomy = unitStateManager.GetComponent<UnitEconomy>();
         _unitOccupation = unitStateManager.GetComponent<UnitOccupation>();
+        _unitLevel = unitStateManager.GetComponent<UnitLevel>();
 
         _unit.transform.rotation = _unit.GetUnitReachedDeskRotaion();
         _unit.transform.position = _unit.GetUnitPlaceOnChairPosition();
@@ -96,16 +101,24 @@ public class UnitWorkingState : UnitBaseState
             return;
         }
 
-        OnUnitNeedRequested?.Invoke(_unit, EventArgs.Empty);
+        // Calculate chance of requesting need
+        float randomValue = UnityEngine.Random.value;
+        float needOccurrenceChance = MathUtils.NormalizeValue(DEFAULT_NEED_OCCURRENCE_CHANCE - _unitLevel.GetCurrentLevel() * OCCURENCE_CHANCE_DIVISOR, 0, 100);
 
-        UnitNeed randomUnitNeed = UnitNeedManager.Instance.GetRandomNeed();
+        if (randomValue <= needOccurrenceChance)
+        {
+            OnUnitNeedRequested?.Invoke(_unit, EventArgs.Empty);
 
-        _unitNeed = randomUnitNeed;
-        _unitNeedType = randomUnitNeed.Type;
+            UnitNeed randomUnitNeed = UnitNeedManager.Instance.GetRandomNeed();
 
-        _unit.InvokeUnitNeedRequest(randomUnitNeed);
+            _unitNeed = randomUnitNeed;
+            _unitNeedType = randomUnitNeed.Type;
 
-        _hasRequest = true;
+            _unit.InvokeUnitNeedRequest(randomUnitNeed);
+
+            _hasRequest = true;
+        }
+
         _canUnitWork = true;
     }
 

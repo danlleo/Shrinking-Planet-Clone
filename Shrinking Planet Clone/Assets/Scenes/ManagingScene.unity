@@ -3594,8 +3594,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _defaultUnitDataList:
   - UnitSOName: JamesonUnit
+    UnitLevel: 0
+    UnitLelfOverXPs: 0
   - UnitSOName: KendraUnit
+    UnitLevel: 0
+    UnitLelfOverXPs: 0
   - UnitSOName: LarkUnit
+    UnitLevel: 0
+    UnitLelfOverXPs: 0
 --- !u!4 &1297399005
 Transform:
   m_ObjectHideFlags: 0
@@ -5138,13 +5144,13 @@ MonoBehaviour:
   - Icon: {fileID: 21300000, guid: 9026287607a7d1f4d98aaa6e2571dc1b, type: 3}
     Title: Water Cooler
     Description: If you think one is not enough
-    Price: 10000
+    Price: 7000
     ID: 1
     ItemSO: {fileID: 11400000, guid: 92dd657532e02114da88b2ae51bd0f2a, type: 2}
   - Icon: {fileID: 21300000, guid: d78088d881b8ac740969484c24a517e4, type: 3}
     Title: Sam
     Description: Are you sure you need him?
-    Price: 20000
+    Price: 10000
     ID: 2
     ItemSO: {fileID: 11400000, guid: 7b31d436f22432a419f04832d9c52752, type: 2}
   - Icon: {fileID: 21300000, guid: 9debef9f1d06d2b4d8df9b62f0eda980, type: 3}
@@ -5156,12 +5162,12 @@ MonoBehaviour:
   - Icon: {fileID: 21300000, guid: fc7e4a46e95c00b42ad363904da9d8b5, type: 3}
     Title: Cup
     Description: Don't spill the drink
-    Price: 7500
+    Price: 3000
     ID: 4
     ItemSO: {fileID: 11400000, guid: 7b31d436f22432a419f04832d9c52752, type: 2}
   - Icon: {fileID: 21300000, guid: ecbb311620b46f549a0309c4d9597121, type: 3}
     Title: Paint
     Description: Society says it will worth it
-    Price: 15000
+    Price: 4000
     ID: 5
     ItemSO: {fileID: 11400000, guid: 6c9c79631ddf6794284480c18cb2c6b2, type: 2}

@@ -18,7 +18,7 @@ public class UnitLevel : MonoBehaviour
     private int _currentLevel = 1;
     private int _currentXP = 0;
     private int _xpToLevelUP = 100;
-    private int _xpLeftOvers = 20;
+    private int _xpLeftOvers = 0;
 
     public int GetCurrentXP() => _currentXP;
 
@@ -47,13 +47,35 @@ public class UnitLevel : MonoBehaviour
         _currentLevel++;
     }
 
-    public void SetCurrentXP(int XPAmount)
+    public void SetCurrentLevel(int level)
     {
-        if (XPAmount < 0)
+        if (level < 0)
+            throw new ArgumentException("Cannot add negative level value!");
+
+        if (level > MAX_LEVEL)
+            throw new ArgumentException("Cannot add level higher than maximum level!");
+
+        _currentLevel = level;
+    }
+
+    public void SetCurrentXP(int xpAmount)
+    {
+        if (xpAmount < 0)
             throw new ArgumentException("Cannot add negative XP value!");
 
-        _currentXP = XPAmount;
+        _currentXP = xpAmount;
     }
+
+    public void SetXPLeftOver(int xpAmount)
+    {
+        if (xpAmount < 0)
+            throw new ArgumentException("XP left over value cannot be less than zero!");
+
+        if (xpAmount >= _xpToLevelUP)
+            throw new ArgumentException("XP left over value cannot be greater than or equal to XP_TO_LEVEL_UP!");
+
+        _xpLeftOvers = xpAmount;
+    } 
 
     public void InvokeLevelUPEvent() => OnLevelUp?.Invoke(this, EventArgs.Empty);
 }
