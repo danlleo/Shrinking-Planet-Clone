@@ -10,7 +10,6 @@ public class UnitStateManager : MonoBehaviour
     public UnitWalkingState _walkingState = new UnitWalkingState();
     public UnitReachedDeskState _reachedDeskState = new UnitReachedDeskState();
     public UnitWorkingState _workingState = new UnitWorkingState();
-    public UnitLeavingState _leavingState = new UnitLeavingState();
 
     private void Start()
     {

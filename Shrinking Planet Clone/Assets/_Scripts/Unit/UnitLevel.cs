@@ -9,6 +9,12 @@ public class UnitLevel : MonoBehaviour
     private const int LEVEL_4_XP_TO_LEVEL_UP = 170;
     private const int LEVEL_5_XP_TO_LEVEL_UP = 190;
 
+    private const float LEVEL_1_WORK_SPEED_BOOST_PERCENT = 0f;
+    private const float LEVEL_2_WORK_SPEED_BOOST_PERCENT = 20f;
+    private const float LEVEL_3_WORK_SPEED_BOOST_PERCENT = 35f;
+    private const float LEVEL_4_WORK_SPEED_BOOST_PERCENT = 45f;
+    private const float LEVEL_5_WORK_SPEED_BOOST_PERCENT = 55f;
+
     private const int MAX_LEVEL = 5;
 
     public event EventHandler OnLevelUp;
@@ -37,7 +43,20 @@ public class UnitLevel : MonoBehaviour
         };
     }
 
-    public int GetXPLevtOvers() => _xpLeftOvers;
+    public int GetXPLeftOvers() => _xpLeftOvers;
+
+    public float GetDependingLevelWorkingSpeedBoost()
+    {
+        return _currentLevel switch
+        {
+            1 => LEVEL_1_WORK_SPEED_BOOST_PERCENT,
+            2 => LEVEL_2_WORK_SPEED_BOOST_PERCENT,
+            3 => LEVEL_3_WORK_SPEED_BOOST_PERCENT,
+            4 => LEVEL_4_WORK_SPEED_BOOST_PERCENT,
+            5 => LEVEL_5_WORK_SPEED_BOOST_PERCENT,
+            _ => LEVEL_1_WORK_SPEED_BOOST_PERCENT,
+        };
+    }
 
     public bool HasReachedMaxLevel(int level) => level == MAX_LEVEL;
 

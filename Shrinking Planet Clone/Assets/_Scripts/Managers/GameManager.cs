@@ -1,22 +1,49 @@
+using System;
+using UnityEngine;
+
 public class GameManager : Singleton<GameManager>
 {
-    public enum GameMode
-    {
-        Interview,
-        Working,
-    }
+    private const float PAUSE_TIME_SCALE = 0f;
 
-    private GameMode _currentGameMode;
+    public event EventHandler OnGamePaused;
+    public event EventHandler OnGameUnpaused;
+
+    private bool _isPaused;
+
+    private float _previousTimeScale = 1f;
 
     protected override void Awake()
     {
         base.Awake();
-
-        _currentGameMode = GameMode.Interview;
     }
 
-    public GameMode GetCurrentGameMode()
+    private void Update()
     {
-        return _currentGameMode;
+        if (!InputManager.Instance.IsPauseButtonDownThisFrame())
+            return;
+
+        if (_isPaused)
+        {
+            Resume();
+        }
+        else
+        {
+            Pause();
+        }
+    }
+
+    public void Pause()
+    {
+        OnGamePaused?.Invoke(this, EventArgs.Empty);
+        _isPaused = true;
+        _previousTimeScale = Time.timeScale;
+        Time.timeScale = PAUSE_TIME_SCALE;
+    }
+
+    public void Resume()
+    {
+        OnGameUnpaused?.Invoke(this, EventArgs.Empty);
+        _isPaused = false;
+        Time.timeScale = _previousTimeScale;
     }
 }

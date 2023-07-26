@@ -60,7 +60,7 @@ public class UnitDisplaySingleUI : MonoBehaviour
     {
         int currentXP = _unitLevel.GetCurrentXP();
         int xpToNextLevel = _unitLevel.GetXPToLevelUP();
-        int xpLeftOvers = !_leveledUp ? _unitLevel.GetXPLevtOvers() : 0;
+        int xpLeftOvers = !_leveledUp ? _unitLevel.GetXPLeftOvers() : 0;
 
         float timer = 0f;
 
@@ -90,7 +90,7 @@ public class UnitDisplaySingleUI : MonoBehaviour
             _unitLevel.SetXPLeftOver(currentXP);
 
             SaveGameManager.Instance.TrySaveUnitLevel(_unitSOName, _unitLevel.GetCurrentLevel());
-            SaveGameManager.Instance.TrySaveUnitLeftOverXPs(_unitSOName, _unitLevel.GetXPLevtOvers());
+            SaveGameManager.Instance.TrySaveUnitLeftOverXPs(_unitSOName, _unitLevel.GetXPLeftOvers());
         }
     }
 

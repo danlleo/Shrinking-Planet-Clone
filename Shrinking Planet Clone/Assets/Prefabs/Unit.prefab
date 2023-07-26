@@ -1460,6 +1460,7 @@ MonoBehaviour:
   _workingProgressBarUI: {fileID: 9081781068578825128}
   _unit: {fileID: 2131034762636864313}
   _unitEconomy: {fileID: -8121621063952919108}
+  _unitLevel: {fileID: 1204157873284038405}
   _progressBarForeground: {fileID: 4357265519685196294}
 --- !u!114 &4833410192146113919
 MonoBehaviour:

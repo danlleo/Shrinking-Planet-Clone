@@ -25,7 +25,6 @@ public class UnitWorkingState : UnitBaseState
     private UnitLevel _unitLevel;
     private UnitEconomy _unitEconomy;
     private UnitOccupation _unitOccupation;
-    private UnitStateManager _unitStateManager;
     private UnitNeed _unitNeed;
     private UnitNeedType _unitNeedType;
 
@@ -39,7 +38,6 @@ public class UnitWorkingState : UnitBaseState
 
     public override void EnterState(UnitStateManager unitStateManager)
     {
-        _unitStateManager = unitStateManager;
         _unit = unitStateManager.GetComponent<Unit>();
         _unitEconomy = unitStateManager.GetComponent<UnitEconomy>();
         _unitOccupation = unitStateManager.GetComponent<UnitOccupation>();
@@ -55,7 +53,6 @@ public class UnitWorkingState : UnitBaseState
         _unit.OnUnitNeedFulfilled += Unit_OnUnitNeedFulfilled;
         _unitEconomy.OnUnitReceivedMoney += UnitEconomy_OnUnitReceivedMoney; ;
         _unitEconomy.OnUnitReadyToReceiveMoney += UnitEconomy_OnUnitReadyToReceiveMoney;
-        DayManager.Instance.OnDayEnded += DayManager_OnDayEnded;
         ResolveWorkIssueUI.OnResolvedWorkIssue += ResolveWorkIssueUI_OnResolvedWorkIssue;
         ResolveWorkIssueUI.OnResolvingFailedWorkIssue += ResolveWorkIssueUI_OnResolvingFailedWorkIssue;
     }
@@ -84,11 +81,6 @@ public class UnitWorkingState : UnitBaseState
         {
             _canUnitWork = true;
         }
-    }
-
-    private void DayManager_OnDayEnded(object sender, EventArgs e)
-    {
-        _unitStateManager.SwitchState(_unitStateManager._leavingState);
     }
 
     private void UnitEconomy_OnUnitReadyToReceiveMoney(object sender, UnitReadyToReceiveMoneyEventArgs e)

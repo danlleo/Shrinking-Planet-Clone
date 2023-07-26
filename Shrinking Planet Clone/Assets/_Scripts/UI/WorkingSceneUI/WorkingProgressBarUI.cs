@@ -8,6 +8,7 @@ public class WorkingProgressBarUI : MonoBehaviour
     [SerializeField] private GameObject _workingProgressBarUI;
     [SerializeField] private Unit _unit;
     [SerializeField] private UnitEconomy _unitEconomy;
+    [SerializeField] private UnitLevel _unitLevel;
     [SerializeField] private Image _progressBarForeground;
 
     private float _chanceToFinishWorkWithTroubles = .15f;
@@ -16,13 +17,19 @@ public class WorkingProgressBarUI : MonoBehaviour
 
     private Coroutine _countDownCoroutine;
 
+    private void Awake()
+    {
+        HideUI();
+    }
+
     private void Start()
     {
+        SetMaxWorkingTime();
+
         _unit.OnUnitPerformedWorkPiece += Unit_OnUnitPerformedWorkPiece;
         _unitEconomy.OnUnitReceivedMoney += UnitEconomy_OnUnitRecievedMoney;
         DayManager.Instance.OnDayEnded += DayManager_OnDayEnded;
         ResolveWorkIssueUI.OnResolvingFailedWorkIssue += ResolveWorkIssueUI_OnResolvingFailedWorkIssue;
-        HideUI();
     }
 
     private void OnDestroy()
@@ -32,6 +39,8 @@ public class WorkingProgressBarUI : MonoBehaviour
         DayManager.Instance.OnDayEnded -= DayManager_OnDayEnded;
         ResolveWorkIssueUI.OnResolvingFailedWorkIssue -= ResolveWorkIssueUI_OnResolvingFailedWorkIssue;
     }
+
+    private void SetMaxWorkingTime() => _maxTimeInSeconds -= (_unitLevel.GetDependingLevelWorkingSpeedBoost() / 100) * _maxTimeInSeconds;
 
     private void DayManager_OnDayEnded(object sender, EventArgs e)
     {
