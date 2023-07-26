@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -19,7 +18,7 @@ public class SaveGameManager : Singleton<SaveGameManager>
 
     private const int DEFAULT_COMPANY_RANK_POSITION = 100;
     private const int DEFAULT_DAY_COUNT = 1;
-    private const int DEFAULT_MONEY_AMOUNT = 100000;
+    private const int DEFAULT_MONEY_AMOUNT = 100;
 
     protected override void Awake()
     {
@@ -130,6 +129,30 @@ public class SaveGameManager : Singleton<SaveGameManager>
         UnitSO unitSO = Resources.Load<UnitSO>($"{UNITS_PATH}/{name}");
 
         return unitSO;
+    }
+
+    public bool TrySaveUnitLevel(string unitSOName, int level)
+    {
+        UnitData foundUnitData = _unitDataList.Find(data => data.UnitSOName == unitSOName);
+
+        if (foundUnitData == null)
+            return false;
+
+        foundUnitData.UnitLevel = level;
+
+        return true;
+    }
+
+    public bool TrySaveUnitLeftOverXPs(string unitSOName, int xp)
+    {
+        UnitData foundUnitData = _unitDataList.Find(data => data.UnitSOName == unitSOName);
+
+        if (foundUnitData == null)
+            return false;
+
+        foundUnitData.UnitLelfOverXPs = xp;
+
+        return true;
     }
 
     public bool SaveExists() => File.Exists(_saveFilePath);

@@ -1,24 +1,45 @@
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class DayUI : MonoBehaviour
 {
+    [SerializeField] private GameObject _dayUI;
     [SerializeField] private TextMeshProUGUI _currentDayText;
+    [SerializeField] private Button _pauseButton;
+
+    private void Awake()
+    {
+        ShowUI();
+
+        _pauseButton.onClick.AddListener(() =>
+        {
+            GameManager.Instance.Pause();
+        });
+    }
 
     private void Start()
     {
         UpdateDayUI();
-        DayManager.Instance.OnDayChanged += DayManager_OnDayChanged;
+
+        GameManager.Instance.OnGamePaused += GameManager_OnGamePaused;
+        GameManager.Instance.OnGameUnpaused += GameManager_OnGameUnpaused;
     }
 
     private void OnDestroy()
     {
-        DayManager.Instance.OnDayChanged -= DayManager_OnDayChanged;
+        GameManager.Instance.OnGamePaused -= GameManager_OnGamePaused;
+        GameManager.Instance.OnGameUnpaused -= GameManager_OnGameUnpaused;
     }
 
-    private void DayManager_OnDayChanged(object sender, System.EventArgs e)
+    private void GameManager_OnGameUnpaused(object sender, System.EventArgs e)
     {
-        UpdateDayUI();
+        ShowUI();
+    }
+
+    private void GameManager_OnGamePaused(object sender, System.EventArgs e)
+    {
+        HideUI();
     }
 
     private void UpdateDayUI()
@@ -26,4 +47,8 @@ public class DayUI : MonoBehaviour
         int currentDay = DayManager.Instance.GetCurrentDay();
         _currentDayText.text = $"{currentDay}";
     }
+
+    private void ShowUI() => _dayUI.SetActive(true);
+
+    private void HideUI() => _dayUI.SetActive(false);
 }

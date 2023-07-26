@@ -2,7 +2,6 @@ using System;
 
 public class DayManager : Singleton<DayManager>
 {
-    public event EventHandler<EventArgs> OnDayChanged;
     public event EventHandler<EventArgs> OnDayEnded;
 
     private int _currentDay = 1;

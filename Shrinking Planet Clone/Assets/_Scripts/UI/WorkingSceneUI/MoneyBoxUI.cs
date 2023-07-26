@@ -16,6 +16,9 @@ public class MoneyBoxUI : MonoBehaviour
     {
         OnUnitReceivedPayment += UnitWorkingState_OnUnitReceivedPayment;
         DayManager.Instance.OnDayEnded += DayManager_OnDayEnded;
+        GameManager.Instance.OnGamePaused += GameManager_OnGamePaused;
+        GameManager.Instance.OnGameUnpaused += GameManager_OnGameUnpaused;
+
         UpdateMoneyAmountUI();
     }
 
@@ -23,6 +26,18 @@ public class MoneyBoxUI : MonoBehaviour
     {
         OnUnitReceivedPayment -= UnitWorkingState_OnUnitReceivedPayment;
         DayManager.Instance.OnDayEnded -= DayManager_OnDayEnded;
+        GameManager.Instance.OnGamePaused -= GameManager_OnGamePaused;
+        GameManager.Instance.OnGameUnpaused -= GameManager_OnGameUnpaused;
+    }
+
+    private void GameManager_OnGameUnpaused(object sender, System.EventArgs e)
+    {
+        ShowUI();
+    }
+
+    private void GameManager_OnGamePaused(object sender, System.EventArgs e)
+    {
+        HideUI();
     }
 
     private void DayManager_OnDayEnded(object sender, System.EventArgs e)

@@ -14,12 +14,6 @@ public class UnitReachedDeskState : UnitBaseState
 
         _unit.InvokeUnitReachedDeskEvent();
         _unitOccupation.OnUnitOccupationSet += UnitOccupation_OnUnitOccupationSet;
-        DayManager.Instance.OnDayChanged += DayManager_OnDayChanged;
-    }
-
-    private void DayManager_OnDayChanged(object sender, EventArgs e)
-    {
-        _unitStateManager.SwitchState(_unitStateManager._leavingState);
     }
 
     private void UnitOccupation_OnUnitOccupationSet(object sender, EventArgs e)

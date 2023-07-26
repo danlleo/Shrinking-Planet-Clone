@@ -54,13 +54,15 @@ public class EndDayUI : MonoBehaviour
             
             string unitDisplayName = unit.GetUnitName();
             string unitDisplayLevel = unitLevel.GetCurrentLevel().ToString();
+            string unitSOName = unit.GetUnitSOName();
 
             unitDisplaySingleUI.Initialize(
                 unitDisplayImage, 
                 unitDisplayName, 
                 unitDisplayLevel, 
                 unitLevel, 
-                unitEconomy
+                unitEconomy,
+                unitSOName
             );
         }
     }

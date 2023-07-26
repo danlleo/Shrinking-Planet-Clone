@@ -14,5 +14,7 @@ public class InputManager : Singleton<InputManager>
     // This button is for testing purposes, remove it later
     public bool IsTButtonDownThisFrame() => Input.GetKeyDown(KeyCode.T);
 
+    public bool IsPauseButtonDownThisFrame() => Input.GetKeyDown(KeyCode.Escape);
+
     public Vector2 GetMouseScreenPosition() => Input.mousePosition;
 }
