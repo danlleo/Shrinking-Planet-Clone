@@ -31,7 +31,7 @@ public class GamePauseUI : MonoBehaviour
         {
             _gamePausePopUpConfirmationUI.Initialize("Are you sure you want to go to the Main Menu?", () =>
             {
-                print("Main Menu Scene");
+                Loader.Load(Loader.Scene.MainMenuScene);
             });
         });
 

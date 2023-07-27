@@ -27,13 +27,7 @@ public class SaveGameManager : Singleton<SaveGameManager>
         _saveFilePath = Application.persistentDataPath + "/save.json";
         
         if (SaveExists())
-        {
-            LoadGame();
-        }
-        else
-        {
-            NewGame();
-        }
+            LoadGame();    
     }
 
     // For testing purposes
@@ -56,6 +50,12 @@ public class SaveGameManager : Singleton<SaveGameManager>
             int moneyAmount = GetMoneyAmount();
 
             SaveGame(companyRankPosition, dayCount, moneyAmount);
+        }
+
+        if (Input.GetKeyDown(KeyCode.D))
+        {
+            DeleteSave();
+            print("Save deleted");
         }
     }
 
@@ -156,6 +156,8 @@ public class SaveGameManager : Singleton<SaveGameManager>
     }
 
     public bool SaveExists() => File.Exists(_saveFilePath);
+
+    public void DeleteSave() => File.Delete(_saveFilePath);
 
     public int GetDayCount() => _saveData.DayCount;
 

@@ -40,8 +40,8 @@ public class ManagingUI : MonoBehaviour
 
     private void Start()
     {
-        _currentCompanyRankText.text = "Company Rank: " + SaveGameManager.Instance.GetCompanyRankPosition();
-        _currentDayText.text = "Current Day: " + DayManager.Instance.GetCurrentDay();
+        _currentCompanyRankText.text = SaveGameManager.Instance.GetCompanyRankPosition().ToString();
+        _currentDayText.text = DayManager.Instance.GetCurrentDay().ToString();
         BuyUI.OnOpenBuyUIClose += BuyUI_OnOpenBuyUIClose;
 
         if (IsInterviewDay())

@@ -17,6 +17,21 @@ public class GameManager : Singleton<GameManager>
         base.Awake();
     }
 
+    private void Start()
+    {
+        DayManager.Instance.OnDayEnded += DayManager_OnDayEnded;
+    }
+
+    private void OnDestroy()
+    {
+        DayManager.Instance.OnDayEnded -= DayManager_OnDayEnded;
+    }
+
+    private void DayManager_OnDayEnded(object sender, EventArgs e)
+    {
+        Destroy(gameObject);
+    }
+
     private void Update()
     {
         if (!InputManager.Instance.IsPauseButtonDownThisFrame())
