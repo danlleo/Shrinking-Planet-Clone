@@ -15,6 +15,7 @@ public static class Loader
         WorkingScene,
         ManagingScene,
         InterviewScene,
+        MainMenuScene
     }
 
     private static Action _onLoaderCallback;

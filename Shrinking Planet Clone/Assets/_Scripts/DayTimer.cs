@@ -6,24 +6,52 @@ public class DayTimer : MonoBehaviour
 {
     [SerializeField] private Image _timerForeground;
 
-    private float _maxTimeInSeconds = 100f;
+    private float _maxTimeInSeconds = 10f;
     private float _normalizedTime = 0f;
+    private float _timer = 0f;
+
+    private Coroutine _timerCoroutine;
+
+    private bool _isRunningTimerCoroutine;
+
+    private void Awake()
+    {
+        _timer = _maxTimeInSeconds;
+    }
 
     private void Start()
     {
         InvokeTimer();
     }
 
-    private void InvokeTimer() => StartCoroutine(TimerCountDownInSecondsRoutine());
+    private void OnEnable()
+    {
+        if (_isRunningTimerCoroutine)
+        {
+            _timerCoroutine = StartCoroutine(TimerCountDownInSecondsRoutine());
+        }
+    }
+
+    private void OnDisable()
+    {
+        if (_timerCoroutine != null)
+        {
+            StopCoroutine(_timerCoroutine);
+            _isRunningTimerCoroutine = true;
+        }
+    }
+
+    private void InvokeTimer()
+    {
+        _timerCoroutine = StartCoroutine(TimerCountDownInSecondsRoutine());
+    }
 
     private IEnumerator TimerCountDownInSecondsRoutine()
     {
-        float timer = _maxTimeInSeconds;
-
-        while (timer >= 0)
+        while (_timer >= 0)
         {
-            timer -= Time.deltaTime;
-            _normalizedTime = timer / _maxTimeInSeconds;
+            _timer -= Time.deltaTime;
+            _normalizedTime = _timer / _maxTimeInSeconds;
             _timerForeground.fillAmount = _normalizedTime;
             yield return null;
         }

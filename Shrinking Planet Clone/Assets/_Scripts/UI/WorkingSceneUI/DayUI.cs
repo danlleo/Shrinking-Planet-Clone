@@ -24,12 +24,19 @@ public class DayUI : MonoBehaviour
 
         GameManager.Instance.OnGamePaused += GameManager_OnGamePaused;
         GameManager.Instance.OnGameUnpaused += GameManager_OnGameUnpaused;
+        DayManager.Instance.OnDayEnded += DayManager_OnDayEnded;
     }
 
     private void OnDestroy()
     {
         GameManager.Instance.OnGamePaused -= GameManager_OnGamePaused;
         GameManager.Instance.OnGameUnpaused -= GameManager_OnGameUnpaused;
+        DayManager.Instance.OnDayEnded -= DayManager_OnDayEnded;
+    }
+
+    private void DayManager_OnDayEnded(object sender, System.EventArgs e)
+    {
+        HideUI();
     }
 
     private void GameManager_OnGameUnpaused(object sender, System.EventArgs e)

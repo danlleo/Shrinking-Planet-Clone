@@ -23,7 +23,7 @@ public class UnitDisplayInterviewSingleUI : MonoBehaviour, IPointerEnterHandler,
     {
         _unitDisplayInterviewImage.sprite = unitInterviewDisplayImage;
         _unitDisplayInterviewNameText.text = unitDisplayInterviewNameText;
-        _unitDisplayInterviewLevelText.text = $"Lvl. {unitDisplayInterviewLevelText}";
+        _unitDisplayInterviewLevelText.text = $"{unitDisplayInterviewLevelText}";
         _unitSO = unitSO;
     }
 
