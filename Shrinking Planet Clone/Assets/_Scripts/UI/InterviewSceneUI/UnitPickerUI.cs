@@ -65,12 +65,12 @@ public class UnitPickerUI : MonoBehaviour
             UnitDisplayInterviewSingleUI unitDisplayInterviewSingleUI = unitInterviewDisplaySingle.GetComponent<UnitDisplayInterviewSingleUI>();
             Sprite unitInterviewDisplayImage = unitSO.UnitDisplayImage;
             string unitInterviewDisplayName = unitSO.UnitName;
-            string unitInterviewDisplayLvl = "1";
+            string unitInterviewDisplayOccupation = unitSO.DefaultOccupation.ToString();
 
             unitDisplayInterviewSingleUI.Setup(
                 unitInterviewDisplayImage,
                 unitInterviewDisplayName,
-                unitInterviewDisplayLvl,
+                unitInterviewDisplayOccupation,
                 unitSO
             );
         }
