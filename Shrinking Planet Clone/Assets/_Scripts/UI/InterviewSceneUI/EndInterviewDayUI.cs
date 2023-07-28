@@ -1,11 +1,14 @@
-using TMPro;
+﻿using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class EndInterviewDayUI : MonoBehaviour
 {
     [SerializeField] private GameObject _endInterviewDayUI;
+    [SerializeField] private GameObject _endInterviewDayUIInfo;
     [SerializeField] private TextMeshProUGUI _interviewResultText;
+    [SerializeField] private TextMeshProUGUI _correctAnswersText;
+    [SerializeField] private TextMeshProUGUI _newCompanyRankPositionText;
     [SerializeField] private Button _proceedButton;
 
     private void Awake()
@@ -34,10 +37,17 @@ public class EndInterviewDayUI : MonoBehaviour
 
         if (JudgeQuestionsManager.Instance.HasFinishedInterviewWithSuccess())
         {
+            _endInterviewDayUIInfo.SetActive(true);
             _interviewResultText.text = "Success";
+            _correctAnswersText.text = $"Correct answers {JudgeQuestionsManager.Instance.GetCorrectlyAnsweredQuestionsCount()}";
+
+            int currentCompanyRankPosition = SaveGameManager.Instance.GetCompanyRankPosition();
+
+            _newCompanyRankPositionText.text = $"New Company Rank Position {currentCompanyRankPosition} → {CompanyProgress.GetNextCompanyRankPosition(currentCompanyRankPosition)}";
         }
         else
         {
+            _endInterviewDayUIInfo.SetActive(false);
             _interviewResultText.text = "Fail";
         }
     }

@@ -1,10 +1,22 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class ShopManager : Singleton<ShopManager>
 {
-    public event EventHandler OnItemBought;
+    public event EventHandler<BoughtItemEventArgs> OnItemBought;
+
+    public class BoughtItemEventArgs : EventArgs
+    {
+        public PurchasableItem PurchasedItem;
+
+        public BoughtItemEventArgs(PurchasableItem purchasedItem)
+        {
+            PurchasedItem = purchasedItem;
+        }
+    }
+
     public event EventHandler OnItemFailedPurchase;
 
     [SerializeField] private List<PurchasableItem> _purchasableItemList;
@@ -40,6 +52,8 @@ public class ShopManager : Singleton<ShopManager>
 
     public IEnumerable<PurchasableItem> GetPurchasableItemList() => _purchasableItemList;
 
+    public bool HasBoughtItem(PurchasableItem purchaseItem) => SaveGameManager.Instance.RetrievePurchasedItems().Contains(purchaseItem);
+
     private void Failed()
     {
         OnItemFailedPurchase?.Invoke(this, EventArgs.Empty);
@@ -48,7 +62,7 @@ public class ShopManager : Singleton<ShopManager>
     private void Success()
     {
         EconomyManager.Instance.SubstractCurrentMoneyAmountBy(_selectedItemPrice);
-        OnItemBought?.Invoke(this, EventArgs.Empty);
+        OnItemBought?.Invoke(this, new BoughtItemEventArgs(_selectedPurchasableItem));
         ItemStashManager.Instance.AddPurchasedItem(_selectedPurchasableItem);
     }
 }

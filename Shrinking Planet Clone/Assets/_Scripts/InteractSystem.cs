@@ -47,6 +47,14 @@ public class InteractSystem : Singleton<InteractSystem>
             
             if (_areHandsBusy)
             {
+                if (_unitNeedType == UnitNeedType.Thirsty)
+                {
+                    SetHandsFree();
+                    InvokeObjectDrop();
+                    OnObjectDispose?.Invoke(this, EventArgs.Empty);
+                    return;
+                }
+
                 SetHandsFree();
                 InvokeObjectDrop();
                 OnObjectDispose?.Invoke(this, EventArgs.Empty);

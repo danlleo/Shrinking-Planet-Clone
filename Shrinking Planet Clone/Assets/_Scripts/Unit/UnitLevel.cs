@@ -3,6 +3,8 @@ using UnityEngine;
 
 public class UnitLevel : MonoBehaviour
 {
+    public static event EventHandler OnAnyLevelUp;
+
     private const int LEVEL_1_XP_TO_LEVEL_UP = 110;
     private const int LEVEL_2_XP_TO_LEVEL_UP = 130;
     private const int LEVEL_3_XP_TO_LEVEL_UP = 150;
@@ -62,6 +64,7 @@ public class UnitLevel : MonoBehaviour
 
     public void IncreaseLevel()
     {
+        OnAnyLevelUp?.Invoke(this, EventArgs.Empty);
         _currentXP -= _xpToLevelUP;
         _currentLevel++;
     }
@@ -90,7 +93,7 @@ public class UnitLevel : MonoBehaviour
         if (xpAmount < 0)
             throw new ArgumentException("XP left over value cannot be less than zero!");
 
-        if (xpAmount >= _xpToLevelUP)
+        if (xpAmount >= GetXPToLevelUP())
             throw new ArgumentException("XP left over value cannot be greater than or equal to XP_TO_LEVEL_UP!");
 
         _xpLeftOvers = xpAmount;

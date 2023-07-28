@@ -21,6 +21,7 @@ public class SoundManager : Singleton<SoundManager>
         InteractSystem.Instance.OnObjectPickUp += InteractSystem_OnObjectPickUp;
         InteractSystem.Instance.OnObjectDispose += InteractSystem_OnObjectDispose;
         ShopManager.Instance.OnItemBought += ShopManager_OnItemBought;
+        UnitLevel.OnAnyLevelUp += UnitLevel_OnAnyLevelUp;
     }
 
     private void OnDestroy()
@@ -35,6 +36,12 @@ public class SoundManager : Singleton<SoundManager>
         InteractSystem.Instance.OnObjectPickUp -= InteractSystem_OnObjectPickUp;
         InteractSystem.Instance.OnObjectDispose -= InteractSystem_OnObjectDispose;
         ShopManager.Instance.OnItemBought -= ShopManager_OnItemBought;
+        UnitLevel.OnAnyLevelUp -= UnitLevel_OnAnyLevelUp;
+    }
+
+    private void UnitLevel_OnAnyLevelUp(object sender, System.EventArgs e)
+    {
+        PlaySound(_audioClipRefsSO.LevelUp, transform.position);
     }
 
     private void ShopManager_OnItemBought(object sender, System.EventArgs e)

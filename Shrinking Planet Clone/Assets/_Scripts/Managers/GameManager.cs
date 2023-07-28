@@ -20,11 +20,18 @@ public class GameManager : Singleton<GameManager>
     private void Start()
     {
         DayManager.Instance.OnDayEnded += DayManager_OnDayEnded;
+        Judge.OnJudgeFinishedJob += Judge_OnJudgeFinishedJob;
     }
 
     private void OnDestroy()
     {
         DayManager.Instance.OnDayEnded -= DayManager_OnDayEnded;
+        Judge.OnJudgeFinishedJob -= Judge_OnJudgeFinishedJob;
+    }
+
+    private void Judge_OnJudgeFinishedJob(object sender, EventArgs e)
+    {
+        Destroy(gameObject);
     }
 
     private void DayManager_OnDayEnded(object sender, EventArgs e)

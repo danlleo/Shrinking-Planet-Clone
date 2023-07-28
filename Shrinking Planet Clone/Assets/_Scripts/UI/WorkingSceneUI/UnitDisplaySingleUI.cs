@@ -50,6 +50,7 @@ public class UnitDisplaySingleUI : MonoBehaviour
         if (_unitLevel.HasReachedMaxLevel(_unitLevel.GetCurrentLevel()))
         {
             _unitDisplayLevelText.text = $"Lvl. MAX";
+            print("true");
             return;
         }
 
@@ -88,6 +89,7 @@ public class UnitDisplaySingleUI : MonoBehaviour
         {
             // Save left over XPs and level
             _unitLevel.SetXPLeftOver(currentXP);
+
 
             SaveGameManager.Instance.TrySaveUnitLevel(_unitSOName, _unitLevel.GetCurrentLevel());
             SaveGameManager.Instance.TrySaveUnitLeftOverXPs(_unitSOName, _unitLevel.GetXPLeftOvers());

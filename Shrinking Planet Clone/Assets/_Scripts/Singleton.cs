@@ -8,7 +8,7 @@ public class Singleton<T> : MonoBehaviour where T : Singleton<T>
     {
         if (Instance != null)
         {
-            Debug.Log("There is more than one singleton");
+            Debug.LogError($"There is more than one singleton: {Instance.name}");
             Destroy(gameObject);
             return;
         }

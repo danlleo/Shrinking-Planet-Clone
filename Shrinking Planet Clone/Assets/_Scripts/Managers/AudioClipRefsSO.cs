@@ -12,6 +12,7 @@ public class AudioClipRefsSO : ScriptableObject
     public AudioClip UIElementSelect;
     public AudioClip UIElementClick;
     public AudioClip CollectCoin;
+    public AudioClip LevelUp;
 
     public AudioClip JudgeAsking;
     public AudioClip CorrectInterviewQuestion;

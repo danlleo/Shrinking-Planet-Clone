@@ -24,12 +24,25 @@ public class BuyItemUISingle : MonoBehaviour, IPurchasable, IPointerClickHandler
 
     private PurchasableItem _purchasableItem;
 
+    private void OnDestroy()
+    {
+        ShopManager.Instance.OnItemBought -= ShopManager_OnItemBought;
+    }
+
     public void Initialize(PurchasableItem purchasableItem)
     {
+        ShopManager.Instance.OnItemBought += ShopManager_OnItemBought;
+        
         _iconImage.sprite = purchasableItem.Icon;
         _titleText.text = purchasableItem.Title;
         _descriptionText.text = purchasableItem.Description;
         _purchasableItem = purchasableItem;
+    }
+
+    private void ShopManager_OnItemBought(object sender, ShopManager.BoughtItemEventArgs e)
+    {
+        if (_purchasableItem.Title == e.PurchasedItem.Title)
+            Destroy(gameObject);
     }
 
     public void OnPointerClick(PointerEventData eventData)

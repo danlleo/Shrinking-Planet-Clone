@@ -28,21 +28,21 @@ public class InterviewDayManager : Singleton<InterviewDayManager>
 
     public void EndDay()
     {
-        int companyPosition;
+        int nextCompanyRankPosition;
 
         if (JudgeQuestionsManager.Instance.HasFinishedInterviewWithSuccess())
         {
-            companyPosition = SaveGameManager.Instance.GetCompanyRankPosition() - 10;
+            nextCompanyRankPosition = CompanyProgress.GetNextCompanyRankPosition(SaveGameManager.Instance.GetCompanyRankPosition());
         }
         else
         {
             // Stays the same
-            companyPosition = SaveGameManager.Instance.GetCompanyRankPosition();
+            nextCompanyRankPosition = SaveGameManager.Instance.GetCompanyRankPosition();
         }
 
         int day = DayManager.Instance.GetCurrentDay() + 1;
         int moneyAmount = SaveGameManager.Instance.GetMoneyAmount();
 
-        SaveGameManager.Instance.SaveGame(companyPosition, day, moneyAmount);
+        SaveGameManager.Instance.SaveGame(nextCompanyRankPosition, day, moneyAmount);
     }
 }

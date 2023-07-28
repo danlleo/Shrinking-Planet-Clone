@@ -21,6 +21,7 @@ MonoBehaviour:
   UIElementSelect: {fileID: 8300000, guid: a7f5bd34b24a48c4581386e3bf14ddd7, type: 3}
   UIElementClick: {fileID: 8300000, guid: 7cdcf5596b7b82d4390992a3c032238a, type: 3}
   CollectCoin: {fileID: 8300000, guid: a7f0df5369550454d83aaab1ba11d777, type: 3}
+  LevelUp: {fileID: 8300000, guid: 4c4b4e8899b0b2841bb0605cac0aba43, type: 3}
   JudgeAsking: {fileID: 8300000, guid: a2052a849a11f744887153b553cff731, type: 3}
   CorrectInterviewQuestion: {fileID: 8300000, guid: f6dea355b6dfeb2488b67ab3d68c3cab,
     type: 3}
