@@ -23,7 +23,7 @@ public class QuestionsUI : Singleton<QuestionsUI>
         HideUI();
         UnitPickerUI.OnUnitsPicked += UnitPickerUI_OnUnitsPicked;
         Judge.OnJudgeAsking += Judge_OnJudgeAsking;
-        Judge.OnJudgeFinishedJob -= Judge_OnJudgeFinishedJob;
+        Judge.OnJudgeFinishedJob += Judge_OnJudgeFinishedJob;
     }
 
     private void OnDestroy()
@@ -56,7 +56,7 @@ public class QuestionsUI : Singleton<QuestionsUI>
         int maxQuestionCount = JudgeQuestionsManager.Instance.GetMaxQuestionsCount();
 
         _maxQuestionCount = maxQuestionCount;
-        _correctQuestionsText.text = $"Correct Questions :: 0 / {_maxQuestionCount}";
+        _correctQuestionsText.text = $"0 / {_maxQuestionCount}";
     }
 
     private void ShowUI() => _questionsUI.SetActive(true);
@@ -76,5 +76,5 @@ public class QuestionsUI : Singleton<QuestionsUI>
         HideQuestionNumberText();
     }
 
-    public void UpdateQuestionCountText(int count) => _correctQuestionsText.text = $"Correct Questions: {count} / {_maxQuestionCount}";
+    public void UpdateQuestionCountText(int count) => _correctQuestionsText.text = $"{count} / {_maxQuestionCount}";
 }
