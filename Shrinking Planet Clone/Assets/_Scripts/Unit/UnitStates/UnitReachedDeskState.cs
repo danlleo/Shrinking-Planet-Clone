@@ -18,7 +18,7 @@ public class UnitReachedDeskState : UnitBaseState
 
     private void UnitOccupation_OnUnitOccupationSet(object sender, EventArgs e)
     {
-        _unitStateManager.SwitchState(_unitStateManager._workingState);
+        ExitState();
     }
 
     public override void UpdateState(UnitStateManager unitStateManager)
@@ -38,5 +38,11 @@ public class UnitReachedDeskState : UnitBaseState
                 }
             }
         }
+    }
+
+    public override void ExitState()
+    {
+        _unitOccupation.OnUnitOccupationSet -= UnitOccupation_OnUnitOccupationSet;
+        _unitStateManager.SwitchState(_unitStateManager._workingState);
     }
 }

@@ -22,4 +22,9 @@ public class UnitIdleState : UnitBaseState
         if (_timer >= 3f)
             unitStateManager.SwitchState(unitStateManager._walkingState);
     }
+
+    public override void ExitState()
+    {
+        // ...
+    }
 }

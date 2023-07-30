@@ -16,7 +16,6 @@ public class EndInterviewDayUI : MonoBehaviour
         _proceedButton.onClick.AddListener(() =>
         {
             InterviewDayManager.Instance.EndDay();
-            Loader.Load(Loader.Scene.ManagingScene);
         });
     }
 

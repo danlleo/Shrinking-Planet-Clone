@@ -15,4 +15,5 @@ public class UnitSO : ScriptableObject
     public Sprite UnitOccupationImage;
     public AudioClip GreetingSound;
     public AudioClip TypingSound;
+    public bool AvailableOnlyOnInterview;
 }

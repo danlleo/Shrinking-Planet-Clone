@@ -20,4 +20,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/InterviewScene.unity
     guid: 2c16e7018940a6c4ba1d335d71bdb331
+  - enabled: 1
+    path: Assets/Scenes/EndGameScene.unity
+    guid: f362d54029ee6134b9d6340893d50088
   m_configObjects: {}

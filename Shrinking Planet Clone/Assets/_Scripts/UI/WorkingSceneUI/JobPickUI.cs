@@ -14,6 +14,8 @@ public class JobPickUI : MonoBehaviour
 
     private void Awake()
     {
+        HideUI();
+
         _artButton.onClick.AddListener(() => SetUnitOccupation(UnitOccupationType.Art));
 
         _supportButton.onClick.AddListener(() => SetUnitOccupation(UnitOccupationType.Support));
@@ -27,7 +29,6 @@ public class JobPickUI : MonoBehaviour
     {
         Unit.OnUnitSelectingJob += Unit_OnUnitSelectingJob;
         DayManager.Instance.OnDayEnded += DayManager_OnDayEnded;
-        HideUI();
     }
 
     private void OnDestroy()

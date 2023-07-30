@@ -5,9 +5,6 @@ using UnityEngine.SceneManagement;
 
 public static class Loader
 {
-    // Dummy class
-    private class LoadingMonoBehaviour : MonoBehaviour { }
-
     // All available scenes
     public enum Scene
     {
@@ -15,8 +12,12 @@ public static class Loader
         WorkingScene,
         ManagingScene,
         InterviewScene,
-        MainMenuScene
+        MainMenuScene,
+        EndGameScene,
     }
+
+    // Dummy class
+    private class LoadingMonoBehaviour : MonoBehaviour { }
 
     private static Action _onLoaderCallback;
 

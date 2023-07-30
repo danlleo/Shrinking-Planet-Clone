@@ -55,6 +55,26 @@ public class UnitWorkingState : UnitBaseState
         _unitEconomy.OnUnitReadyToReceiveMoney += UnitEconomy_OnUnitReadyToReceiveMoney;
         ResolveWorkIssueUI.OnResolvedWorkIssue += ResolveWorkIssueUI_OnResolvedWorkIssue;
         ResolveWorkIssueUI.OnResolvingFailedWorkIssue += ResolveWorkIssueUI_OnResolvingFailedWorkIssue;
+        DayManager.Instance.OnDayEnded += DayManager_OnDayEnded;
+    }
+
+    public override void UpdateState(UnitStateManager unitStateManager)
+    {
+        HandleUnitRecievedPayment();
+    }
+    
+    public override void ExitState()
+    {
+        _unit.OnUnitNeedFulfilled -= Unit_OnUnitNeedFulfilled;
+        _unitEconomy.OnUnitReceivedMoney -= UnitEconomy_OnUnitReceivedMoney; ;
+        _unitEconomy.OnUnitReadyToReceiveMoney -= UnitEconomy_OnUnitReadyToReceiveMoney;
+        ResolveWorkIssueUI.OnResolvedWorkIssue -= ResolveWorkIssueUI_OnResolvedWorkIssue;
+        ResolveWorkIssueUI.OnResolvingFailedWorkIssue -= ResolveWorkIssueUI_OnResolvingFailedWorkIssue;
+    }
+
+    private void DayManager_OnDayEnded(object sender, EventArgs e)
+    {
+        ExitState();
     }
 
     private void Unit_OnUnitNeedFulfilled(object sender, EventArgs e)
@@ -119,11 +139,6 @@ public class UnitWorkingState : UnitBaseState
         SetNotReadyToRecievePayment();
     }
 
-    public override void UpdateState(UnitStateManager unitStateManager)
-    {
-        HandleUnitRecievedPayment();
-    }
-
     private void HandleUnitRecievedPayment()
     {
         if (InputManager.Instance.IsMouseButtonDownThisFrame())
@@ -154,6 +169,10 @@ public class UnitWorkingState : UnitBaseState
                     int unitMoneyAmountReceived = _unitOccupation.GetUnitOccupation() == _unitOccupation.GetDefaultUnitOccupation()
                         ? _defaultRecieveUnitMoney
                         : _defaultRecieveUnitMoney - (int)(_defaultRecieveUnitMoney * _loseRecieveUnitMoneyPercentage);
+
+                    int bonusPercent = _unitEconomy.GetBonusMoneyPercentAmountAccordingToLevel(_unitLevel.GetCurrentLevel());
+
+                    unitMoneyAmountReceived = MathUtils.AddPercentToValue(unitMoneyAmountReceived, bonusPercent);
 
                     // If unit didn't finish work successfully
                     if (!_canUnitWork)

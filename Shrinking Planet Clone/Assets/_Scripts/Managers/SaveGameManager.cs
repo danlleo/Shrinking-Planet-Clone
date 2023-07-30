@@ -16,9 +16,9 @@ public class SaveGameManager : Singleton<SaveGameManager>
 
     private const string UNITS_PATH = "Units";
 
-    private const int DEFAULT_COMPANY_RANK_POSITION = 100;
+    private const int DEFAULT_COMPANY_RANK_POSITION = 2;
     private const int DEFAULT_DAY_COUNT = 1;
-    private const int DEFAULT_MONEY_AMOUNT = 99999;
+    private const int DEFAULT_MONEY_AMOUNT = 100;
 
     protected override void Awake()
     {
@@ -123,6 +123,8 @@ public class SaveGameManager : Singleton<SaveGameManager>
     }
 
     public IEnumerable<UnitData> GetUnitDataList() => _unitDataList;
+
+    public void AddUnit(UnitData unitData) => _unitDataList.Add(unitData);
 
     public UnitSO GetUnitSO(string name)
     {

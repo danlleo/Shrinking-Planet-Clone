@@ -33,6 +33,12 @@ public class InterviewDayManager : Singleton<InterviewDayManager>
         if (JudgeQuestionsManager.Instance.HasFinishedInterviewWithSuccess())
         {
             nextCompanyRankPosition = CompanyProgress.GetNextCompanyRankPosition(SaveGameManager.Instance.GetCompanyRankPosition());
+
+            if (nextCompanyRankPosition == CompanyProgress.GetFinalCompanyRankPosition())
+            {
+                Loader.Load(Loader.Scene.EndGameScene);
+                return;
+            }
         }
         else
         {
@@ -44,5 +50,6 @@ public class InterviewDayManager : Singleton<InterviewDayManager>
         int moneyAmount = SaveGameManager.Instance.GetMoneyAmount();
 
         SaveGameManager.Instance.SaveGame(nextCompanyRankPosition, day, moneyAmount);
+        Loader.Load(Loader.Scene.ManagingScene);
     }
 }
