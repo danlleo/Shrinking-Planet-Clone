@@ -15,6 +15,9 @@ public class ItemStashManager : Singleton<ItemStashManager>
 
         foreach (var purchasedItem  in purchasedItemsList)
         {
+            if (purchasedItem.ItemSO.ItemGameObject.TryGetComponent(out Unit unit))    
+                continue;
+
             AddPurchasedItem(purchasedItem);
         }
     }

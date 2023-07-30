@@ -21,7 +21,8 @@ MonoBehaviour:
   UnitTargetReachedDeskRotation: {x: 0, y: 0, z: 0}
   UnitPlaceOnChairPosition: {x: 0, y: 0, z: 0}
   UnitDisplayImage: {fileID: 21300000, guid: d78088d881b8ac740969484c24a517e4, type: 3}
-  UnitOccupationImage: {fileID: 21300000, guid: a38fc54087960da45874a70d978d6912,
+  UnitOccupationImage: {fileID: 21300000, guid: 6f38acc50ab6c6e4ba84414b070a1f9a,
     type: 3}
   GreetingSound: {fileID: 0}
   TypingSound: {fileID: 0}
+  AvailableOnlyOnInterview: 1

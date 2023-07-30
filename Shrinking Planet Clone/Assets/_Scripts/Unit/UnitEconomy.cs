@@ -62,6 +62,19 @@ public class UnitEconomy : MonoBehaviour
 
     public int GetCurrentUnitMoneyAmount() => _currentUnitMoneyAmount;
 
+    public int GetBonusMoneyPercentAmountAccordingToLevel(int level)
+    {
+        return level switch
+        {
+            1 => 0,
+            2 => 10,
+            3 => 25,
+            4 => 50,
+            5 => 60,
+            _ => 0,
+        };
+    }
+
     public void InvokeOnUnitReadyToReceiveMoney(bool successfullyFinishedWork) => OnUnitReadyToReceiveMoney?.Invoke(this, new UnitReadyToReceiveMoneyEventArgs(successfullyFinishedWork));
 
     public void InvokeOnUnitRecievedMoney() => OnUnitReceivedMoney?.Invoke(this, EventArgs.Empty);

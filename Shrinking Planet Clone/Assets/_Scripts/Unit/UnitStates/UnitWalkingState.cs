@@ -35,4 +35,9 @@ public class UnitWalkingState : UnitBaseState
             unitStateManager.SwitchState(unitStateManager._reachedDeskState);
         }
     }
+
+    public override void ExitState()
+    {
+        // ...
+    }
 }

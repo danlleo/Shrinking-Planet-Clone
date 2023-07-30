@@ -24,6 +24,8 @@ public class CompanyProgress
     private const int COMPANY_RANK_10_NEXT_POSITION = 2;
     private const int COMPANY_RANK_2_NEXT_POSITION = 1;
 
+    private static int FINAL_COMPANY_RANK_POSITION = 1;
+
     public static int GetInterviewPrice(int companyRankPosition)
     {
         return companyRankPosition switch
@@ -61,4 +63,6 @@ public class CompanyProgress
             _ => COMPANY_RANK_100_NEXT_POSITION,
         };
     }
+
+    public static int GetFinalCompanyRankPosition() => FINAL_COMPANY_RANK_POSITION;
 }

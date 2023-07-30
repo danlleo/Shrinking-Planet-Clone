@@ -63,6 +63,14 @@ public class ShopManager : Singleton<ShopManager>
     {
         EconomyManager.Instance.SubstractCurrentMoneyAmountBy(_selectedItemPrice);
         OnItemBought?.Invoke(this, new BoughtItemEventArgs(_selectedPurchasableItem));
+
+        if (_selectedPurchasableItem.ItemSO.ItemGameObject.TryGetComponent(out Unit unit))
+        {
+            UnitData unitData = new UnitData("SamUnit", 1, 0);
+
+            SaveGameManager.Instance.AddUnit(unitData);
+        }
+
         ItemStashManager.Instance.AddPurchasedItem(_selectedPurchasableItem);
     }
 }

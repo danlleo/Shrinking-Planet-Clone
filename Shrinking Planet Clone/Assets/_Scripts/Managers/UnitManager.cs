@@ -34,6 +34,10 @@ public class UnitManager : Singleton<UnitManager>
         foreach (var unitData in _unitDataList)
         {
             UnitSO unitSO = SaveGameManager.Instance.GetUnitSO(unitData.UnitSOName);
+            
+            if (unitSO.AvailableOnlyOnInterview)
+                continue;
+
             GameObject unitGameObject = Instantiate(_unitPrefab);
 
             if (unitGameObject.TryGetComponent(out Unit unit))

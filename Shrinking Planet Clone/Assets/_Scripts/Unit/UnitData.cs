@@ -5,9 +5,9 @@ public class UnitData
     public int UnitLevel;
     public int UnitLelfOverXPs;
 
-    public UnitData(Unit unit, int unitLevel, int unitLelfOverXPs)
+    public UnitData(string unitSOName, int unitLevel, int unitLelfOverXPs)
     {
-        UnitSOName = unit.GetUnitSOName();
+        UnitSOName = unitSOName;
         UnitLevel = unitLevel;
         UnitLelfOverXPs = unitLelfOverXPs;
     }
