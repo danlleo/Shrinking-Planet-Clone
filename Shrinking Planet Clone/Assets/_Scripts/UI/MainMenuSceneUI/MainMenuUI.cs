@@ -1,8 +1,11 @@
+using System;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class MainMenuUI : MonoBehaviour
 {
+    public static event EventHandler OnHowToPlayButtonClicked;
+
     [SerializeField] private MainMenuPopUpUI _mainMenuPopUpConfirmationUI;
     [SerializeField] private Button _continueButton;
     [SerializeField] private Button _ngButton;
@@ -27,7 +30,7 @@ public class MainMenuUI : MonoBehaviour
 
         _howToPlayButton.onClick.AddListener(() =>
         {
-            // ...
+            OnHowToPlayButtonClicked?.Invoke(this, EventArgs.Empty);
         });
 
         _desktopButton.onClick.AddListener(() =>
