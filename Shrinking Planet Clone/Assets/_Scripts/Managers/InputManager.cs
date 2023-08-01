@@ -11,9 +11,6 @@ public class InputManager : Singleton<InputManager>
 
     public bool IsRightMouseButtonDownThisFrame() => Input.GetMouseButtonDown(1);
 
-    // This button is for testing purposes, remove it later
-    public bool IsTButtonDownThisFrame() => Input.GetKeyDown(KeyCode.T);
-
     public bool IsPauseButtonDownThisFrame() => Input.GetKeyDown(KeyCode.Escape);
 
     public Vector2 GetMouseScreenPosition() => Input.mousePosition;
