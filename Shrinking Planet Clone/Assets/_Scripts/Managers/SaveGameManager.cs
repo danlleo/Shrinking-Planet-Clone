@@ -30,35 +30,6 @@ public class SaveGameManager : Singleton<SaveGameManager>
             LoadGame();    
     }
 
-    // For testing purposes
-    public void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.L))
-        {
-            LoadGame();
-        }
-
-        if (Input.GetKeyDown(KeyCode.N))
-        {
-            NewGame();
-        }
-
-        if (Input.GetKeyDown(KeyCode.S))
-        {
-            int companyRankPosition = GetCompanyRankPosition();
-            int dayCount = GetDayCount();
-            int moneyAmount = GetMoneyAmount();
-
-            SaveGame(companyRankPosition, dayCount, moneyAmount);
-        }
-
-        if (Input.GetKeyDown(KeyCode.D))
-        {
-            DeleteSave();
-            print("Save deleted");
-        }
-    }
-
     public void SaveGame(int companyRankPosition, int dayCount, int moneyAmount)
     {
         SaveData saveData = new SaveData();
