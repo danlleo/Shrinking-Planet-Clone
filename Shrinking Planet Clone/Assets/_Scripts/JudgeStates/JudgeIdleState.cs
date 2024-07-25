@@ -2,30 +2,33 @@ using System;
 using Managers;
 using UnityEngine;
 
-public class JudgeIdleState : JudgeBaseState
+namespace JudgeStates
 {
-    public static event EventHandler OnJudgeEnteredIdleState;
-
-    private float _timer = 0f;
-    private float _delayTime = 5f;
-
-    public override void EnterState(JudgeStateManager judgeStateManager)
+    public class JudgeIdleState : JudgeBaseState
     {
-        OnJudgeEnteredIdleState?.Invoke(this, EventArgs.Empty);
-    }
+        public static event EventHandler OnJudgeEnteredIdleState;
 
-    public override void UpdateState(JudgeStateManager judgeStateManager)
-    {
-        DelayJudgeIdle(judgeStateManager);
-    }
+        private float _timer;
+        private readonly float _delayTime = 5f;
 
-    private void DelayJudgeIdle(JudgeStateManager judgeStateManager)
-    {
-        _timer += Time.deltaTime;
-
-        if (_timer > _delayTime)
+        public override void EnterState(JudgeStateManager judgeStateManager)
         {
-            judgeStateManager.SwitchState(judgeStateManager.ThinkingState);
+            OnJudgeEnteredIdleState?.Invoke(this, EventArgs.Empty);
+        }
+
+        public override void UpdateState(JudgeStateManager judgeStateManager)
+        {
+            DelayJudgeIdle(judgeStateManager);
+        }
+
+        private void DelayJudgeIdle(JudgeStateManager judgeStateManager)
+        {
+            _timer += Time.deltaTime;
+
+            if (_timer > _delayTime)
+            {
+                judgeStateManager.SwitchState(judgeStateManager.ThinkingState);
+            }
         }
     }
 }

@@ -1,7 +1,10 @@
-public enum UnitOccupationType
+namespace Unit
 {
-    Art,
-    Support,
-    Developer,
-    Moderator,
+    public enum UnitOccupationType
+    {
+        Art,
+        Support,
+        Developer,
+        Moderator,
+    }
 }

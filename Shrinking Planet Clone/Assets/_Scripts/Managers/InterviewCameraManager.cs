@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using JudgeStates;
 using UnityEngine;
 using Utils;
 
@@ -41,7 +42,7 @@ namespace Managers
             Judge.Judge.OnJudgeReviewingAnswer += Judge_OnJudgeReviewingAnswer;
             Judge.Judge.OnJudgeCameraFocus += Judge_OnJudgeCameraFocus;
             Judge.Judge.OnJudgeFinishedJob += Judge_OnJudgeFinishedJob;
-            InterviewUnit.OnInterviewUnitAnswered += InterviewUnit_OnInterviewUnitAnswered;
+            InterviewUnit.InterviewUnit.OnInterviewUnitAnswered += InterviewUnit_OnInterviewUnitAnswered;
         }
 
         private void OnDestroy()
@@ -51,7 +52,7 @@ namespace Managers
             Judge.Judge.OnJudgeReviewingAnswer -= Judge_OnJudgeReviewingAnswer;
             Judge.Judge.OnJudgeCameraFocus -= Judge_OnJudgeCameraFocus;
             Judge.Judge.OnJudgeFinishedJob -= Judge_OnJudgeFinishedJob;
-            InterviewUnit.OnInterviewUnitAnswered -= InterviewUnit_OnInterviewUnitAnswered;
+            InterviewUnit.InterviewUnit.OnInterviewUnitAnswered -= InterviewUnit_OnInterviewUnitAnswered;
         }
 
         private void Judge_OnJudgeCameraFocus(object sender, EventArgs e)
@@ -69,7 +70,7 @@ namespace Managers
         }
 
         private void InterviewUnit_OnInterviewUnitAnswered(object sender,
-            InterviewUnit.InterviewUnitAnsweredEventArgs e)
+            InterviewUnit.InterviewUnit.InterviewUnitAnsweredEventArgs e)
         {
             _isAnswerCorrect = e.IsAnswerCorrect;
             StartCoroutine(MoveCameraInSecondsRoutine(e.UnitInterviewCameraTransform, 1f, 0f));

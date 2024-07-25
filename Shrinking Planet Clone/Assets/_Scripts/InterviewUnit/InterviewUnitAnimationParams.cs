@@ -1,6 +1,9 @@
 using UnityEngine;
 
-public class InterviewUnitAnimationParams 
+namespace InterviewUnit
 {
-    public static readonly int IsTalking = Animator.StringToHash("IsTalking");
+    public static class InterviewUnitAnimationParams 
+    {
+        public static readonly int IsTalking = Animator.StringToHash("IsTalking");
+    }
 }

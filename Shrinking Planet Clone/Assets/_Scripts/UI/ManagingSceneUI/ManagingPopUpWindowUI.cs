@@ -3,39 +3,39 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class ManagingPopUpWindowUI : MonoBehaviour
+namespace UI.ManagingSceneUI
 {
-    [SerializeField] private GameObject _managingPopUpWindowUI;
-    [SerializeField] private TextMeshProUGUI _messageText;
-    [SerializeField] private Button _confirmationButton;
-    [SerializeField] private Button _declineButton;
-
-    private Action _buttonAction;
-
-    private void Awake()
+    public class ManagingPopUpWindowUI : MonoBehaviour
     {
-        HideUI();
+        [SerializeField] private GameObject _managingPopUpWindowUI;
+        [SerializeField] private TextMeshProUGUI _messageText;
+        [SerializeField] private Button _confirmationButton;
+        [SerializeField] private Button _declineButton;
 
-        _confirmationButton.onClick.AddListener(() =>
-        {
-            _buttonAction.Invoke();
-        });
+        private Action _buttonAction;
 
-        _declineButton.onClick.AddListener(() =>
+        private void Awake()
         {
             HideUI();
-        });
+
+            _confirmationButton.onClick.AddListener(() =>
+            {
+                _buttonAction.Invoke();
+            });
+
+            _declineButton.onClick.AddListener(HideUI);
+        }
+
+        public void Initialize(string message, Action buttonAction)
+        {
+            ShowUI();
+
+            _messageText.text = message;
+            _buttonAction = buttonAction;
+        }
+
+        private void ShowUI() => _managingPopUpWindowUI.SetActive(true);
+
+        public void HideUI() => _managingPopUpWindowUI.SetActive(false);
     }
-
-    public void Initialize(string message, Action buttonAction)
-    {
-        ShowUI();
-
-        _messageText.text = message;
-        _buttonAction = buttonAction;
-    }
-
-    private void ShowUI() => _managingPopUpWindowUI.SetActive(true);
-
-    public void HideUI() => _managingPopUpWindowUI.SetActive(false);
 }

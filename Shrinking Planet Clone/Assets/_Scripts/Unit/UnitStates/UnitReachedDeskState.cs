@@ -1,49 +1,52 @@
 using System;
 using Managers;
 
-public class UnitReachedDeskState : UnitBaseState
+namespace Unit.UnitStates
 {
-    private Unit.Unit _unit;
-    private UnitOccupation _unitOccupation;
-    private UnitStateManager _unitStateManager;
-
-    public override void EnterState(UnitStateManager unitStateManager)
+    public class UnitReachedDeskState : UnitBaseState
     {
-        _unit = unitStateManager.GetComponent<Unit.Unit>();
-        _unitOccupation = unitStateManager.GetComponent<UnitOccupation>();
-        _unitStateManager = unitStateManager;
+        private global::Unit.Unit _unit;
+        private UnitOccupation _unitOccupation;
+        private UnitStateManager _unitStateManager;
 
-        _unit.InvokeUnitReachedDeskEvent();
-        _unitOccupation.OnUnitOccupationSet += UnitOccupation_OnUnitOccupationSet;
-    }
-
-    private void UnitOccupation_OnUnitOccupationSet(object sender, EventArgs e)
-    {
-        ExitState();
-    }
-
-    public override void UpdateState(UnitStateManager unitStateManager)
-    {
-        HandleUnitJobSelect();
-    }
-
-    private void HandleUnitJobSelect()
-    {
-        if (InputManager.Instance.IsMouseButtonDownThisFrame())
+        public override void EnterState(UnitStateManager unitStateManager)
         {
-            if (UnitActionSystem.Instance.TryGetSelectedUnit(out Unit.Unit selectedUnit))
+            _unit = unitStateManager.GetComponent<global::Unit.Unit>();
+            _unitOccupation = unitStateManager.GetComponent<UnitOccupation>();
+            _unitStateManager = unitStateManager;
+
+            _unit.InvokeUnitReachedDeskEvent();
+            _unitOccupation.OnUnitOccupationSet += UnitOccupation_OnUnitOccupationSet;
+        }
+
+        private void UnitOccupation_OnUnitOccupationSet(object sender, EventArgs e)
+        {
+            ExitState();
+        }
+
+        public override void UpdateState(UnitStateManager unitStateManager)
+        {
+            HandleUnitJobSelect();
+        }
+
+        private void HandleUnitJobSelect()
+        {
+            if (InputManager.Instance.IsMouseButtonDownThisFrame())
             {
-                if (ReferenceEquals(selectedUnit, _unit))
+                if (UnitActionSystem.Instance.TryGetSelectedUnit(out global::Unit.Unit selectedUnit))
                 {
-                    _unit.InvokeUnitSelectingJobEvent();
+                    if (ReferenceEquals(selectedUnit, _unit))
+                    {
+                        _unit.InvokeUnitSelectingJobEvent();
+                    }
                 }
             }
         }
-    }
 
-    public override void ExitState()
-    {
-        _unitOccupation.OnUnitOccupationSet -= UnitOccupation_OnUnitOccupationSet;
-        _unitStateManager.SwitchState(_unitStateManager.WorkingState);
+        public override void ExitState()
+        {
+            _unitOccupation.OnUnitOccupationSet -= UnitOccupation_OnUnitOccupationSet;
+            _unitStateManager.SwitchState(_unitStateManager.WorkingState);
+        }
     }
 }

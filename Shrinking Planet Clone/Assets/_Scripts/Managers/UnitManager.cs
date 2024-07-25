@@ -12,7 +12,7 @@ namespace Managers
         private readonly List<Unit.Unit> _unitList = new();
         private IEnumerable<UnitData> _unitDataList = new List<UnitData>();
 
-        private readonly float _spawnUnitDelayInSeconds = 4f;
+        private const float SpawnUnitDelayInSeconds = 4f;
 
         private void Start()
         {
@@ -53,7 +53,7 @@ namespace Managers
                     unitLevel.SetCurrentLevel(unitData.UnitLevel);
                 }
 
-                yield return new WaitForSeconds(_spawnUnitDelayInSeconds);
+                yield return new WaitForSeconds(SpawnUnitDelayInSeconds);
             }
         }
     }

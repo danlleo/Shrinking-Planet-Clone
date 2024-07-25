@@ -1,10 +1,13 @@
 using Managers;
 
-public abstract class UnitBaseState
+namespace Unit.UnitStates
 {
-    public abstract void EnterState(UnitStateManager unitStateManager);
+    public abstract class UnitBaseState
+    {
+        public abstract void EnterState(UnitStateManager unitStateManager);
 
-    public abstract void UpdateState(UnitStateManager unitStateManager);
+        public abstract void UpdateState(UnitStateManager unitStateManager);
 
-    public abstract void ExitState();
+        public abstract void ExitState();
+    }
 }

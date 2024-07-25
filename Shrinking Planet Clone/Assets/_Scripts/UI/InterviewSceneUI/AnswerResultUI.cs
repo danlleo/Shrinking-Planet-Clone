@@ -2,46 +2,49 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class AnswerResultUI : MonoBehaviour
+namespace UI.InterviewSceneUI
 {
-    [SerializeField] private GameObject _answerResultUI;
-    [SerializeField] private Image _answerResultImage;
-    [SerializeField] private Sprite _correctAnswerSprite;
-    [SerializeField] private Sprite _wrongAnswerSprite;
-
-    private void Start()
+    public class AnswerResultUI : MonoBehaviour
     {
-        HideUI();
+        [SerializeField] private GameObject _answerResultUI;
+        [SerializeField] private Image _answerResultImage;
+        [SerializeField] private Sprite _correctAnswerSprite;
+        [SerializeField] private Sprite _wrongAnswerSprite;
 
-        Judge.Judge.OnJudgeReviewedAnswer += Judge_OnJudgeReviewedAnswer;
-    }
-
-    private void OnDestroy()
-    {
-        Judge.Judge.OnJudgeReviewedAnswer -= Judge_OnJudgeReviewedAnswer;
-    }
-
-    private void Judge_OnJudgeReviewedAnswer(object sender, Judge.Judge.ReceivedAnswerArgs e)
-    {
-        StartCoroutine(DisplayResultImageRoutineInSeconds(1f));
-
-        if (e.IsAnswerCorrect)
+        private void Start()
         {
-            _answerResultImage.sprite = _correctAnswerSprite;
-            return;
+            HideUI();
+
+            Judge.Judge.OnJudgeReviewedAnswer += Judge_OnJudgeReviewedAnswer;
         }
 
-        _answerResultImage.sprite = _wrongAnswerSprite;
-    }
+        private void OnDestroy()
+        {
+            Judge.Judge.OnJudgeReviewedAnswer -= Judge_OnJudgeReviewedAnswer;
+        }
 
-    private void ShowUI() => _answerResultUI.SetActive(true);
+        private void Judge_OnJudgeReviewedAnswer(object sender, Judge.Judge.ReceivedAnswerArgs e)
+        {
+            StartCoroutine(DisplayResultImageRoutineInSeconds(1f));
 
-    private void HideUI() => _answerResultUI.SetActive(false);
+            if (e.IsAnswerCorrect)
+            {
+                _answerResultImage.sprite = _correctAnswerSprite;
+                return;
+            }
 
-    private IEnumerator DisplayResultImageRoutineInSeconds(float displayTime)
-    {
-        ShowUI();
-        yield return new WaitForSeconds(displayTime);
-        HideUI();
+            _answerResultImage.sprite = _wrongAnswerSprite;
+        }
+
+        private void ShowUI() => _answerResultUI.SetActive(true);
+
+        private void HideUI() => _answerResultUI.SetActive(false);
+
+        private IEnumerator DisplayResultImageRoutineInSeconds(float displayTime)
+        {
+            ShowUI();
+            yield return new WaitForSeconds(displayTime);
+            HideUI();
+        }
     }
 }

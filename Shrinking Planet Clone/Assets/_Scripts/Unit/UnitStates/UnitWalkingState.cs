@@ -3,42 +3,45 @@ using Managers;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class UnitWalkingState : UnitBaseState
+namespace Unit.UnitStates
 {
-    public static event EventHandler OnUnitBeganWalking;
-    public static event EventHandler OnUnitEndedWalking;
-
-    private Unit.Unit _unit;
-    private NavMeshAgent _navmeshAgent;
-
-    private float _stoppingDistance = .25f;
-
-    private Vector3 _targetDeskPosition;
-
-    public override void EnterState(UnitStateManager unitStateManager)
+    public class UnitWalkingState : UnitBaseState
     {
-        _unit = unitStateManager.GetComponent<Unit.Unit>();
-        _navmeshAgent = _unit.GetUnitNavmeshAgent();
-        _targetDeskPosition = _unit.GetUnitDeskPosition();
-        _unit.InvokeUnitMovedEvent();
+        public static event EventHandler OnUnitBeganWalking;
+        public static event EventHandler OnUnitEndedWalking;
 
-        OnUnitBeganWalking?.Invoke(_unit, EventArgs.Empty);
-    }
+        private global::Unit.Unit _unit;
+        private NavMeshAgent _navmeshAgent;
 
-    public override void UpdateState(UnitStateManager unitStateManager)
-    {
-        _navmeshAgent.SetDestination(_targetDeskPosition);
-        
-        if (Vector3.Distance(_unit.transform.position, _targetDeskPosition) <= _stoppingDistance)
+        private float _stoppingDistance = .25f;
+
+        private Vector3 _targetDeskPosition;
+
+        public override void EnterState(UnitStateManager unitStateManager)
         {
-            _navmeshAgent.isStopped = true;
-            OnUnitEndedWalking?.Invoke(_unit, EventArgs.Empty);
-            unitStateManager.SwitchState(unitStateManager.ReachedDeskState);
-        }
-    }
+            _unit = unitStateManager.GetComponent<global::Unit.Unit>();
+            _navmeshAgent = _unit.GetUnitNavmeshAgent();
+            _targetDeskPosition = _unit.GetUnitDeskPosition();
+            _unit.InvokeUnitMovedEvent();
 
-    public override void ExitState()
-    {
-        // ...
+            OnUnitBeganWalking?.Invoke(_unit, EventArgs.Empty);
+        }
+
+        public override void UpdateState(UnitStateManager unitStateManager)
+        {
+            _navmeshAgent.SetDestination(_targetDeskPosition);
+        
+            if (Vector3.Distance(_unit.transform.position, _targetDeskPosition) <= _stoppingDistance)
+            {
+                _navmeshAgent.isStopped = true;
+                OnUnitEndedWalking?.Invoke(_unit, EventArgs.Empty);
+                unitStateManager.SwitchState(unitStateManager.ReachedDeskState);
+            }
+        }
+
+        public override void ExitState()
+        {
+            // ...
+        }
     }
 }

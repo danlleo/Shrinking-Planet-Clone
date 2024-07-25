@@ -1,66 +1,70 @@
 using Managers;
+using Unit.UnitStates;
 using UnityEngine;
 
-public class UnitStepSounds : MonoBehaviour
+namespace Unit
 {
-    private Unit.Unit _unit;
-
-    private float _footstepTimer;
-    private float _footstepTimerMax = .525f;
-
-    private bool _isWalking;
-
-    private void Awake()
+    public class UnitStepSounds : MonoBehaviour
     {
-        _unit = GetComponent<Unit.Unit>();
-    }
+        private global::Unit.Unit _unit;
 
-    private void Start()
-    {
-        UnitWalkingState.OnUnitBeganWalking += UnitWalkingState_OnUnitBeganWalking;
-        UnitWalkingState.OnUnitEndedWalking += UnitWalkingState_OnUnitEndedWalking;
-    }
+        private float _footstepTimer;
+        private float _footstepTimerMax = .525f;
 
-    private void OnDestroy()
-    {
-        UnitWalkingState.OnUnitBeganWalking -= UnitWalkingState_OnUnitBeganWalking;
-        UnitWalkingState.OnUnitEndedWalking -= UnitWalkingState_OnUnitEndedWalking;
-    }
+        private bool _isWalking;
 
-    private void UnitWalkingState_OnUnitBeganWalking(object sender, System.EventArgs e)
-    {
-        Unit.Unit senderUnit = (Unit.Unit)sender;
-
-        if (ReferenceEquals(senderUnit, _unit))
+        private void Awake()
         {
-            _isWalking = true;
+            _unit = GetComponent<global::Unit.Unit>();
         }
-    }
 
-    private void UnitWalkingState_OnUnitEndedWalking(object sender, System.EventArgs e)
-    {
-        Unit.Unit senderUnit = (Unit.Unit)sender;
-
-        if (ReferenceEquals(senderUnit, _unit))
+        private void Start()
         {
-            _isWalking = false;
-            Destroy(this);
+            UnitWalkingState.OnUnitBeganWalking += UnitWalkingState_OnUnitBeganWalking;
+            UnitWalkingState.OnUnitEndedWalking += UnitWalkingState_OnUnitEndedWalking;
         }
-    }
 
-    private void Update()
-    {
-        if (_isWalking)
+        private void OnDestroy()
         {
-            _footstepTimer -= Time.deltaTime;
+            UnitWalkingState.OnUnitBeganWalking -= UnitWalkingState_OnUnitBeganWalking;
+            UnitWalkingState.OnUnitEndedWalking -= UnitWalkingState_OnUnitEndedWalking;
+        }
 
-            if (_footstepTimer <= 0)
+        private void UnitWalkingState_OnUnitBeganWalking(object sender, System.EventArgs e)
+        {
+            global::Unit.Unit senderUnit = (global::Unit.Unit)sender;
+
+            if (ReferenceEquals(senderUnit, _unit))
             {
-                _footstepTimer = _footstepTimerMax;
+                _isWalking = true;
+            }
+        }
 
-                float volume = 1f;
+        private void UnitWalkingState_OnUnitEndedWalking(object sender, System.EventArgs e)
+        {
+            global::Unit.Unit senderUnit = (global::Unit.Unit)sender;
 
-                SoundManager.Instance.PlayFootStepsSound(transform.position, volume);
+            if (ReferenceEquals(senderUnit, _unit))
+            {
+                _isWalking = false;
+                Destroy(this);
+            }
+        }
+
+        private void Update()
+        {
+            if (_isWalking)
+            {
+                _footstepTimer -= Time.deltaTime;
+
+                if (_footstepTimer <= 0)
+                {
+                    _footstepTimer = _footstepTimerMax;
+
+                    float volume = 1f;
+
+                    SoundManager.Instance.PlayFootStepsSound(transform.position, volume);
+                }
             }
         }
     }

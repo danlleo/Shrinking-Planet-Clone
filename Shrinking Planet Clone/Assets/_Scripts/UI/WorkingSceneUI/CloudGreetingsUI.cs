@@ -1,49 +1,53 @@
 using System;
 using System.Collections;
 using TMPro;
+using Unit.UnitStates;
 using UnityEngine;
 
-public class CloudGreetingsUI : MonoBehaviour
+namespace UI.WorkingSceneUI
 {
-    [SerializeField] private GameObject _cloudGreetingsUI;
-    [SerializeField] private TextMeshProUGUI _cloudImageText;
-    [SerializeField] private Unit.Unit _unit;
-
-    private void OnEnable()
+    public class CloudGreetingsUI : MonoBehaviour
     {
-        UnitIdleState.OnUnitSpawned += UnitIdleState_OnUnitSpawned;
-    }
+        [SerializeField] private GameObject _cloudGreetingsUI;
+        [SerializeField] private TextMeshProUGUI _cloudImageText;
+        [SerializeField] private Unit.Unit _unit;
 
-    private void OnDestroy()
-    {
-        UnitIdleState.OnUnitSpawned -= UnitIdleState_OnUnitSpawned;
-    }
-
-    private void UnitIdleState_OnUnitSpawned(object sender, EventArgs e)
-    {
-        Unit.Unit selectedUnit = (Unit.Unit)sender;
-
-        if (ReferenceEquals(selectedUnit, _unit))
+        private void OnEnable()
         {
-            InvokeDisplayUICloudWithTextCoroutine();
+            UnitIdleState.OnUnitSpawned += UnitIdleState_OnUnitSpawned;
         }
-    }
 
-    private void UpdateCloudImageText(string targetText) => _cloudImageText.text = targetText;
+        private void OnDestroy()
+        {
+            UnitIdleState.OnUnitSpawned -= UnitIdleState_OnUnitSpawned;
+        }
 
-    private void ShowUI() => _cloudGreetingsUI.SetActive(true);
+        private void UnitIdleState_OnUnitSpawned(object sender, EventArgs e)
+        {
+            Unit.Unit selectedUnit = (Unit.Unit)sender;
 
-    private void HideUI() => _cloudGreetingsUI.SetActive(false);
+            if (ReferenceEquals(selectedUnit, _unit))
+            {
+                InvokeDisplayUICloudWithTextCoroutine();
+            }
+        }
 
-    private void InvokeDisplayUICloudWithTextCoroutine() => StartCoroutine(DisplayUICloudWithTextCoroutine());
+        private void UpdateCloudImageText(string targetText) => _cloudImageText.text = targetText;
 
-    private IEnumerator DisplayUICloudWithTextCoroutine()
-    {
-        ShowUI();
-        UpdateCloudImageText(_unit.GetUnitGreetingsText());
+        private void ShowUI() => _cloudGreetingsUI.SetActive(true);
 
-        yield return new WaitForSeconds(1.5f);
+        private void HideUI() => _cloudGreetingsUI.SetActive(false);
 
-        HideUI();
+        private void InvokeDisplayUICloudWithTextCoroutine() => StartCoroutine(DisplayUICloudWithTextCoroutine());
+
+        private IEnumerator DisplayUICloudWithTextCoroutine()
+        {
+            ShowUI();
+            UpdateCloudImageText(_unit.GetUnitGreetingsText());
+
+            yield return new WaitForSeconds(1.5f);
+
+            HideUI();
+        }
     }
 }

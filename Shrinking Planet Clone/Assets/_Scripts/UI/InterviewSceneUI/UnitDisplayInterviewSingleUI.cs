@@ -1,78 +1,83 @@
 using Managers;
 using TMPro;
+using Unit;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class UnitDisplayInterviewSingleUI : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IPointerClickHandler
+namespace UI.InterviewSceneUI
 {
-    [SerializeField] private Image _unitDisplayInterviewImage;
-    [SerializeField] private Image _unitDisplayInterviewBackground;
-    [SerializeField] private TextMeshProUGUI _unitDisplayInterviewNameText;
-    [SerializeField] private TextMeshProUGUI _unitDisplayInterviewLevelText;
-
-    private bool _isSelected;
-
-    private UnitSO _unitSO;
-
-    private void Start()
+    public class UnitDisplayInterviewSingleUI : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IPointerClickHandler
     {
-        _unitDisplayInterviewBackground.color = UnitUIPickerManager.Instance.GetDefaultColor();
-    }
+        [SerializeField] private Image _unitDisplayInterviewImage;
+        [SerializeField] private Image _unitDisplayInterviewBackground;
+        [SerializeField] private TextMeshProUGUI _unitDisplayInterviewNameText;
+        [SerializeField] private TextMeshProUGUI _unitDisplayInterviewLevelText;
 
-    public void Setup(Sprite unitInterviewDisplayImage, string unitDisplayInterviewNameText, string unitDisplayInterviewLevelText, UnitSO unitSO)
-    {
-        _unitDisplayInterviewImage.sprite = unitInterviewDisplayImage;
-        _unitDisplayInterviewNameText.text = unitDisplayInterviewNameText;
-        _unitDisplayInterviewLevelText.text = $"{unitDisplayInterviewLevelText}";
-        _unitSO = unitSO;
-    }
+        private bool _isSelected;
 
-    public void OnPointerEnter(PointerEventData eventData)
-    {
-        if (_isSelected)
-            return;
+        private UnitSO _unitSO;
 
-        SetBackgroundColor(UnitUIPickerManager.Instance.GetHoveredColor());
-    }
-    
-    public void OnPointerClick(PointerEventData eventData)
-    {
-        if (_isSelected)
+        private void Start()
         {
-            DeselectInterviewUnit();
-            SetBackgroundColor(UnitUIPickerManager.Instance.GetDefaultColor());
-            return;
+            _unitDisplayInterviewBackground.color = UnitUIPickerManager.Instance.GetDefaultColor();
         }
+
+        public void Setup(Sprite unitInterviewDisplayImage, string unitDisplayInterviewNameText,
+            string unitDisplayInterviewLevelText, UnitSO unitSO)
+        {
+            _unitDisplayInterviewImage.sprite = unitInterviewDisplayImage;
+            _unitDisplayInterviewNameText.text = unitDisplayInterviewNameText;
+            _unitDisplayInterviewLevelText.text = $"{unitDisplayInterviewLevelText}";
+            _unitSO = unitSO;
+        }
+
+        public void OnPointerEnter(PointerEventData eventData)
+        {
+            if (_isSelected)
+                return;
+
+            SetBackgroundColor(UnitUIPickerManager.Instance.GetHoveredColor());
+        }
+    
+        public void OnPointerClick(PointerEventData eventData)
+        {
+            if (_isSelected)
+            {
+                DeselectInterviewUnit();
+                SetBackgroundColor(UnitUIPickerManager.Instance.GetDefaultColor());
+                return;
+            }
         
-        if (UnitUIPickerManager.Instance.AreAllUnitsSelected())
-            return;
+            if (UnitUIPickerManager.Instance.AreAllUnitsSelected())
+                return;
 
-        SelectInterviewUnit();
-        SetBackgroundColor(UnitUIPickerManager.Instance.GetSelectedColor());
-    }
+            SelectInterviewUnit();
+            SetBackgroundColor(UnitUIPickerManager.Instance.GetSelectedColor());
+        }
 
-    public void OnPointerExit(PointerEventData eventData)
-    {
-        if (_isSelected)
-            return;
+        public void OnPointerExit(PointerEventData eventData)
+        {
+            if (_isSelected)
+                return;
 
-        SetBackgroundColor(UnitUIPickerManager.Instance.GetDefaultColor());
-    }
+            SetBackgroundColor(UnitUIPickerManager.Instance.GetDefaultColor());
+        }
 
-    private void SetBackgroundColor(Color color) => _unitDisplayInterviewBackground.color = color;
+        private void SetBackgroundColor(Color color) => _unitDisplayInterviewBackground.color = color;
 
-    private void SelectInterviewUnit()
-    {
-        _isSelected = true;
-        UnitUIPickerManager.Instance.AddUnit(_unitSO);
-        UnitUIPickerManager.Instance.InvokeInterviewUnitSelectedIvent();
-    }
+        private void SelectInterviewUnit()
+        {
+            _isSelected = true;
+            UnitUIPickerManager.Instance.AddUnit(_unitSO);
+            UnitUIPickerManager.Instance.InvokeInterviewUnitSelectedEvent();
+        }
 
-    private void DeselectInterviewUnit()
-    {
-        _isSelected = false;
-        UnitUIPickerManager.Instance.RemoveUnit(_unitSO);
-        UnitUIPickerManager.Instance.InvokeInterviewUnitSelectedIvent();
+        private void DeselectInterviewUnit()
+        {
+            _isSelected = false;
+            UnitUIPickerManager.Instance.RemoveUnit(_unitSO);
+            UnitUIPickerManager.Instance.InvokeInterviewUnitSelectedEvent();
+        }
     }
 }

@@ -2,16 +2,19 @@ using Managers;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class CongratsUI : MonoBehaviour
+namespace UI.EndGameSceneUI
 {
-    [SerializeField] private Button _proceedButton;
-
-    private void Awake()
+    public class CongratsUI : MonoBehaviour
     {
-        _proceedButton.onClick.AddListener(() =>
+        [SerializeField] private Button _proceedButton;
+
+        private void Awake()
         {
-            SaveGameManager.Instance.DeleteSave();
-            Loader.Load(Loader.Scene.MainMenuScene);
-        });
+            _proceedButton.onClick.AddListener(() =>
+            {
+                SaveGameManager.Instance.DeleteSave();
+                Loader.Load(Loader.Scene.MainMenuScene);
+            });
+        }
     }
 }

@@ -1,27 +1,30 @@
 using Managers;
 using UnityEngine;
 
-public class UnitThirsty : MonoBehaviour, IInteractable
+namespace Unit
 {
-    [SerializeField] private Unit.Unit _unit;
-    [SerializeField] private UnitNeed _unitNeed;
-    [SerializeField] private UnitNeedType _unitNeedType;
-
-    public void Interact()
+    public class UnitThirsty : MonoBehaviour, IInteractable
     {
-        if (!InteractSystem.Instance.AreHandsBusy())
-            return;
+        [SerializeField] private global::Unit.Unit _unit;
+        [SerializeField] private UnitNeed _unitNeed;
+        [SerializeField] private UnitNeedType _unitNeedType;
 
-        if (UnitNeedManager.Instance.GetCurrentNeed().Type == _unitNeedType && _unit.GetUnitRequestedNeed().Type == _unitNeedType)
+        public void Interact()
         {
-            _unit.InvokeUnitNeedFulfilled();
+            if (!InteractSystem.Instance.AreHandsBusy())
+                return;
 
-            SoundManager.Instance.PlayWaterDrankSound();
+            if (UnitNeedManager.Instance.GetCurrentNeed().Type == _unitNeedType && _unit.GetUnitRequestedNeed().Type == _unitNeedType)
+            {
+                _unit.InvokeUnitNeedFulfilled();
 
-            InteractSystem.Instance.SetHandsFree();
-            InteractSystem.Instance.InvokeObjectDrop();
+                SoundManager.Instance.PlayWaterDrankSound();
 
-            return;
+                InteractSystem.Instance.SetHandsFree();
+                InteractSystem.Instance.InvokeObjectDrop();
+
+                return;
+            }
         }
     }
 }

@@ -60,7 +60,7 @@ namespace Managers
 
         private void Success()
         {
-            EconomyManager.Instance.SubstractCurrentMoneyAmountBy(_selectedItemPrice);
+            EconomyManager.Instance.SubtractCurrentMoneyAmountBy(_selectedItemPrice);
             OnItemBought?.Invoke(this, new BoughtItemEventArgs(_selectedPurchasableItem));
 
             if (_selectedPurchasableItem.ItemSO.ItemGameObject.TryGetComponent(out Unit.Unit _))

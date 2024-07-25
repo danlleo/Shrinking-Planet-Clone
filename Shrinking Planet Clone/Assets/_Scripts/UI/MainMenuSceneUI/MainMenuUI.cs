@@ -3,49 +3,52 @@ using Managers;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class MainMenuUI : MonoBehaviour
+namespace UI.MainMenuSceneUI
 {
-    public static event EventHandler OnHowToPlayButtonClicked;
-
-    [SerializeField] private MainMenuPopUpUI _mainMenuPopUpConfirmationUI;
-    [SerializeField] private Button _continueButton;
-    [SerializeField] private Button _ngButton;
-    [SerializeField] private Button _howToPlayButton;
-    [SerializeField] private Button _desktopButton;
-
-    private void Awake()
+    public class MainMenuUI : MonoBehaviour
     {
-        _continueButton.onClick.AddListener(() =>
-        {
-            Loader.Load(Loader.Scene.ManagingScene);
-        });
+        public static event EventHandler OnHowToPlayButtonClicked;
 
-        _ngButton.onClick.AddListener(() =>
+        [SerializeField] private MainMenuPopUpUI _mainMenuPopUpConfirmationUI;
+        [SerializeField] private Button _continueButton;
+        [SerializeField] private Button _ngButton;
+        [SerializeField] private Button _howToPlayButton;
+        [SerializeField] private Button _desktopButton;
+
+        private void Awake()
         {
-            _mainMenuPopUpConfirmationUI.Initialize("Are you sure you want to start a new game?", () =>
+            _continueButton.onClick.AddListener(() =>
             {
-                SaveGameManager.Instance.NewGame();
                 Loader.Load(Loader.Scene.ManagingScene);
-            }); 
-        });
-
-        _howToPlayButton.onClick.AddListener(() =>
-        {
-            OnHowToPlayButtonClicked?.Invoke(this, EventArgs.Empty);
-        });
-
-        _desktopButton.onClick.AddListener(() =>
-        {
-            _mainMenuPopUpConfirmationUI.Initialize("Are you sure you want to leave the game?", () =>
-            {
-                Application.Quit();
             });
-        });
-    }
 
-    private void Start()
-    {
-        if (!SaveGameManager.Instance.SaveExists())
-            _continueButton.gameObject.SetActive(false);
+            _ngButton.onClick.AddListener(() =>
+            {
+                _mainMenuPopUpConfirmationUI.Initialize("Are you sure you want to start a new game?", () =>
+                {
+                    SaveGameManager.Instance.NewGame();
+                    Loader.Load(Loader.Scene.ManagingScene);
+                }); 
+            });
+
+            _howToPlayButton.onClick.AddListener(() =>
+            {
+                OnHowToPlayButtonClicked?.Invoke(this, EventArgs.Empty);
+            });
+
+            _desktopButton.onClick.AddListener(() =>
+            {
+                _mainMenuPopUpConfirmationUI.Initialize("Are you sure you want to leave the game?", () =>
+                {
+                    Application.Quit();
+                });
+            });
+        }
+
+        private void Start()
+        {
+            if (!SaveGameManager.Instance.SaveExists())
+                _continueButton.gameObject.SetActive(false);
+        }
     }
 }

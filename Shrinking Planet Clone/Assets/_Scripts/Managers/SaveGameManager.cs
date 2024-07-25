@@ -8,20 +8,20 @@ namespace Managers
 {
     public class SaveGameManager : Singleton<SaveGameManager>
     {
-        [SerializeField] private List<UnitData> _defaultUnitDataList = new List<UnitData>();
+        [SerializeField] private List<UnitData> _defaultUnitDataList = new();
     
-        private List<UnitData> _unitDataList = new List<UnitData>();
+        private List<UnitData> _unitDataList = new();
         private List<PurchasableItem> _purchasedItemsList;
 
         private SaveData _saveData;
 
         private string _saveFilePath;
 
-        private const string UNITS_PATH = "Units";
+        private const string UnitsPath = "Units";
 
-        private const int DEFAULT_COMPANY_RANK_POSITION = 100;
-        private const int DEFAULT_DAY_COUNT = 1;
-        private const int DEFAULT_MONEY_AMOUNT = 100;
+        private const int DefaultCompanyRankPosition = 100;
+        private const int DefaultDayCount = 1;
+        private const int DefaultMoneyAmount = 100;
 
         protected override void Awake()
         {
@@ -81,9 +81,9 @@ namespace Managers
             _purchasedItemsList = new List<PurchasableItem>();
 
             SaveData saveData = new SaveData();
-            saveData.CompanyRankPosition = DEFAULT_COMPANY_RANK_POSITION;
-            saveData.DayCount = DEFAULT_DAY_COUNT;
-            saveData.MoneyAmount = DEFAULT_MONEY_AMOUNT;
+            saveData.CompanyRankPosition = DefaultCompanyRankPosition;
+            saveData.DayCount = DefaultDayCount;
+            saveData.MoneyAmount = DefaultMoneyAmount;
             saveData.UnitDataList = _unitDataList;
             saveData.PurchasedItems = _purchasedItemsList;
 
@@ -102,7 +102,7 @@ namespace Managers
 
         public UnitSO GetUnitSO(string name)
         {
-            UnitSO unitSO = Resources.Load<UnitSO>($"{UNITS_PATH}/{name}");
+            UnitSO unitSO = Resources.Load<UnitSO>($"{UnitsPath}/{name}");
 
             return unitSO;
         }

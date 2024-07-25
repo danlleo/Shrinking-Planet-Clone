@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Unit;
 using UnityEngine;
 
 namespace Managers
@@ -28,7 +29,7 @@ namespace Managers
 
         public bool AreAllUnitsSelected() => _unitSOList.Count == MaxSelectedUnits;
 
-        public void InvokeInterviewUnitSelectedIvent() => OnInterviewUnitSelected?.Invoke(this, EventArgs.Empty);
+        public void InvokeInterviewUnitSelectedEvent() => OnInterviewUnitSelected?.Invoke(this, EventArgs.Empty);
 
         public List<UnitSO> GetUnitSOList() => _unitSOList;
     }

@@ -1,47 +1,44 @@
-using Managers;
 using UnityEngine;
-using static UnitWorkingState;
+using static Unit.UnitStates.UnitWorkingState;
 
-public class EconomyManager : Singleton<EconomyManager>
+namespace Managers
 {
-    // Remove it later!!!
-    [SerializeField] private Transform _moneyIconPrefab;
-    [SerializeField] private Transform _canvasUI;
-    [SerializeField] private Transform _moneyBoxUI;
-
-    private int _totalCurrentMoneyAmount;
-
-    protected override void Awake()
+    public class EconomyManager : Singleton<EconomyManager>
     {
-        base.Awake();
-    }
+        // Remove it later!!!
+        [SerializeField] private Transform _moneyIconPrefab;
+        [SerializeField] private Transform _canvasUI;
+        [SerializeField] private Transform _moneyBoxUI;
 
-    private void Start()
-    {
-        _totalCurrentMoneyAmount = SaveGameManager.Instance.GetMoneyAmount();
+        private int _totalCurrentMoneyAmount;
+
+        private void Start()
+        {
+            _totalCurrentMoneyAmount = SaveGameManager.Instance.GetMoneyAmount();
        
-        OnUnitReceivedPayment += UnitWorkingState_OnUnitReceivedPayment;
+            OnUnitReceivedPayment += UnitWorkingState_OnUnitReceivedPayment;
+        }
+
+        private void OnDestroy()
+        {
+            OnUnitReceivedPayment -= UnitWorkingState_OnUnitReceivedPayment;
+        }
+
+        public void SubtractCurrentMoneyAmountBy(int subtractAmount)
+        {
+            if (subtractAmount <= 0)
+                throw new System.Exception("An error occured: sustract amount has negative value or null");
+
+            _totalCurrentMoneyAmount -= subtractAmount;
+        }
+
+        public int GetTotalCurrentMoneyAmount() => _totalCurrentMoneyAmount;
+
+        private void UnitWorkingState_OnUnitReceivedPayment(object sender, UnitRecievedPaymentEventArgs e)
+        {
+            AddMoneyToCurrentAmount(e.MoneyAmount);
+        }
+
+        private void AddMoneyToCurrentAmount(int moneyAmount) => _totalCurrentMoneyAmount += moneyAmount;
     }
-
-    private void OnDestroy()
-    {
-        OnUnitReceivedPayment -= UnitWorkingState_OnUnitReceivedPayment;
-    }
-
-    private void UnitWorkingState_OnUnitReceivedPayment(object sender, UnitRecievedPaymentEventArgs e)
-    {
-        AddMoneyToCurrentAmount(e.MoneyAmount);
-    }
-
-    public void AddMoneyToCurrentAmount(int moneyAmount) => _totalCurrentMoneyAmount += moneyAmount;
-
-    public void SubstractCurrentMoneyAmountBy(int substructAmount)
-    {
-        if (substructAmount <= 0)
-            throw new System.Exception("An error occured: sustract amount has negative value or null");
-
-        _totalCurrentMoneyAmount -= substructAmount;
-    }
-
-    public int GetTotalCurrentMoneyAmount() => _totalCurrentMoneyAmount;
 }

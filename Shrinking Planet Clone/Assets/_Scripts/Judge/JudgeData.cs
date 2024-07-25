@@ -1,13 +1,16 @@
 using UnityEngine;
 
-public class JudgeData
+namespace Judge
 {
-    public Vector3 SpawnPosition;
-    public Quaternion SpawnRotation;
-
-    public JudgeData(Vector3 spawnPosition, Quaternion spawnRotation)
+    public class JudgeData
     {
-        SpawnPosition = spawnPosition;
-        SpawnRotation = spawnRotation;
+        public Vector3 SpawnPosition;
+        public Quaternion SpawnRotation;
+
+        public JudgeData(Vector3 spawnPosition, Quaternion spawnRotation)
+        {
+            SpawnPosition = spawnPosition;
+            SpawnRotation = spawnRotation;
+        }
     }
 }

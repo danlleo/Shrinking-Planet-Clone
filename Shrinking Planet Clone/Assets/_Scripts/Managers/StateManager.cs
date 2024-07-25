@@ -17,10 +17,10 @@ namespace Managers
 
             if (nextState != null)
             {
-                SwithToTheNextState(nextState);
+                SwitchToTheNextState(nextState);
             }
         }
 
-        private void SwithToTheNextState(State nextState) => _currentState = nextState;
+        private void SwitchToTheNextState(State nextState) => _currentState = nextState;
     }
 }

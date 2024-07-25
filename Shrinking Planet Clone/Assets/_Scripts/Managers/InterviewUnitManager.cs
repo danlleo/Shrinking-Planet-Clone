@@ -1,51 +1,49 @@
 using System.Collections.Generic;
-using Managers;
 using Unit;
 using UnityEngine;
 
-public class InterviewUnitManager : Singleton<InterviewUnitManager>
+namespace Managers
 {
-    private const int MAX_SELECTED_UNITS = 3;
-
-    [SerializeField] private InterviewUnit _interviewUnit;
-
-    [SerializeField] private Vector3[] _interviewUnitsPredefinedPositions = new Vector3[MAX_SELECTED_UNITS];
-
-    private IEnumerable<UnitData> _unitDataList = new List<UnitData>();
-    private List<UnitSO> _unitInterviewSOList = new List<UnitSO>();
-
-    protected override void Awake()
+    public class InterviewUnitManager : Singleton<InterviewUnitManager>
     {
-        base.Awake();
-    }
+        private const int MaxSelectedUnits = 3;
 
-    private void Start()
-    {
-        _unitDataList = SaveGameManager.Instance.GetUnitDataList();
+        [SerializeField] private InterviewUnit.InterviewUnit _interviewUnit;
 
-        foreach (var unitData in _unitDataList)
+        [SerializeField] private Vector3[] _interviewUnitsPredefinedPositions = new Vector3[MaxSelectedUnits];
+
+        private IEnumerable<UnitData> _unitDataList = new List<UnitData>();
+        private readonly List<UnitSO> _unitInterviewSOList = new();
+
+        private void Start()
         {
-            UnitSO unitSO = SaveGameManager.Instance.GetUnitSO(unitData.UnitSOName);
+            _unitDataList = SaveGameManager.Instance.GetUnitDataList();
 
-            _unitInterviewSOList.Add(unitSO);
+            foreach (UnitData unitData in _unitDataList)
+            {
+                UnitSO unitSO = SaveGameManager.Instance.GetUnitSO(unitData.UnitSOName);
+
+                _unitInterviewSOList.Add(unitSO);
+            }
         }
-    }
 
-    public void SpawnInterviewUnits()
-    {
-        List<UnitSO> unitSOList = UnitUIPickerManager.Instance.GetUnitSOList();
-        List<InterviewCameraTransform> interviewCameraTransformsList = InterviewCameraManager.Instance.GetUnitCameraTransformList();
-
-        for (int i = 0; i < unitSOList.Count; i++)
+        public void SpawnInterviewUnits()
         {
-            InterviewUnit interviewUnit = Instantiate(_interviewUnit);
-            interviewUnit.Setup(
-                _interviewUnitsPredefinedPositions[i],
-                unitSOList[i],
-                interviewCameraTransformsList[i]
-            );
-        }
-    }
+            List<UnitSO> unitSOList = UnitUIPickerManager.Instance.GetUnitSOList();
+            List<InterviewCameraTransform> interviewCameraTransformsList =
+                InterviewCameraManager.Instance.GetUnitCameraTransformList();
 
-    public IEnumerable<UnitSO> GetInterviewUnitSOList() => _unitInterviewSOList;
+            for (int i = 0; i < unitSOList.Count; i++)
+            {
+                InterviewUnit.InterviewUnit interviewUnit = Instantiate(_interviewUnit);
+                interviewUnit.Setup(
+                    _interviewUnitsPredefinedPositions[i],
+                    unitSOList[i],
+                    interviewCameraTransformsList[i]
+                );
+            }
+        }
+
+        public IEnumerable<UnitSO> GetInterviewUnitSOList() => _unitInterviewSOList;
+    }
 }

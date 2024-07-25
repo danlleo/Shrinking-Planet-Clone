@@ -3,7 +3,7 @@ using UnityEngine.EventSystems;
 
 public class InterviewUnitActionSystem : Singleton<InterviewUnitActionSystem>
 {
-    public bool TryGetSelectedInterviewUnit(out InterviewUnit selectedInterviewUnit)
+    public bool TryGetSelectedInterviewUnit(out InterviewUnit.InterviewUnit selectedInterviewUnit)
     {
         Vector3 cameraPosition = Camera.main.transform.position;
 
@@ -14,7 +14,7 @@ public class InterviewUnitActionSystem : Singleton<InterviewUnitActionSystem>
             return false;
         }
 
-        if (!hitInfo.collider.TryGetComponent(out InterviewUnit interviewUnit))
+        if (!hitInfo.collider.TryGetComponent(out InterviewUnit.InterviewUnit interviewUnit))
         {
             selectedInterviewUnit = null;
             return false;

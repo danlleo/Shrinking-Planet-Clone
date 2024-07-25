@@ -12,33 +12,26 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c8269ec0f3a81f54dbbf41e1b706b720, type: 3}
   m_Name: AudioClipRefsSO
   m_EditorClassIdentifier: 
-  UnitHover: {fileID: 8300000, guid: e4a006c8872c7624daca07effb5c75af, type: 3}
-  UnitSelect: {fileID: 8300000, guid: e8d1ba45615cc6a428c273551f772431, type: 3}
-  SetUnitOccupation: {fileID: 8300000, guid: faaf5f05df6b4d64cb021f2b0b541d30, type: 3}
-  UnitFail: {fileID: 8300000, guid: b9fd2cd7c58605445a5ea8d5cf4a8cd7, type: 3}
-  UnitSuccess: {fileID: 8300000, guid: 0ede4224bd43c0a4a962a761d5369d02, type: 3}
-  EndDay: {fileID: 8300000, guid: 03181e9b89044a542893c10cf3497765, type: 3}
-  UIElementSelect: {fileID: 8300000, guid: a7f5bd34b24a48c4581386e3bf14ddd7, type: 3}
-  UIElementClick: {fileID: 8300000, guid: 7cdcf5596b7b82d4390992a3c032238a, type: 3}
-  CollectCoin: {fileID: 8300000, guid: a7f0df5369550454d83aaab1ba11d777, type: 3}
-  LevelUp: {fileID: 8300000, guid: 4c4b4e8899b0b2841bb0605cac0aba43, type: 3}
-  JudgeAsking: {fileID: 8300000, guid: a2052a849a11f744887153b553cff731, type: 3}
-  CorrectInterviewQuestion: {fileID: 8300000, guid: f6dea355b6dfeb2488b67ab3d68c3cab,
-    type: 3}
-  WrongInterviewQuestion: {fileID: 8300000, guid: 580f04efa1f739a4c8a8c714efa34877,
-    type: 3}
-  UnitResponse:
-  - {fileID: 8300000, guid: 7e8146e0737f3814ab5c15c1b21c45f9, type: 3}
-  CameraWhoosh: {fileID: 8300000, guid: 7c0898e17452e1b4ea8791aae7574a48, type: 3}
-  TrashDispose: {fileID: 8300000, guid: 91d210dc6ec41ea47b6d53f4c98250aa, type: 3}
-  DocumentDelivered: {fileID: 8300000, guid: 6e27a1a86510467499692a93ff713400, type: 3}
-  WaterDrank: {fileID: 8300000, guid: e0b65767ccd28bb44ada1c000e1995c5, type: 3}
-  WaterPouring: {fileID: 8300000, guid: 8ad31026f09cbf44baf34554917d585e, type: 3}
-  ItemPick: {fileID: 8300000, guid: 49b42248f10b12e44ab9285bec843ee4, type: 3}
-  ItemDrop: {fileID: 8300000, guid: 414e4412b9b6e5043a56315da5bb8b3b, type: 3}
-  Steps:
-  - {fileID: 8300000, guid: efff6f5711755744da7c514bbd62d966, type: 3}
-  - {fileID: 8300000, guid: 43372220ae79c94438897006391ee654, type: 3}
-  - {fileID: 8300000, guid: a6a895fe77970734688496a6cd07c8d3, type: 3}
-  - {fileID: 8300000, guid: 419bcab6e071a9245acafb74ea81e045, type: 3}
-  SuccessPurchase: {fileID: 8300000, guid: 81a3bfa3a46189a46a225570fa3e0ff9, type: 3}
+  <UnitHover>k__BackingField: {fileID: 0}
+  <UnitSelect>k__BackingField: {fileID: 0}
+  <SetUnitOccupation>k__BackingField: {fileID: 0}
+  <UnitFail>k__BackingField: {fileID: 0}
+  <UnitSuccess>k__BackingField: {fileID: 0}
+  <EndDay>k__BackingField: {fileID: 0}
+  <UIElementSelect>k__BackingField: {fileID: 0}
+  <UIElementClick>k__BackingField: {fileID: 0}
+  <CollectCoin>k__BackingField: {fileID: 0}
+  <LevelUp>k__BackingField: {fileID: 0}
+  <JudgeAsking>k__BackingField: {fileID: 0}
+  <CorrectInterviewQuestion>k__BackingField: {fileID: 0}
+  <WrongInterviewQuestion>k__BackingField: {fileID: 0}
+  <UnitResponse>k__BackingField: []
+  <CameraWhoosh>k__BackingField: {fileID: 0}
+  <TrashDispose>k__BackingField: {fileID: 0}
+  <DocumentDelivered>k__BackingField: {fileID: 0}
+  <WaterDrank>k__BackingField: {fileID: 0}
+  <WaterPouring>k__BackingField: {fileID: 0}
+  <ItemPick>k__BackingField: {fileID: 0}
+  <ItemDrop>k__BackingField: {fileID: 0}
+  <Steps>k__BackingField: []
+  <SuccessPurchase>k__BackingField: {fileID: 0}

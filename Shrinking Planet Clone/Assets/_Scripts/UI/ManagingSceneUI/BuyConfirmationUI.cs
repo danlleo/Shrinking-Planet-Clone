@@ -3,70 +3,70 @@ using Managers;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
-using static BuyItemUISingle;
+using static UI.ManagingSceneUI.BuyItemUISingle;
 
-public class BuyConfirmationUI : MonoBehaviour
+namespace UI.ManagingSceneUI
 {
-    [SerializeField] private GameObject _buyConfirmationUI;
-    [SerializeField] private TextMeshProUGUI _priceAmountText;
-    [SerializeField] private Button _confirmButton;
-    [SerializeField] private Button _declineButton;
-
-    private PurchasableItem _purchasableItem;
-
-    private void Awake()
+    public class BuyConfirmationUI : MonoBehaviour
     {
-        HideUI();
+        [SerializeField] private GameObject _buyConfirmationUI;
+        [SerializeField] private TextMeshProUGUI _priceAmountText;
+        [SerializeField] private Button _confirmButton;
+        [SerializeField] private Button _declineButton;
 
-        _declineButton.onClick.AddListener(() =>
+        private PurchasableItem _purchasableItem;
+
+        private void Awake()
         {
             HideUI();
-        });
 
-        _confirmButton.onClick.AddListener(() =>
+            _declineButton.onClick.AddListener(HideUI);
+
+            _confirmButton.onClick.AddListener(() =>
+            {
+                ShopManager.Instance.TryPurchaseItem(_purchasableItem, out Action resultAction);
+                resultAction?.Invoke();
+            });
+        }
+
+        private void Start()
         {
-            ShopManager.Instance.TryPurchaseItem(_purchasableItem, out Action resultAction);
-            resultAction?.Invoke();
-        });
+            OnBuyItemClick += BuyItemUISingle_OnBuyItemClick;
+            ShopManager.Instance.OnItemBought += ShopManager_OnItemBought;
+            ShopManager.Instance.OnItemFailedPurchase += ShopManager_OnItemFailedPurchase;
+        }
+
+        private void OnDestroy()
+        {
+            OnBuyItemClick -= BuyItemUISingle_OnBuyItemClick;
+            ShopManager.Instance.OnItemBought -= ShopManager_OnItemBought;
+            ShopManager.Instance.OnItemFailedPurchase -= ShopManager_OnItemFailedPurchase;
+        }
+
+        private void ShopManager_OnItemFailedPurchase(object sender, EventArgs e)
+        {
+            HideUI();
+        }
+
+        private void ShopManager_OnItemBought(object sender, EventArgs e)
+        {
+            HideUI();
+        }
+
+        private void Initialize(PurchasableItem purchasableItem)
+        {
+            _purchasableItem = purchasableItem;
+            _priceAmountText.text = $"{_purchasableItem.Price}";
+        }
+
+        private void BuyItemUISingle_OnBuyItemClick(object sender, BuyItemClickArgs e)
+        {
+            ShowUI();
+            Initialize(e.PurchasableItemArgs);
+        }
+
+        private void ShowUI() => _buyConfirmationUI.SetActive(true);
+
+        private void HideUI() => _buyConfirmationUI.SetActive(false);
     }
-
-    private void Start()
-    {
-        OnBuyItemClick += BuyItemUISingle_OnBuyItemClick;
-        ShopManager.Instance.OnItemBought += ShopManager_OnItemBought;
-        ShopManager.Instance.OnItemFailedPurchase += ShopManager_OnItemFailedPurchase;
-    }
-
-    private void OnDestroy()
-    {
-        OnBuyItemClick -= BuyItemUISingle_OnBuyItemClick;
-        ShopManager.Instance.OnItemBought -= ShopManager_OnItemBought;
-        ShopManager.Instance.OnItemFailedPurchase -= ShopManager_OnItemFailedPurchase;
-    }
-
-    private void ShopManager_OnItemFailedPurchase(object sender, EventArgs e)
-    {
-        HideUI();
-    }
-
-    private void ShopManager_OnItemBought(object sender, EventArgs e)
-    {
-        HideUI();
-    }
-
-    private void Initialize(PurchasableItem purchasableItem)
-    {
-        _purchasableItem = purchasableItem;
-        _priceAmountText.text = $"{_purchasableItem.Price}";
-    }
-
-    private void BuyItemUISingle_OnBuyItemClick(object sender, BuyItemClickArgs e)
-    {
-        ShowUI();
-        Initialize(e.PurchasableItemArgs);
-    }
-
-    private void ShowUI() => _buyConfirmationUI.SetActive(true);
-
-    private void HideUI() => _buyConfirmationUI.SetActive(false);
 }

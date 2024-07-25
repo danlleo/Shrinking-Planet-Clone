@@ -1,26 +1,29 @@
 using System;
 using UnityEngine;
 
-public class UnitOccupation : MonoBehaviour
+namespace Unit
 {
-    public event EventHandler OnUnitOccupationSet;
-
-    private UnitSO _unitSO;
-
-    private UnitOccupationType _occupation;
-
-    public void Initialize(UnitSO unitSO)
+    public class UnitOccupation : MonoBehaviour
     {
-        _unitSO = unitSO;
+        public event EventHandler OnUnitOccupationSet;
+
+        private UnitSO _unitSO;
+
+        private UnitOccupationType _occupation;
+
+        public void Initialize(UnitSO unitSO)
+        {
+            _unitSO = unitSO;
+        }
+
+        public void SetUnitOccupation(UnitOccupationType occupation)
+        {
+            _occupation = occupation;
+            OnUnitOccupationSet?.Invoke(this, EventArgs.Empty);
+        }
+
+        public UnitOccupationType GetUnitOccupation() => _occupation;
+
+        public UnitOccupationType GetDefaultUnitOccupation() => _unitSO.DefaultOccupation;
     }
-
-    public void SetUnitOccupation(UnitOccupationType occupation)
-    {
-        _occupation = occupation;
-        OnUnitOccupationSet?.Invoke(this, EventArgs.Empty);
-    }
-
-    public UnitOccupationType GetUnitOccupation() => _occupation;
-
-    public UnitOccupationType GetDefaultUnitOccupation() => _unitSO.DefaultOccupation;
 }

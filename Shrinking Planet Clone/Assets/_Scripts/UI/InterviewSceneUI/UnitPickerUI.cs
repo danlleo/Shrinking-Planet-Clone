@@ -1,79 +1,85 @@
 using System;
 using System.Collections.Generic;
 using Managers;
+using Unit;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class UnitPickerUI : MonoBehaviour
+namespace UI.InterviewSceneUI
 {
-    public static event EventHandler OnUnitsPicked;
-
-    [SerializeField] private GameObject _unitPickerUI;
-    [SerializeField] private GameObject _unitDisplayInterviewSinglePrefab;
-    [SerializeField] private Transform _unitInterviewDisplayGroup;
-    [SerializeField] private Button _proceedButton;
-
-    private void Awake()
+    public class UnitPickerUI : MonoBehaviour
     {
-        ShowUI();
-        HideProceedButton();
+        public static event EventHandler OnUnitsPicked;
 
-        _proceedButton.onClick.AddListener(() =>
+        [SerializeField] private GameObject _unitPickerUI;
+        [SerializeField] private GameObject _unitDisplayInterviewSinglePrefab;
+        [SerializeField] private Transform _unitInterviewDisplayGroup;
+        [SerializeField] private Button _proceedButton;
+
+        private void Awake()
         {
-            HideUI();
-            OnUnitsPicked?.Invoke(this, EventArgs.Empty);
-        });
-    }
+            ShowUI();
+            HideProceedButton();
 
-    private void Start()
-    {
-        ShowUnitsInterviewDisplaySingleUI();
-        UnitUIPickerManager.Instance.OnInterviewUnitSelected += UnitUIPickerManager_OnInterviewUnitSelected;
-    }
-
-    private void OnDestroy()
-    {
-        UnitUIPickerManager.Instance.OnInterviewUnitSelected -= UnitUIPickerManager_OnInterviewUnitSelected;
-    }
-
-    private void UnitUIPickerManager_OnInterviewUnitSelected(object sender, System.EventArgs e)
-    {
-        if (UnitUIPickerManager.Instance.AreAllUnitsSelected())
-        {
-            ShowProceedButton();
-            return;
+            _proceedButton.onClick.AddListener(() =>
+            {
+                HideUI();
+                OnUnitsPicked?.Invoke(this, EventArgs.Empty);
+            });
         }
 
-        HideProceedButton();
-    }
-
-    private void ShowUI() => _unitPickerUI.SetActive(true);
-
-    private void HideUI() => _unitPickerUI.SetActive(false);
-
-    private void ShowProceedButton() => _proceedButton.gameObject.SetActive(true);
-
-    private void HideProceedButton() => _proceedButton.gameObject.SetActive(false);
-
-    private void ShowUnitsInterviewDisplaySingleUI()
-    {
-        IEnumerable<UnitSO> unitSOList = InterviewUnitManager.Instance.GetInterviewUnitSOList();
-
-        foreach (UnitSO unitSO in unitSOList)
+        private void Start()
         {
-            GameObject unitInterviewDisplaySingle = Instantiate(_unitDisplayInterviewSinglePrefab, _unitInterviewDisplayGroup);
+            ShowUnitsInterviewDisplaySingleUI();
+            UnitUIPickerManager.Instance.OnInterviewUnitSelected += UnitUIPickerManager_OnInterviewUnitSelected;
+        }
 
-            UnitDisplayInterviewSingleUI unitDisplayInterviewSingleUI = unitInterviewDisplaySingle.GetComponent<UnitDisplayInterviewSingleUI>();
-            Sprite unitInterviewDisplayImage = unitSO.UnitDisplayImage;
-            string unitInterviewDisplayName = unitSO.UnitName;
-            string unitInterviewDisplayOccupation = unitSO.DefaultOccupation.ToString();
+        private void OnDestroy()
+        {
+            UnitUIPickerManager.Instance.OnInterviewUnitSelected -= UnitUIPickerManager_OnInterviewUnitSelected;
+        }
 
-            unitDisplayInterviewSingleUI.Setup(
-                unitInterviewDisplayImage,
-                unitInterviewDisplayName,
-                unitInterviewDisplayOccupation,
-                unitSO
-            );
+        private void UnitUIPickerManager_OnInterviewUnitSelected(object sender, EventArgs e)
+        {
+            if (UnitUIPickerManager.Instance.AreAllUnitsSelected())
+            {
+                ShowProceedButton();
+                return;
+            }
+
+            HideProceedButton();
+        }
+
+        private void ShowUI() => _unitPickerUI.SetActive(true);
+
+        private void HideUI() => _unitPickerUI.SetActive(false);
+
+        private void ShowProceedButton() => _proceedButton.gameObject.SetActive(true);
+
+        private void HideProceedButton() => _proceedButton.gameObject.SetActive(false);
+
+        private void ShowUnitsInterviewDisplaySingleUI()
+        {
+            IEnumerable<UnitSO> unitSOList = InterviewUnitManager.Instance.GetInterviewUnitSOList();
+
+            foreach (UnitSO unitSO in unitSOList)
+            {
+                GameObject unitInterviewDisplaySingle =
+                    Instantiate(_unitDisplayInterviewSinglePrefab, _unitInterviewDisplayGroup);
+
+                UnitDisplayInterviewSingleUI unitDisplayInterviewSingleUI =
+                    unitInterviewDisplaySingle.GetComponent<UnitDisplayInterviewSingleUI>();
+                Sprite unitInterviewDisplayImage = unitSO.UnitDisplayImage;
+                string unitInterviewDisplayName = unitSO.UnitName;
+                string unitInterviewDisplayOccupation = unitSO.DefaultOccupation.ToString();
+
+                unitDisplayInterviewSingleUI.Setup(
+                    unitInterviewDisplayImage,
+                    unitInterviewDisplayName,
+                    unitInterviewDisplayOccupation,
+                    unitSO
+                );
+            }
         }
     }
 }

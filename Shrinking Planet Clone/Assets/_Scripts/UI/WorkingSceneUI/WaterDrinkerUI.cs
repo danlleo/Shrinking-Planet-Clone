@@ -1,51 +1,54 @@
 using System.Collections;
+using InteractableObjects;
 using Managers;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class WaterDrinkerUI : MonoBehaviour
+namespace UI.WorkingSceneUI
 {
-    [SerializeField] private WaterDrinker _waterDrinker;
-    [SerializeField] private GameObject _progressBarUI;
-    [SerializeField] private Image _waterStateIcon;
-    [SerializeField] private Sprite _readyToFillSprite;
-    [SerializeField] private Sprite _readyToDrinkSprite;
-    [SerializeField] private Image _progressBarBackground;
-    [SerializeField] private UnitNeed _unitNeed;
-    [SerializeField] private UnitNeedType _unitNeedType;
-
-    private bool _isFilling;
-    private bool _isFilled;
-
-    private float _fillingTimeInSeconds = 3.5f;
-
-    private void Start()
+    public class WaterDrinkerUI : MonoBehaviour
     {
-        HideProgressBar();
-        ShowWaterStateIcon();
+        [SerializeField] private WaterDrinker _waterDrinker;
+        [SerializeField] private GameObject _progressBarUI;
+        [SerializeField] private Image _waterStateIcon;
+        [SerializeField] private Sprite _readyToFillSprite;
+        [SerializeField] private Sprite _readyToDrinkSprite;
+        [SerializeField] private Image _progressBarBackground;
+        [SerializeField] private UnitNeed _unitNeed;
+        [SerializeField] private UnitNeedType _unitNeedType;
 
-        _waterDrinker.OnWaterDrinkerInteract += WaterDrinker_OnWaterDrinkerInteract;
-    }
+        private bool _isFilling;
+        private bool _isFilled;
 
-    private void OnDestroy()
-    {
-        _waterDrinker.OnWaterDrinkerInteract -= WaterDrinker_OnWaterDrinkerInteract;
-    }
+        private readonly float _fillingTimeInSeconds = 3.5f;
 
-    private void WaterDrinker_OnWaterDrinkerInteract(object sender, System.EventArgs e)
-    {
-        if (!_isFilling)
+        private void Start()
         {
-            // Start filling it...
+            HideProgressBar();
+            ShowWaterStateIcon();
 
-            SoundManager.Instance.PlayWaterPouringSound();
-            ShowProgressBar();
-            HideWaterStateIcon();
-            StartCoroutine(FillWaterDrinkerProgressBarRoutine());
+            _waterDrinker.OnWaterDrinkerInteract += WaterDrinker_OnWaterDrinkerInteract;
         }
 
-        if (_isFilled)
+        private void OnDestroy()
         {
+            _waterDrinker.OnWaterDrinkerInteract -= WaterDrinker_OnWaterDrinkerInteract;
+        }
+
+        private void WaterDrinker_OnWaterDrinkerInteract(object sender, System.EventArgs e)
+        {
+            if (!_isFilling)
+            {
+                // Start filling it...
+
+                SoundManager.Instance.PlayWaterPouringSound();
+                ShowProgressBar();
+                HideWaterStateIcon();
+                StartCoroutine(FillWaterDrinkerProgressBarRoutine());
+            }
+
+            if (!_isFilled) return;
+            
             InteractSystem.Instance.SetHandsBusyBy(_unitNeedType);
             InteractSystem.Instance.InvokeObjectPickUp(_unitNeed.PickUpIcon);
             UnitNeedManager.Instance.SetCurrentNeed(_unitNeed);
@@ -55,35 +58,35 @@ public class WaterDrinkerUI : MonoBehaviour
 
             SetWaterIconStateSprite(_readyToFillSprite);
         }
-    }
 
-    private void ShowProgressBar() => _progressBarUI.SetActive(true);
+        private void ShowProgressBar() => _progressBarUI.SetActive(true);
 
-    private void HideProgressBar() => _progressBarUI.SetActive(false);
+        private void HideProgressBar() => _progressBarUI.SetActive(false);
 
-    private void ShowWaterStateIcon() => _waterStateIcon.gameObject.SetActive(true);
+        private void ShowWaterStateIcon() => _waterStateIcon.gameObject.SetActive(true);
 
-    private void HideWaterStateIcon() => _waterStateIcon.gameObject.SetActive(false);
+        private void HideWaterStateIcon() => _waterStateIcon.gameObject.SetActive(false);
 
-    private void SetWaterIconStateSprite(Sprite sprite) => _waterStateIcon.sprite = sprite;
+        private void SetWaterIconStateSprite(Sprite sprite) => _waterStateIcon.sprite = sprite;
 
-    private IEnumerator FillWaterDrinkerProgressBarRoutine()
-    {
-        _isFilling = true;
-
-        float timer = 0f;
-        while (timer <  _fillingTimeInSeconds)
+        private IEnumerator FillWaterDrinkerProgressBarRoutine()
         {
-            timer += Time.deltaTime;
-            float normalizedTime = timer / _fillingTimeInSeconds;
-            _progressBarBackground.fillAmount = normalizedTime;
-            yield return null;
+            _isFilling = true;
+
+            float timer = 0f;
+            while (timer <  _fillingTimeInSeconds)
+            {
+                timer += Time.deltaTime;
+                float normalizedTime = timer / _fillingTimeInSeconds;
+                _progressBarBackground.fillAmount = normalizedTime;
+                yield return null;
+            }
+
+            HideProgressBar();
+            ShowWaterStateIcon();
+            SetWaterIconStateSprite(_readyToDrinkSprite);
+
+            _isFilled = true;
         }
-
-        HideProgressBar();
-        ShowWaterStateIcon();
-        SetWaterIconStateSprite(_readyToDrinkSprite);
-
-        _isFilled = true;
     }
 }

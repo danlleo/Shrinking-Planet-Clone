@@ -2,29 +2,29 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class MessagePopUpWindowUI : MonoBehaviour
+namespace UI.ManagingSceneUI
 {
-    [SerializeField] private GameObject _messagePopUpWindowUI;
-    [SerializeField] private TextMeshProUGUI _messageText;
-    [SerializeField] private Button _confirmButton;
-
-    private void Awake()
+    public class MessagePopUpWindowUI : MonoBehaviour
     {
-        HideUI();
+        [SerializeField] private GameObject _messagePopUpWindowUI;
+        [SerializeField] private TextMeshProUGUI _messageText;
+        [SerializeField] private Button _confirmButton;
 
-        _confirmButton.onClick.AddListener(() =>
+        private void Awake()
         {
             HideUI();
-        });
+
+            _confirmButton.onClick.AddListener(HideUI);
+        }
+
+        public void InvokeMessageWindowPopUp(string message)
+        {
+            ShowUI();
+            _messageText.text = message;
+        }
+
+        private void ShowUI() => _messagePopUpWindowUI.SetActive(true);
+
+        private void HideUI() => _messagePopUpWindowUI.SetActive(false);
     }
-
-    public void InvokeMessageWindowPopUp(string message)
-    {
-        ShowUI();
-        _messageText.text = message;
-    }
-
-    private void ShowUI() => _messagePopUpWindowUI.SetActive(true);
-
-    private void HideUI() => _messagePopUpWindowUI.SetActive(false);
 }

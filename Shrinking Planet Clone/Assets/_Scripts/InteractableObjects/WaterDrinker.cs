@@ -2,40 +2,42 @@ using System;
 using Managers;
 using UnityEngine;
 
-public class WaterDrinker : MonoBehaviour, IInteractable, ISelectable
+namespace InteractableObjects
 {
-    private const int DEFAULT_LAYER = 0;
-    private const int OUTLINE_LAYER = 31;
-
-    public event EventHandler OnWaterDrinkerInteract;
-
-    [SerializeField] private GameObject[] _waterDrinkerVisuals;
-
-    public void Interact()
+    public class WaterDrinker : MonoBehaviour, IInteractable, ISelectable
     {
-        OnWaterDrinkerInteract?.Invoke(this, EventArgs.Empty);
-    }
+        private const int DefaultLayer = 0;
+        private const int OutlineLayer = 31;
+        public event EventHandler OnWaterDrinkerInteract;
 
-    public void OnMouseEnter()
-    {
-        SoundManager.Instance.PlayUnitMouseHover();
+        [SerializeField] private GameObject[] _waterDrinkerVisuals;
 
-        foreach (GameObject gameObject in _waterDrinkerVisuals)
+        public void Interact()
         {
-            ChangeLayerInObject(gameObject, OUTLINE_LAYER);
+            OnWaterDrinkerInteract?.Invoke(this, EventArgs.Empty);
         }
-    }
 
-    public void OnMouseExit()
-    {
-        foreach (GameObject gameObject in _waterDrinkerVisuals)
+        public void OnMouseEnter()
         {
-            ChangeLayerInObject(gameObject, DEFAULT_LAYER);
-        }
-    }
+            SoundManager.Instance.PlayUnitMouseHover();
 
-    public void ChangeLayerInObject(GameObject targetObject, int newLayer)
-    {
-        targetObject.layer = newLayer;
+            foreach (GameObject waterDrinkerVisualGameObject in _waterDrinkerVisuals)
+            {
+                ChangeLayerInObject(waterDrinkerVisualGameObject, OutlineLayer);
+            }
+        }
+
+        public void OnMouseExit()
+        {
+            foreach (GameObject waterDrinkerVisualGameObject in _waterDrinkerVisuals)
+            {
+                ChangeLayerInObject(waterDrinkerVisualGameObject, DefaultLayer);
+            }
+        }
+
+        public void ChangeLayerInObject(GameObject targetObject, int newLayer)
+        {
+            targetObject.layer = newLayer;
+        }
     }
 }

@@ -1,32 +1,30 @@
 using System;
-using Managers;
 
-public class DayManager : Singleton<DayManager>
+namespace Managers
 {
-    public event EventHandler<EventArgs> OnDayEnded;
-
-    private int _currentDay = 1;
-
-    protected override void Awake()
+    public class DayManager : Singleton<DayManager>
     {
-        base.Awake();
-    }
+        public event EventHandler<EventArgs> OnDayEnded;
 
-    private void Start()
-    {
-        _currentDay = SaveGameManager.Instance.GetDayCount();
-    }
+        private int _currentDay = 1;
 
-    public void InvokeOnDayEndedEvent() => OnDayEnded?.Invoke(this, EventArgs.Empty);
+        private void Start()
+        {
+            _currentDay = SaveGameManager.Instance.GetDayCount();
+        }
 
-    public int GetCurrentDay() => _currentDay;
+        public void InvokeOnDayEndedEvent() => OnDayEnded?.Invoke(this, EventArgs.Empty);
 
-    public void ProceedToAnotherDay()
-    {
-        _currentDay++;
+        public int GetCurrentDay() => _currentDay;
 
-        int companyRankPosition = SaveGameManager.Instance.GetCompanyRankPosition();
+        public void ProceedToAnotherDay()
+        {
+            _currentDay++;
 
-        SaveGameManager.Instance.SaveGame(companyRankPosition, _currentDay, EconomyManager.Instance.GetTotalCurrentMoneyAmount());
+            int companyRankPosition = SaveGameManager.Instance.GetCompanyRankPosition();
+
+            SaveGameManager.Instance.SaveGame(companyRankPosition, _currentDay,
+                EconomyManager.Instance.GetTotalCurrentMoneyAmount());
+        }
     }
 }

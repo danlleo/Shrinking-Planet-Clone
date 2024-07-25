@@ -1,82 +1,86 @@
 using System;
 using Managers;
+using Unit.UnitStates;
 using UnityEngine;
 
-public class UnitEconomy : MonoBehaviour
+namespace Unit
 {
-    public event EventHandler<UnitReadyToReceiveMoneyEventArgs> OnUnitReadyToReceiveMoney;
-    public event EventHandler OnUnitReceivedMoney;
-
-    public class UnitReadyToReceiveMoneyEventArgs : EventArgs
+    public class UnitEconomy : MonoBehaviour
     {
-        public bool SuccessfullyFinishedWork;
+        public event EventHandler<UnitReadyToReceiveMoneyEventArgs> OnUnitReadyToReceiveMoney;
+        public event EventHandler OnUnitReceivedMoney;
 
-        public UnitReadyToReceiveMoneyEventArgs(bool successfullyFinishedWork)
+        public class UnitReadyToReceiveMoneyEventArgs : EventArgs
         {
-            SuccessfullyFinishedWork = successfullyFinishedWork;
+            public bool SuccessfullyFinishedWork;
+
+            public UnitReadyToReceiveMoneyEventArgs(bool successfullyFinishedWork)
+            {
+                SuccessfullyFinishedWork = successfullyFinishedWork;
+            }
         }
-    }
 
-    [SerializeField] private Transform _moneyReceivedAnimationPosition;
-    [SerializeField] private GameObject _moneyReceivedAnimationPrefab;
+        [SerializeField] private Transform _moneyReceivedAnimationPosition;
+        [SerializeField] private GameObject _moneyReceivedAnimationPrefab;
 
-    private Unit.Unit _unit;
+        private global::Unit.Unit _unit;
 
-    private int _currentUnitMoneyAmount;
+        private int _currentUnitMoneyAmount;
 
-    private void Start()
-    {
-        _unit = GetComponent<Unit.Unit>();
-        UnitWorkingState.OnUnitReceivedPayment += UnitWorkingState_OnUnitReceivedPayment;
-    }
-
-    private void OnDestroy()
-    {
-        UnitWorkingState.OnUnitReceivedPayment -= UnitWorkingState_OnUnitReceivedPayment;
-    }
-
-    private void UnitWorkingState_OnUnitReceivedPayment(object sender, UnitWorkingState.UnitRecievedPaymentEventArgs e)
-    {
-        Unit.Unit selectedUnit = (Unit.Unit)sender;
-
-        if (ReferenceEquals(_unit, selectedUnit))
+        private void Start()
         {
-            AddMoneyToCurrentAmount(e.MoneyAmount);
-            InstantiateMoneyReceivedAnimation(e.MoneyAmount);
-            SoundManager.Instance.PlayCoinCollectSound();
+            _unit = GetComponent<global::Unit.Unit>();
+            UnitWorkingState.OnUnitReceivedPayment += UnitWorkingState_OnUnitReceivedPayment;
         }
-    }
 
-    private void InstantiateMoneyReceivedAnimation(int moneyAmount)
-    {
-        GameObject moneyAnimation = Instantiate(_moneyReceivedAnimationPrefab, _moneyReceivedAnimationPosition);
-
-        if (moneyAnimation.TryGetComponent(out MoneyReceivedAnimationPrefab moneyReceivedAnimationPrefab))
+        private void OnDestroy()
         {
-            moneyReceivedAnimationPrefab.SetMoneyReceivedText(moneyAmount);
+            UnitWorkingState.OnUnitReceivedPayment -= UnitWorkingState_OnUnitReceivedPayment;
         }
-    }
 
-    public void AddMoneyToCurrentAmount(int recievedMoneyAmount) => _currentUnitMoneyAmount += recievedMoneyAmount;
-
-    public void ClearCurrentMoneyAmount() => _currentUnitMoneyAmount = 0;
-
-    public int GetCurrentUnitMoneyAmount() => _currentUnitMoneyAmount;
-
-    public int GetBonusMoneyPercentAmountAccordingToLevel(int level)
-    {
-        return level switch
+        private void UnitWorkingState_OnUnitReceivedPayment(object sender, UnitWorkingState.UnitRecievedPaymentEventArgs e)
         {
-            1 => 0,
-            2 => 10,
-            3 => 25,
-            4 => 50,
-            5 => 60,
-            _ => 0,
-        };
+            global::Unit.Unit selectedUnit = (global::Unit.Unit)sender;
+
+            if (ReferenceEquals(_unit, selectedUnit))
+            {
+                AddMoneyToCurrentAmount(e.MoneyAmount);
+                InstantiateMoneyReceivedAnimation(e.MoneyAmount);
+                SoundManager.Instance.PlayCoinCollectSound();
+            }
+        }
+
+        private void InstantiateMoneyReceivedAnimation(int moneyAmount)
+        {
+            GameObject moneyAnimation = Instantiate(_moneyReceivedAnimationPrefab, _moneyReceivedAnimationPosition);
+
+            if (moneyAnimation.TryGetComponent(out MoneyReceivedAnimationPrefab moneyReceivedAnimationPrefab))
+            {
+                moneyReceivedAnimationPrefab.SetMoneyReceivedText(moneyAmount);
+            }
+        }
+
+        public void AddMoneyToCurrentAmount(int recievedMoneyAmount) => _currentUnitMoneyAmount += recievedMoneyAmount;
+
+        public void ClearCurrentMoneyAmount() => _currentUnitMoneyAmount = 0;
+
+        public int GetCurrentUnitMoneyAmount() => _currentUnitMoneyAmount;
+
+        public int GetBonusMoneyPercentAmountAccordingToLevel(int level)
+        {
+            return level switch
+            {
+                1 => 0,
+                2 => 10,
+                3 => 25,
+                4 => 50,
+                5 => 60,
+                _ => 0,
+            };
+        }
+
+        public void InvokeOnUnitReadyToReceiveMoney(bool successfullyFinishedWork) => OnUnitReadyToReceiveMoney?.Invoke(this, new UnitReadyToReceiveMoneyEventArgs(successfullyFinishedWork));
+
+        public void InvokeOnUnitRecievedMoney() => OnUnitReceivedMoney?.Invoke(this, EventArgs.Empty);
     }
-
-    public void InvokeOnUnitReadyToReceiveMoney(bool successfullyFinishedWork) => OnUnitReadyToReceiveMoney?.Invoke(this, new UnitReadyToReceiveMoneyEventArgs(successfullyFinishedWork));
-
-    public void InvokeOnUnitRecievedMoney() => OnUnitReceivedMoney?.Invoke(this, EventArgs.Empty);
 }

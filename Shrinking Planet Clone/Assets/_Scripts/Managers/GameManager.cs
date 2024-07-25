@@ -26,16 +26,6 @@ namespace Managers
             Judge.Judge.OnJudgeFinishedJob -= Judge_OnJudgeFinishedJob;
         }
 
-        private void Judge_OnJudgeFinishedJob(object sender, EventArgs e)
-        {
-            Destroy(gameObject);
-        }
-
-        private void DayManager_OnDayEnded(object sender, EventArgs e)
-        {
-            Destroy(gameObject);
-        }
-
         private void Update()
         {
             if (!InputManager.Instance.IsPauseButtonDownThisFrame())
@@ -49,6 +39,16 @@ namespace Managers
             {
                 Pause();
             }
+        }
+
+        private void Judge_OnJudgeFinishedJob(object sender, EventArgs e)
+        {
+            Destroy(gameObject);
+        }
+
+        private void DayManager_OnDayEnded(object sender, EventArgs e)
+        {
+            Destroy(gameObject);
         }
 
         public void Pause()

@@ -1,66 +1,71 @@
+using Managers;
+using Unit.UnitStates;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class UnitNeedUI : MonoBehaviour
+namespace UI.WorkingSceneUI
 {
-    [SerializeField] private GameObject _unitNeedUI;
-    [SerializeField] private Image _unitNeedImage;
-    [SerializeField] private Unit.Unit _unit;
-
-    private void Start()
+    public class UnitNeedUI : MonoBehaviour
     {
-        HideUI();
+        [SerializeField] private GameObject _unitNeedUI;
+        [SerializeField] private Image _unitNeedImage;
+        [SerializeField] private Unit.Unit _unit;
 
-        _unit.OnUnitNeedRequested += Unit_OnUnitNeedRequested;
-        _unit.OnUnitNeedFulfilled += Unit_OnUnitNeedFulfilled;
-        _unit.OnUnitObjectDrop += Unit_OnUnitObjectDrop;
-        UnitWorkingState.OnUnitPickedObject += UnitWorkingState_OnUnitPickedObject;
-        DayManager.Instance.OnDayEnded += DayManager_OnDayEnded;
-    }
+        private void Start()
+        {
+            HideUI();
 
-    private void OnDestroy()
-    {
-        _unit.OnUnitNeedRequested -= Unit_OnUnitNeedRequested;
-        _unit.OnUnitNeedFulfilled -= Unit_OnUnitNeedFulfilled;
-        _unit.OnUnitObjectDrop -= Unit_OnUnitObjectDrop;
-        UnitWorkingState.OnUnitPickedObject -= UnitWorkingState_OnUnitPickedObject;
-        DayManager.Instance.OnDayEnded -= DayManager_OnDayEnded;
-    }
+            _unit.OnUnitNeedRequested += Unit_OnUnitNeedRequested;
+            _unit.OnUnitNeedFulfilled += Unit_OnUnitNeedFulfilled;
+            _unit.OnUnitObjectDrop += Unit_OnUnitObjectDrop;
+            UnitWorkingState.OnUnitPickedObject += UnitWorkingState_OnUnitPickedObject;
+            DayManager.Instance.OnDayEnded += DayManager_OnDayEnded;
+        }
 
-    private void DayManager_OnDayEnded(object sender, System.EventArgs e)
-    {
-        HideUI();
-    }
+        private void OnDestroy()
+        {
+            _unit.OnUnitNeedRequested -= Unit_OnUnitNeedRequested;
+            _unit.OnUnitNeedFulfilled -= Unit_OnUnitNeedFulfilled;
+            _unit.OnUnitObjectDrop -= Unit_OnUnitObjectDrop;
+            UnitWorkingState.OnUnitPickedObject -= UnitWorkingState_OnUnitPickedObject;
+            DayManager.Instance.OnDayEnded -= DayManager_OnDayEnded;
+        }
 
-    private void Unit_OnUnitObjectDrop(object sender, System.EventArgs e)
-    {
-        ShowUI();
-    }
-
-    private void UnitWorkingState_OnUnitPickedObject(object sender, System.EventArgs e)
-    {
-        Unit.Unit senderUnit = (Unit.Unit)sender;
-
-        if (ReferenceEquals(senderUnit, _unit))
+        private void DayManager_OnDayEnded(object sender, System.EventArgs e)
         {
             HideUI();
         }
+
+        private void Unit_OnUnitObjectDrop(object sender, System.EventArgs e)
+        {
+            ShowUI();
+        }
+
+        private void UnitWorkingState_OnUnitPickedObject(object sender, System.EventArgs e)
+        {
+            Unit.Unit senderUnit = (Unit.Unit)sender;
+
+            if (ReferenceEquals(senderUnit, _unit))
+            {
+                HideUI();
+            }
+        }
+
+        private void Unit_OnUnitNeedFulfilled(object sender, System.EventArgs e)
+        {
+            HideUI();
+        }
+
+        private void Unit_OnUnitNeedRequested(object sender, Unit.Unit.UnitNeedRequestedArgs e)
+        {
+            ShowUI();
+            SetUnitNeedSprite(e.RequestedNeed.Icon);
+        }
+
+        private void ShowUI() => _unitNeedUI.SetActive(true);
+
+        private void HideUI() => _unitNeedUI.SetActive(false);
+
+        private void SetUnitNeedSprite(Sprite sprite) => _unitNeedImage.sprite = sprite;
     }
-
-    private void Unit_OnUnitNeedFulfilled(object sender, System.EventArgs e)
-    {
-        HideUI();
-    }
-
-    private void Unit_OnUnitNeedRequested(object sender, Unit.Unit.UnitNeedRequestedArgs e)
-    {
-        ShowUI();
-        SetUnitNeedSprite(e.RequestedNeed.Icon);
-    }
-
-    private void ShowUI() => _unitNeedUI.SetActive(true);
-
-    private void HideUI() => _unitNeedUI.SetActive(false);
-
-    private void SetUnitNeedSprite(Sprite sprite) => _unitNeedImage.sprite = sprite;
 }
