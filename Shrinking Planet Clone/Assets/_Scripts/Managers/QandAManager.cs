@@ -1,16 +1,14 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class QandAManager : Singleton<QandAManager>
+namespace Managers
 {
-    [SerializeField] private List<QandA> _QandAList;
-
-    protected override void Awake()
+    public class QandAManager : Singleton<QandAManager>
     {
-        base.Awake();
+        [SerializeField] private List<QandA> _QandAList;
+
+        public QandA GetRandomQandA() => _QandAList[new System.Random().Next(_QandAList.Count)];
+
+        public bool IsAnswerValid(QandA qandA, int answerIndex) => qandA.CorrectAnswerIndex == answerIndex;
     }
-
-    public QandA GetRandomQandA() => _QandAList[new System.Random().Next(_QandAList.Count)];
-
-    public bool IsAnswerValid(QandA qandA, int answerIndex) => qandA.CorrectAnswerIndex == answerIndex;
 }

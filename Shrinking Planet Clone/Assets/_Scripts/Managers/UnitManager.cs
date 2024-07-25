@@ -1,61 +1,60 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unit;
 using UnityEngine;
 
-public class UnitManager : Singleton<UnitManager>
+namespace Managers
 {
-    [SerializeField] private GameObject _unitPrefab;
-
-    private List<Unit> _unitList = new List<Unit>();
-    private IEnumerable<UnitData> _unitDataList = new List<UnitData>();
-
-    private float _spawnUnitDelayInSeconds = 4f;
-
-    protected override void Awake()
+    public class UnitManager : Singleton<UnitManager>
     {
-        base.Awake();
-    }
+        [SerializeField] private GameObject _unitPrefab;
 
-    private void Start()
-    {
-        StartCoroutine(DelayUnitSpawnRoutine());
-    }
+        private readonly List<Unit.Unit> _unitList = new();
+        private IEnumerable<UnitData> _unitDataList = new List<UnitData>();
 
-    public void AddUnit(Unit unit) => _unitList.Add(unit);
+        private readonly float _spawnUnitDelayInSeconds = 4f;
 
-    public void RemoveUnit(Unit unit) => _unitList.Remove(unit);
-
-    public IEnumerable<Unit> GetAllUnits() => _unitList;
-
-    private IEnumerator DelayUnitSpawnRoutine()
-    {
-        _unitDataList = SaveGameManager.Instance.GetUnitDataList();
-
-        foreach (var unitData in _unitDataList)
+        private void Start()
         {
-            UnitSO unitSO = SaveGameManager.Instance.GetUnitSO(unitData.UnitSOName);
+            StartCoroutine(DelayUnitSpawnRoutine());
+        }
+
+        public void AddUnit(Unit.Unit unit) => _unitList.Add(unit);
+
+        public void RemoveUnit(Unit.Unit unit) => _unitList.Remove(unit);
+
+        public IEnumerable<Unit.Unit> GetAllUnits() => _unitList;
+
+        private IEnumerator DelayUnitSpawnRoutine()
+        {
+            _unitDataList = SaveGameManager.Instance.GetUnitDataList();
+
+            foreach (UnitData unitData in _unitDataList)
+            {
+                UnitSO unitSO = SaveGameManager.Instance.GetUnitSO(unitData.UnitSOName);
             
-            if (unitSO.AvailableOnlyOnInterview)
-                continue;
+                if (unitSO.AvailableOnlyOnInterview)
+                    continue;
 
-            GameObject unitGameObject = Instantiate(_unitPrefab);
+                GameObject unitGameObject = Instantiate(_unitPrefab);
 
-            if (unitGameObject.TryGetComponent(out Unit unit))
-            {
-                unit.Initialize(unitSO);
+                if (unitGameObject.TryGetComponent(out Unit.Unit unit))
+                {
+                    unit.Initialize(unitSO);
+                }
+
+                if (unitGameObject.TryGetComponent(out UnitOccupation unitOccupation))
+                {
+                    unitOccupation.Initialize(unitSO);
+                }
+
+                if (unitGameObject.TryGetComponent(out UnitLevel unitLevel))
+                {
+                    unitLevel.SetCurrentLevel(unitData.UnitLevel);
+                }
+
+                yield return new WaitForSeconds(_spawnUnitDelayInSeconds);
             }
-
-            if (unitGameObject.TryGetComponent(out UnitOccupation unitOccupation))
-            {
-                unitOccupation.Initialize(unitSO);
-            }
-
-            if (unitGameObject.TryGetComponent(out UnitLevel unitLevel))
-            {
-                unitLevel.SetCurrentLevel(unitData.UnitLevel);
-            }
-
-            yield return new WaitForSeconds(_spawnUnitDelayInSeconds);
         }
     }
 }

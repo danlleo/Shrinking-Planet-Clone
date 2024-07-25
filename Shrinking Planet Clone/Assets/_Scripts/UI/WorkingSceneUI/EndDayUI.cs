@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Managers;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -42,7 +43,7 @@ public class EndDayUI : MonoBehaviour
 
     private void ShowUnitsDisplaySingleUI()
     {
-        IEnumerable<Unit> unitList = UnitManager.Instance.GetAllUnits();
+        IEnumerable<Unit.Unit> unitList = UnitManager.Instance.GetAllUnits();
 
         foreach (var unit in unitList)
         {

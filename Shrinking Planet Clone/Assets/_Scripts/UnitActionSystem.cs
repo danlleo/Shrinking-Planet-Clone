@@ -3,22 +3,18 @@ using UnityEngine.EventSystems;
 
 public class UnitActionSystem : Singleton<UnitActionSystem>
 {
-    protected override void Awake()
-    {
-        base.Awake();
-    }
-
-    public bool TryGetSelectedUnit(out Unit selectedUnit)
+    public bool TryGetSelectedUnit(out Unit.Unit selectedUnit)
     {
         Vector3 cameraPosition = Camera.main.transform.position;
 
-        if (!Physics.Raycast(cameraPosition, MouseWorld.GetPosition() - cameraPosition, out RaycastHit hitInfo, float.MaxValue))
+        if (!Physics.Raycast(cameraPosition, MouseWorld.GetPosition() - cameraPosition, out RaycastHit hitInfo,
+                float.MaxValue))
         {
             selectedUnit = null;
             return false;
         }
 
-        if (!hitInfo.collider.TryGetComponent(out Unit unit))
+        if (!hitInfo.collider.TryGetComponent(out Unit.Unit unit))
         {
             selectedUnit = null;
             return false;

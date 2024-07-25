@@ -1,14 +1,15 @@
 using System;
+using Managers;
 
 public class UnitReachedDeskState : UnitBaseState
 {
-    private Unit _unit;
+    private Unit.Unit _unit;
     private UnitOccupation _unitOccupation;
     private UnitStateManager _unitStateManager;
 
     public override void EnterState(UnitStateManager unitStateManager)
     {
-        _unit = unitStateManager.GetComponent<Unit>();
+        _unit = unitStateManager.GetComponent<Unit.Unit>();
         _unitOccupation = unitStateManager.GetComponent<UnitOccupation>();
         _unitStateManager = unitStateManager;
 
@@ -30,7 +31,7 @@ public class UnitReachedDeskState : UnitBaseState
     {
         if (InputManager.Instance.IsMouseButtonDownThisFrame())
         {
-            if (UnitActionSystem.Instance.TryGetSelectedUnit(out Unit selectedUnit))
+            if (UnitActionSystem.Instance.TryGetSelectedUnit(out Unit.Unit selectedUnit))
             {
                 if (ReferenceEquals(selectedUnit, _unit))
                 {
@@ -43,6 +44,6 @@ public class UnitReachedDeskState : UnitBaseState
     public override void ExitState()
     {
         _unitOccupation.OnUnitOccupationSet -= UnitOccupation_OnUnitOccupationSet;
-        _unitStateManager.SwitchState(_unitStateManager._workingState);
+        _unitStateManager.SwitchState(_unitStateManager.WorkingState);
     }
 }

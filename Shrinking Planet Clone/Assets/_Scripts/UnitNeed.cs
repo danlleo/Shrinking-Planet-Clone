@@ -4,7 +4,7 @@ using UnityEngine;
 [Serializable]
 public struct UnitNeed 
 {
-    public Sprite Icon;
-    public Sprite PickUpIcon;
-    public UnitNeedType Type;
+    [field: SerializeField] public Sprite Icon { get; private set; }
+    [field: SerializeField] public Sprite PickUpIcon { get; private set; }
+    [field: SerializeField] public UnitNeedType Type { get; private set; }
 }

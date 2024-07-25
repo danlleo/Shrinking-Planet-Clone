@@ -1,12 +1,13 @@
 using System;
 using System.Collections;
+using Managers;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class WorkingProgressBarUI : MonoBehaviour
 {
     [SerializeField] private GameObject _workingProgressBarUI;
-    [SerializeField] private Unit _unit;
+    [SerializeField] private Unit.Unit _unit;
     [SerializeField] private UnitEconomy _unitEconomy;
     [SerializeField] private UnitLevel _unitLevel;
     [SerializeField] private Image _progressBarForeground;
@@ -55,7 +56,7 @@ public class WorkingProgressBarUI : MonoBehaviour
 
     private void ResolveWorkIssueUI_OnResolvingFailedWorkIssue(object sender, EventArgs e)
     {
-        Unit unit = (Unit)sender;
+        Unit.Unit unit = (Unit.Unit)sender;
 
         if (ReferenceEquals(unit, _unit))
         {
@@ -77,7 +78,7 @@ public class WorkingProgressBarUI : MonoBehaviour
 
     private void Unit_OnUnitPerformedWorkPiece(object sender, EventArgs e)
     {
-        Unit unit = (Unit)sender;
+        Unit.Unit unit = (Unit.Unit)sender;
 
         if (ReferenceEquals(unit, _unit))
         {

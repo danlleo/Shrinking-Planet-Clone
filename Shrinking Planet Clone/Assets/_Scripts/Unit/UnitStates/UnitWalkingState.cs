@@ -1,4 +1,5 @@
 using System;
+using Managers;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -7,7 +8,7 @@ public class UnitWalkingState : UnitBaseState
     public static event EventHandler OnUnitBeganWalking;
     public static event EventHandler OnUnitEndedWalking;
 
-    private Unit _unit;
+    private Unit.Unit _unit;
     private NavMeshAgent _navmeshAgent;
 
     private float _stoppingDistance = .25f;
@@ -16,7 +17,7 @@ public class UnitWalkingState : UnitBaseState
 
     public override void EnterState(UnitStateManager unitStateManager)
     {
-        _unit = unitStateManager.GetComponent<Unit>();
+        _unit = unitStateManager.GetComponent<Unit.Unit>();
         _navmeshAgent = _unit.GetUnitNavmeshAgent();
         _targetDeskPosition = _unit.GetUnitDeskPosition();
         _unit.InvokeUnitMovedEvent();
@@ -32,7 +33,7 @@ public class UnitWalkingState : UnitBaseState
         {
             _navmeshAgent.isStopped = true;
             OnUnitEndedWalking?.Invoke(_unit, EventArgs.Empty);
-            unitStateManager.SwitchState(unitStateManager._reachedDeskState);
+            unitStateManager.SwitchState(unitStateManager.ReachedDeskState);
         }
     }
 

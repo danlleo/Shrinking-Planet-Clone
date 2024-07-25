@@ -1,3 +1,4 @@
+using Managers;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -18,14 +19,14 @@ public class InterviewDayUI : MonoBehaviour
 
     private void Start()
     {
-        Judge.OnJudgeFinishedJob += Judge_OnJudgeFinishedJob;
+        Judge.Judge.OnJudgeFinishedJob += Judge_OnJudgeFinishedJob;
         GameManager.Instance.OnGamePaused += GameManager_OnGamePaused;
         GameManager.Instance.OnGameUnpaused += GameManager_OnGameUnpaused;
     }
 
     private void OnDestroy()
     {
-        Judge.OnJudgeFinishedJob -= Judge_OnJudgeFinishedJob;
+        Judge.Judge.OnJudgeFinishedJob -= Judge_OnJudgeFinishedJob;
         GameManager.Instance.OnGamePaused -= GameManager_OnGamePaused;
         GameManager.Instance.OnGameUnpaused -= GameManager_OnGameUnpaused;
     }

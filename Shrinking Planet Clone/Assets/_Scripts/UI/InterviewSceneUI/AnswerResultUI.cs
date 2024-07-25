@@ -13,15 +13,15 @@ public class AnswerResultUI : MonoBehaviour
     {
         HideUI();
 
-        Judge.OnJudgeReviewedAnswer += Judge_OnJudgeReviewedAnswer;
+        Judge.Judge.OnJudgeReviewedAnswer += Judge_OnJudgeReviewedAnswer;
     }
 
     private void OnDestroy()
     {
-        Judge.OnJudgeReviewedAnswer -= Judge_OnJudgeReviewedAnswer;
+        Judge.Judge.OnJudgeReviewedAnswer -= Judge_OnJudgeReviewedAnswer;
     }
 
-    private void Judge_OnJudgeReviewedAnswer(object sender, Judge.ReceivedAnswerArgs e)
+    private void Judge_OnJudgeReviewedAnswer(object sender, Judge.Judge.ReceivedAnswerArgs e)
     {
         StartCoroutine(DisplayResultImageRoutineInSeconds(1f));
 

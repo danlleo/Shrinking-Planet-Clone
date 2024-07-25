@@ -1,9 +1,10 @@
+using Managers;
 using UnityEngine;
-using static Judge;
+using static Judge.Judge;
 
 public class JudgeThinkingState : JudgeBaseState
 {
-    private Judge _judge;
+    private Judge.Judge _judge;
     private InterviewUnit _interviewUnit;
 
     private float _timer = 0f;
@@ -13,7 +14,7 @@ public class JudgeThinkingState : JudgeBaseState
 
     public override void EnterState(JudgeStateManager judgeStateManager)
     {
-        if (judgeStateManager.TryGetComponent<Judge>(out Judge judge))
+        if (judgeStateManager.TryGetComponent<Judge.Judge>(out Judge.Judge judge))
         {
             _judge = judge;
         }

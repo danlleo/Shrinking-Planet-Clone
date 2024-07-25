@@ -1,3 +1,4 @@
+using Managers;
 using UnityEngine;
 
 public class TrashBin : MonoBehaviour, IInteractable, ISelectable
@@ -17,7 +18,7 @@ public class TrashBin : MonoBehaviour, IInteractable, ISelectable
         {
             SoundManager.Instance.PlayTrashDisposeSound();
 
-            Unit unit = UnitNeedManager.Instance.GetUnitWithNeed();
+            Unit.Unit unit = UnitNeedManager.Instance.GetUnitWithNeed();
 
             unit.InvokeUnitNeedFulfilled();
             InteractSystem.Instance.SetHandsFree();

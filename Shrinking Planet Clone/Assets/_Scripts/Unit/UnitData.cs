@@ -1,14 +1,24 @@
-[System.Serializable]
-public class UnitData
-{
-    public string UnitSOName;
-    public int UnitLevel;
-    public int UnitLelfOverXPs;
+using UnityEngine;
+using UnityEngine.Serialization;
 
-    public UnitData(string unitSOName, int unitLevel, int unitLelfOverXPs)
+namespace Unit
+{
+    [System.Serializable]
+    public class UnitData
     {
-        UnitSOName = unitSOName;
-        UnitLevel = unitLevel;
-        UnitLelfOverXPs = unitLelfOverXPs;
+        [field: SerializeField] public string UnitSOName { get; private set; }
+        [field: SerializeField] public int UnitLevel { get; set; }
+
+        [field: FormerlySerializedAs("_unitLeltOverXPs")]
+        [field: FormerlySerializedAs("UnitLelfOverXPs")]
+        [field: SerializeField]
+        public int UnitLeftOverXPs { get; set; }
+
+        public UnitData(string unitSOName, int unitLevel, int unitLeftOverXPs)
+        {
+            UnitSOName = unitSOName;
+            UnitLevel = unitLevel;
+            UnitLeftOverXPs = unitLeftOverXPs;
+        }
     }
 }

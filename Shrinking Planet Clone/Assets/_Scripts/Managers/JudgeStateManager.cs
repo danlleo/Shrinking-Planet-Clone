@@ -1,29 +1,32 @@
 using UnityEngine;
 
-public class JudgeStateManager : MonoBehaviour
+namespace Managers
 {
-    // Holds a reference to the active state in a state machine
-    private JudgeBaseState _currentState;
-
-    // Instances of a concrete states
-    public JudgeIdleState _idleState = new JudgeIdleState();
-    public JudgeThinkingState _thinkingState = new JudgeThinkingState();
-
-    private void Start()
+    public class JudgeStateManager : MonoBehaviour
     {
-        _currentState = _idleState;
+        // Holds a reference to the active state in a state machine
+        private JudgeBaseState _currentState;
 
-        _currentState.EnterState(this);
-    }
+        // Instances of a concrete states
+        public readonly JudgeIdleState IdleState = new();
+        public readonly JudgeThinkingState ThinkingState = new();
 
-    private void Update()
-    {
-        _currentState.UpdateState(this);
-    }
+        private void Start()
+        {
+            _currentState = IdleState;
 
-    public void SwitchState(JudgeBaseState state)
-    {
-        _currentState = state;
-        state.EnterState(this);
+            _currentState.EnterState(this);
+        }
+
+        private void Update()
+        {
+            _currentState.UpdateState(this);
+        }
+
+        public void SwitchState(JudgeBaseState state)
+        {
+            _currentState = state;
+            state.EnterState(this);
+        }
     }
 }

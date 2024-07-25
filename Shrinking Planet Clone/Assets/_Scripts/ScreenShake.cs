@@ -1,5 +1,6 @@
 using System.Collections;
 using UnityEngine;
+using Utils;
 
 public class ScreenShake : Singleton<ScreenShake>
 {
@@ -17,15 +18,15 @@ public class ScreenShake : Singleton<ScreenShake>
 
     private void Start()
     {
-        Judge.OnJudgeReviewedAnswer += Judge_OnJudgeReviewedAnswer;
+        Judge.Judge.OnJudgeReviewedAnswer += Judge_OnJudgeReviewedAnswer;
     }
 
     private void OnDestroy()
     {
-        Judge.OnJudgeReviewedAnswer -= Judge_OnJudgeReviewedAnswer;
+        Judge.Judge.OnJudgeReviewedAnswer -= Judge_OnJudgeReviewedAnswer;
     }
 
-    private void Judge_OnJudgeReviewedAnswer(object sender, Judge.ReceivedAnswerArgs e)
+    private void Judge_OnJudgeReviewedAnswer(object sender, Judge.Judge.ReceivedAnswerArgs e)
     {
         if (e.IsAnswerCorrect)
         {
@@ -41,14 +42,14 @@ public class ScreenShake : Singleton<ScreenShake>
     private IEnumerator ScreenShakeRoutine()
     {
         float elapsedTime = 0f;
-        float normalizedTime = 0f;
 
         Vector3 initialPosition = _camera.transform.localPosition;
 
         while (elapsedTime < _shakeDuration)
         {
             Vector3 randomPoint = Random.insideUnitSphere * _shakeMagnitude;
-            _camera.transform.localPosition = new Vector3(initialPosition.x + randomPoint.x, initialPosition.y + randomPoint.y, initialPosition.z);
+            _camera.transform.localPosition = new Vector3(initialPosition.x + randomPoint.x,
+                initialPosition.y + randomPoint.y, initialPosition.z);
             yield return null;
 
             elapsedTime += Time.deltaTime;
@@ -59,8 +60,9 @@ public class ScreenShake : Singleton<ScreenShake>
         while (elapsedTime <= _shakeReturnToInitialPositionTime)
         {
             elapsedTime += Time.deltaTime;
-            normalizedTime = elapsedTime / _shakeReturnToInitialPositionTime;
-            _camera.transform.localPosition = Vector3.Lerp(_camera.transform.localPosition, initialPosition, InterpolateUtils.EaseInOut(normalizedTime));
+            float normalizedTime = elapsedTime / _shakeReturnToInitialPositionTime;
+            _camera.transform.localPosition = Vector3.Lerp(_camera.transform.localPosition, initialPosition,
+                InterpolateUtils.EaseInOut(normalizedTime));
         }
 
         _camera.transform.localPosition = initialPosition;

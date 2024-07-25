@@ -1,4 +1,5 @@
 using System;
+using Managers;
 using UnityEngine;
 
 public class UnitIdleState : UnitBaseState
@@ -9,7 +10,7 @@ public class UnitIdleState : UnitBaseState
 
     public override void EnterState(UnitStateManager unitStateManager)
     {
-        Unit unit = unitStateManager.GetComponent<Unit>();
+        Unit.Unit unit = unitStateManager.GetComponent<Unit.Unit>();
 
         OnUnitSpawned?.Invoke(unit, EventArgs.Empty);
         _timer = 0f;
@@ -20,7 +21,7 @@ public class UnitIdleState : UnitBaseState
         _timer += Time.deltaTime;
 
         if (_timer >= 3f)
-            unitStateManager.SwitchState(unitStateManager._walkingState);
+            unitStateManager.SwitchState(unitStateManager.WalkingState);
     }
 
     public override void ExitState()

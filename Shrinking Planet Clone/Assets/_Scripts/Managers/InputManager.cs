@@ -1,17 +1,15 @@
 using UnityEngine;
 
-public class InputManager : Singleton<InputManager>
+namespace Managers
 {
-    protected override void Awake()
+    public class InputManager : Singleton<InputManager>
     {
-        base.Awake();
+        public bool IsMouseButtonDownThisFrame() => Input.GetMouseButtonDown(0);
+
+        public bool IsRightMouseButtonDownThisFrame() => Input.GetMouseButtonDown(1);
+
+        public bool IsPauseButtonDownThisFrame() => Input.GetKeyDown(KeyCode.Escape);
+
+        public Vector2 GetMouseScreenPosition() => Input.mousePosition;
     }
-
-    public bool IsMouseButtonDownThisFrame() => Input.GetMouseButtonDown(0);
-
-    public bool IsRightMouseButtonDownThisFrame() => Input.GetMouseButtonDown(1);
-
-    public bool IsPauseButtonDownThisFrame() => Input.GetKeyDown(KeyCode.Escape);
-
-    public Vector2 GetMouseScreenPosition() => Input.mousePosition;
 }

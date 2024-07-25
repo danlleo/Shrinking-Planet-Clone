@@ -1,30 +1,29 @@
 using System.Collections.Generic;
 
-public class ItemStashManager : Singleton<ItemStashManager>
+namespace Managers
 {
-    private Dictionary<int, PurchasableItem> _purchasedItems = new Dictionary<int, PurchasableItem>();
-
-    protected override void Awake()
+    public class ItemStashManager : Singleton<ItemStashManager>
     {
-        base.Awake();
-    }
+        private readonly Dictionary<int, PurchasableItem> _purchasedItems = new();
 
-    private void Start()
-    {
-        IEnumerable<PurchasableItem> purchasedItemsList = SaveGameManager.Instance.RetrievePurchasedItems();
-
-        foreach (var purchasedItem  in purchasedItemsList)
+        private void Start()
         {
-            if (purchasedItem.ItemSO.ItemGameObject.TryGetComponent(out Unit unit))    
-                continue;
+            IEnumerable<PurchasableItem> purchasedItemsList = SaveGameManager.Instance.RetrievePurchasedItems();
 
-            AddPurchasedItem(purchasedItem);
+            foreach (PurchasableItem purchasedItem in purchasedItemsList)
+            {
+                if (purchasedItem.ItemSO.ItemGameObject.TryGetComponent(out Unit.Unit _))
+                    continue;
+
+                AddPurchasedItem(purchasedItem);
+            }
         }
+
+        public void AddPurchasedItem(PurchasableItem purchasableItem) =>
+            _purchasedItems.Add(purchasableItem.ID, purchasableItem);
+
+        public IEnumerable<PurchasableItem> GetPurchasedItems() => _purchasedItems.Values;
+
+        public bool HasPurchasedItem(int purchasedItemID) => _purchasedItems.ContainsKey(purchasedItemID);
     }
-
-    public void AddPurchasedItem(PurchasableItem purchasableItem) => _purchasedItems.Add(purchasableItem.ID, purchasableItem);
-
-    public IEnumerable<PurchasableItem> GetPurchasedItems() => _purchasedItems.Values;
-
-    public bool HasPurchasedItem(int purchasedItemID) => _purchasedItems.ContainsKey(purchasedItemID);
 }

@@ -1,7 +1,9 @@
 using System;
+using Managers;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using Utils;
 
 public class ResolveWorkIssueUI : MonoBehaviour
 {
@@ -15,7 +17,7 @@ public class ResolveWorkIssueUI : MonoBehaviour
     [SerializeField] private Button[] _answerButtons = new Button[ANSWER_BUTTON_AMOUNT];
 
     private QandA _currentQAndA;
-    private Unit _unit;
+    private Unit.Unit _unit;
 
     private void Awake()
     {
@@ -60,13 +62,13 @@ public class ResolveWorkIssueUI : MonoBehaviour
 
     private void UnitWorkingState_OnUnitResolvingWorkIssue(object sender, EventArgs e)
     {
-        Unit unit = (Unit)sender;
+        Unit.Unit unit = (Unit.Unit)sender;
 
         ShowUI();
         Setup(unit);
     }
 
-    private void Setup(Unit unit)
+    private void Setup(Unit.Unit unit)
     {
         _currentQAndA = QandAManager.Instance.GetRandomQandA();
         _questionTitleText.text = _currentQAndA.QuestionTitle;

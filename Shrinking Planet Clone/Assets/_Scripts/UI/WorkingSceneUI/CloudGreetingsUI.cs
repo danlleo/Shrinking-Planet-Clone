@@ -7,7 +7,7 @@ public class CloudGreetingsUI : MonoBehaviour
 {
     [SerializeField] private GameObject _cloudGreetingsUI;
     [SerializeField] private TextMeshProUGUI _cloudImageText;
-    [SerializeField] private Unit _unit;
+    [SerializeField] private Unit.Unit _unit;
 
     private void OnEnable()
     {
@@ -21,7 +21,7 @@ public class CloudGreetingsUI : MonoBehaviour
 
     private void UnitIdleState_OnUnitSpawned(object sender, EventArgs e)
     {
-        Unit selectedUnit = (Unit)sender;
+        Unit.Unit selectedUnit = (Unit.Unit)sender;
 
         if (ReferenceEquals(selectedUnit, _unit))
         {

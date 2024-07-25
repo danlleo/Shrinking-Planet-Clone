@@ -1,8 +1,9 @@
+using Managers;
 using UnityEngine;
 
 public class UnitThirsty : MonoBehaviour, IInteractable
 {
-    [SerializeField] private Unit _unit;
+    [SerializeField] private Unit.Unit _unit;
     [SerializeField] private UnitNeed _unitNeed;
     [SerializeField] private UnitNeedType _unitNeedType;
 

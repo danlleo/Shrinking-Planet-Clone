@@ -4,7 +4,7 @@ public class ExclamationPointUI : MonoBehaviour
 {
     [SerializeField] private GameObject _exclamationPointUI;
     [SerializeField] private UnitEconomy _unitEconomy;
-    [SerializeField] private Unit _unit;
+    [SerializeField] private Unit.Unit _unit;
 
     private void Awake()
     {
@@ -31,7 +31,7 @@ public class ExclamationPointUI : MonoBehaviour
 
     private void Unit_OnUnitNeedFulfilled(object sender, System.EventArgs e)
     {
-        Unit senderUnit = (Unit)sender;
+        Unit.Unit senderUnit = (Unit.Unit)sender;
 
         if (ReferenceEquals(senderUnit, _unit))
         {
@@ -41,7 +41,7 @@ public class ExclamationPointUI : MonoBehaviour
 
     private void UnitWorkingState_OnUnitNeedRequested(object sender, System.EventArgs e)
     {
-        Unit senderUnit = (Unit)sender;
+        Unit.Unit senderUnit = (Unit.Unit)sender;
 
         if (ReferenceEquals(senderUnit, _unit)) 
         {

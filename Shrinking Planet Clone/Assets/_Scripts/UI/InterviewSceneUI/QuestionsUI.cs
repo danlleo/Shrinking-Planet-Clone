@@ -1,4 +1,5 @@
 using System.Collections;
+using Managers;
 using TMPro;
 using UnityEngine;
 
@@ -22,15 +23,15 @@ public class QuestionsUI : Singleton<QuestionsUI>
         HideQuestionNumberText();
         HideUI();
         UnitPickerUI.OnUnitsPicked += UnitPickerUI_OnUnitsPicked;
-        Judge.OnJudgeAsking += Judge_OnJudgeAsking;
-        Judge.OnJudgeFinishedJob += Judge_OnJudgeFinishedJob;
+        Judge.Judge.OnJudgeAsking += Judge_OnJudgeAsking;
+        Judge.Judge.OnJudgeFinishedJob += Judge_OnJudgeFinishedJob;
     }
 
     private void OnDestroy()
     {
         UnitPickerUI.OnUnitsPicked -= UnitPickerUI_OnUnitsPicked;
-        Judge.OnJudgeAsking -= Judge_OnJudgeAsking;
-        Judge.OnJudgeFinishedJob -= Judge_OnJudgeFinishedJob;
+        Judge.Judge.OnJudgeAsking -= Judge_OnJudgeAsking;
+        Judge.Judge.OnJudgeFinishedJob -= Judge_OnJudgeFinishedJob;
     }
 
     private void Judge_OnJudgeFinishedJob(object sender, System.EventArgs e)

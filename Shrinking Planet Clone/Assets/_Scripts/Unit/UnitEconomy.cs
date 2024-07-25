@@ -1,4 +1,5 @@
 using System;
+using Managers;
 using UnityEngine;
 
 public class UnitEconomy : MonoBehaviour
@@ -19,13 +20,13 @@ public class UnitEconomy : MonoBehaviour
     [SerializeField] private Transform _moneyReceivedAnimationPosition;
     [SerializeField] private GameObject _moneyReceivedAnimationPrefab;
 
-    private Unit _unit;
+    private Unit.Unit _unit;
 
     private int _currentUnitMoneyAmount;
 
     private void Start()
     {
-        _unit = GetComponent<Unit>();
+        _unit = GetComponent<Unit.Unit>();
         UnitWorkingState.OnUnitReceivedPayment += UnitWorkingState_OnUnitReceivedPayment;
     }
 
@@ -36,7 +37,7 @@ public class UnitEconomy : MonoBehaviour
 
     private void UnitWorkingState_OnUnitReceivedPayment(object sender, UnitWorkingState.UnitRecievedPaymentEventArgs e)
     {
-        Unit selectedUnit = (Unit)sender;
+        Unit.Unit selectedUnit = (Unit.Unit)sender;
 
         if (ReferenceEquals(_unit, selectedUnit))
         {

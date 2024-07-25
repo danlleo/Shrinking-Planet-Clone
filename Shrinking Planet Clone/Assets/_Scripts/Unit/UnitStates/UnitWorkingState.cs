@@ -1,4 +1,6 @@
 using System;
+using Managers;
+using Utils;
 using static UnitEconomy;
 
 public class UnitWorkingState : UnitBaseState
@@ -21,7 +23,7 @@ public class UnitWorkingState : UnitBaseState
         }
     }
 
-    private Unit _unit;
+    private Unit.Unit _unit;
     private UnitLevel _unitLevel;
     private UnitEconomy _unitEconomy;
     private UnitOccupation _unitOccupation;
@@ -38,12 +40,12 @@ public class UnitWorkingState : UnitBaseState
 
     public override void EnterState(UnitStateManager unitStateManager)
     {
-        _unit = unitStateManager.GetComponent<Unit>();
+        _unit = unitStateManager.GetComponent<Unit.Unit>();
         _unitEconomy = unitStateManager.GetComponent<UnitEconomy>();
         _unitOccupation = unitStateManager.GetComponent<UnitOccupation>();
         _unitLevel = unitStateManager.GetComponent<UnitLevel>();
 
-        _unit.transform.rotation = _unit.GetUnitReachedDeskRotaion();
+        _unit.transform.rotation = _unit.GetUnitReachedDeskRotation();
         _unit.transform.position = _unit.GetUnitPlaceOnChairPosition();
 
         _unit.InvokeUnitBeganWorkEvent();
@@ -84,7 +86,7 @@ public class UnitWorkingState : UnitBaseState
 
     private void ResolveWorkIssueUI_OnResolvingFailedWorkIssue(object sender, EventArgs e)
     {
-        Unit unit = (Unit)sender;
+        Unit.Unit unit = (Unit.Unit)sender;
 
         if (ReferenceEquals(unit, _unit))
         {
@@ -95,7 +97,7 @@ public class UnitWorkingState : UnitBaseState
 
     private void ResolveWorkIssueUI_OnResolvedWorkIssue(object sender, EventArgs e)
     {
-        Unit unit = (Unit)sender;
+        Unit.Unit unit = (Unit.Unit)sender;
 
         if (ReferenceEquals(unit, _unit))
         {
@@ -143,7 +145,7 @@ public class UnitWorkingState : UnitBaseState
     {
         if (InputManager.Instance.IsMouseButtonDownThisFrame())
         {
-            if (UnitActionSystem.Instance.TryGetSelectedUnit(out Unit selectedUnit))
+            if (UnitActionSystem.Instance.TryGetSelectedUnit(out Unit.Unit selectedUnit))
             {
                 if (ReferenceEquals(selectedUnit, _unit))
                 {

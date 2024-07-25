@@ -6,9 +6,9 @@ public class DayTimer : MonoBehaviour
 {
     [SerializeField] private Image _timerForeground;
 
-    private float _maxTimeInSeconds = 60f;
-    private float _normalizedTime = 0f;
-    private float _timer = 0f;
+    private readonly float _maxTimeInSeconds = 60f;
+    private float _normalizedTime;
+    private float _timer;
 
     private Coroutine _timerCoroutine;
 
@@ -34,11 +34,10 @@ public class DayTimer : MonoBehaviour
 
     private void OnDisable()
     {
-        if (_timerCoroutine != null)
-        {
-            StopCoroutine(_timerCoroutine);
-            _isRunningTimerCoroutine = true;
-        }
+        if (_timerCoroutine == null) return;
+        
+        StopCoroutine(_timerCoroutine);
+        _isRunningTimerCoroutine = true;
     }
 
     private void InvokeTimer()

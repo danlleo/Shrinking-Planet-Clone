@@ -1,23 +1,26 @@
 using UnityEngine;
 
-public class StateManager : MonoBehaviour
+namespace Managers
 {
-    private State _currentState;
-
-    private void Update()
+    public class StateManager : MonoBehaviour
     {
-        RunStateMachine();
-    }
+        private State _currentState;
 
-    private void RunStateMachine()
-    {
-        State nextState = _currentState?.RunCurrentState();
-
-        if (nextState != null)
+        private void Update()
         {
-            SwithToTheNextState(nextState);
+            RunStateMachine();
         }
-    }
 
-    private void SwithToTheNextState(State nextState) => _currentState = nextState;
+        private void RunStateMachine()
+        {
+            State nextState = _currentState?.RunCurrentState();
+
+            if (nextState != null)
+            {
+                SwithToTheNextState(nextState);
+            }
+        }
+
+        private void SwithToTheNextState(State nextState) => _currentState = nextState;
+    }
 }

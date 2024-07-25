@@ -5,7 +5,7 @@ public class UnitNeedUI : MonoBehaviour
 {
     [SerializeField] private GameObject _unitNeedUI;
     [SerializeField] private Image _unitNeedImage;
-    [SerializeField] private Unit _unit;
+    [SerializeField] private Unit.Unit _unit;
 
     private void Start()
     {
@@ -39,7 +39,7 @@ public class UnitNeedUI : MonoBehaviour
 
     private void UnitWorkingState_OnUnitPickedObject(object sender, System.EventArgs e)
     {
-        Unit senderUnit = (Unit)sender;
+        Unit.Unit senderUnit = (Unit.Unit)sender;
 
         if (ReferenceEquals(senderUnit, _unit))
         {
@@ -52,7 +52,7 @@ public class UnitNeedUI : MonoBehaviour
         HideUI();
     }
 
-    private void Unit_OnUnitNeedRequested(object sender, Unit.UnitNeedRequestedArgs e)
+    private void Unit_OnUnitNeedRequested(object sender, Unit.Unit.UnitNeedRequestedArgs e)
     {
         ShowUI();
         SetUnitNeedSprite(e.RequestedNeed.Icon);

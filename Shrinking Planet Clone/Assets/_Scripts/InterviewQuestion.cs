@@ -4,8 +4,7 @@ using UnityEngine;
 [Serializable]
 public struct InterviewQuestion
 {
-    public Sprite QuestionIcon;
-    public UnitOccupationType QuestionType;
-    public string QuestionText;
+    [field: SerializeField] public Sprite QuestionIcon { get; private set; }
+    [field: SerializeField] public UnitOccupationType QuestionType { get; private set; }
+    [field: SerializeField] public string QuestionText { get; private set; }
 }
-

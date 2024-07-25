@@ -1,25 +1,23 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class UnitNeedManager : Singleton<UnitNeedManager>
+namespace Managers
 {
-    [SerializeField] private List<UnitNeed> _unitNeedList = new List<UnitNeed>();
-
-    private Unit _unit;
-    private UnitNeed _currentNeed;
-
-    protected override void Awake()
+    public class UnitNeedManager : Singleton<UnitNeedManager>
     {
-        base.Awake();
+        [SerializeField] private List<UnitNeed> _unitNeedList = new();
+
+        private Unit.Unit _unit;
+        private UnitNeed _currentNeed;
+
+        public UnitNeed GetRandomNeed() => _unitNeedList[Random.Range(0, _unitNeedList.Count)];
+
+        public void SetCurrentNeed(UnitNeed need) => _currentNeed = need;
+
+        public UnitNeed GetCurrentNeed() => _currentNeed;
+
+        public void SetUnitWithNeed(Unit.Unit unit) => _unit = unit;
+
+        public Unit.Unit GetUnitWithNeed() => _unit;
     }
-
-    public UnitNeed GetRandomNeed() => _unitNeedList[Random.Range(0, _unitNeedList.Count)];
-
-    public void SetCurrentNeed(UnitNeed need) => _currentNeed = need;
-
-    public UnitNeed GetCurrentNeed() => _currentNeed;
-
-    public void SetUnitWithNeed(Unit unit) => _unit = unit;
-
-    public Unit GetUnitWithNeed() => _unit;
 }

@@ -1,26 +1,29 @@
 using UnityEngine;
 
-public static class ComponentUtils
+namespace Utils
 {
-    public static bool TryGetComponentInChildren<T>(GameObject parentGameObject, out T desiredComponent, bool includeInactive = false) where T : Component
+    public static class ComponentUtils
     {
-        int childCount = parentGameObject.transform.childCount;
-        
-        for (int i = 0; i < childCount; i++)
+        public static bool TryGetComponentInChildren<T>(GameObject parentGameObject, out T desiredComponent,
+            bool includeInactive = false) where T : Component
         {
-            GameObject childGameObject = parentGameObject.transform.GetChild(i).gameObject;
+            int childCount = parentGameObject.transform.childCount;
 
-            if (!includeInactive && !childGameObject.activeSelf)
-                continue;
-            
-            if (childGameObject.TryGetComponent(out T childComponent))
+            for (int i = 0; i < childCount; i++)
             {
+                GameObject childGameObject = parentGameObject.transform.GetChild(i).gameObject;
+
+                if (!includeInactive && !childGameObject.activeSelf)
+                    continue;
+
+                if (!childGameObject.TryGetComponent(out T childComponent)) continue;
+
                 desiredComponent = childComponent;
                 return true;
             }
-        }
 
-        desiredComponent = null;
-        return false;
+            desiredComponent = null;
+            return false;
+        }
     }
 }

@@ -1,10 +1,11 @@
 using System;
 using System.Collections.Generic;
+using UnityEngine;
 
 [Serializable]
 public struct QandA
 {
-    public string QuestionTitle;
-    public List<string> Answers;
-    public int CorrectAnswerIndex;
+    [field: SerializeField] public string QuestionTitle { get; private set; }
+    [field: SerializeField] public List<string> Answers { get; private set; }
+    [field: SerializeField] public int CorrectAnswerIndex { get; private set; }
 }

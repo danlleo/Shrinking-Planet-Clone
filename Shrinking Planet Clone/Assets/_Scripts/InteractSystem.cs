@@ -1,4 +1,5 @@
 using System;
+using Managers;
 using UnityEngine;
 
 public class InteractSystem : Singleton<InteractSystem>
@@ -7,7 +8,7 @@ public class InteractSystem : Singleton<InteractSystem>
 
     public class ObjectPickUpArgs : EventArgs
     {
-        public Sprite ObjectSprite;
+        public readonly Sprite ObjectSprite;
 
         public ObjectPickUpArgs (Sprite objectSprite)
         {
@@ -37,30 +38,29 @@ public class InteractSystem : Singleton<InteractSystem>
 
         Vector3 cameraPosition = _camera.transform.position;
 
-        if (Physics.Raycast(_camera.transform.position, MouseWorld.GetPosition() - cameraPosition, out RaycastHit hitInfo, float.MaxValue))
+        if (!Physics.Raycast(_camera.transform.position, MouseWorld.GetPosition() - cameraPosition,
+                out RaycastHit hitInfo, float.MaxValue)) return;
+        
+        if (hitInfo.collider.TryGetComponent(out IInteractable interactable))
         {
-            if (hitInfo.collider.TryGetComponent(out IInteractable interactable))
-            {
-                interactable.Interact();
-                return;
-            }
-            
-            if (_areHandsBusy)
-            {
-                if (_unitNeedType == UnitNeedType.Thirsty)
-                {
-                    SetHandsFree();
-                    InvokeObjectDrop();
-                    OnObjectDispose?.Invoke(this, EventArgs.Empty);
-                    return;
-                }
-
-                SetHandsFree();
-                InvokeObjectDrop();
-                OnObjectDispose?.Invoke(this, EventArgs.Empty);
-                UnitNeedManager.Instance.GetUnitWithNeed().InvokeUnitObjectDrop();
-            }
+            interactable.Interact();
+            return;
         }
+
+        if (!_areHandsBusy) return;
+        
+        if (_unitNeedType == UnitNeedType.Thirsty)
+        {
+            SetHandsFree();
+            InvokeObjectDrop();
+            OnObjectDispose?.Invoke(this, EventArgs.Empty);
+            return;
+        }
+
+        SetHandsFree();
+        InvokeObjectDrop();
+        OnObjectDispose?.Invoke(this, EventArgs.Empty);
+        UnitNeedManager.Instance.GetUnitWithNeed().InvokeUnitObjectDrop();
     }
 
     public void SetHandsBusyBy(UnitNeedType unitNeedType)

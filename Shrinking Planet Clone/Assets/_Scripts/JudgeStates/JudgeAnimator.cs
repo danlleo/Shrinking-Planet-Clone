@@ -1,41 +1,44 @@
 using UnityEngine;
 
-public class JudgeAnimator : MonoBehaviour
+namespace JudgeStates
 {
-    [SerializeField] private Animator _animator;
-
-    private void Start()
+    public class JudgeAnimator : MonoBehaviour
     {
-        Judge.OnJudgeThinking += Judge_OnJudgeThinking;
-        Judge.OnJudgeAsking += Judge_OnJudgeAsking;
-        Judge.OnJudgeReviewedAnswer += Judge_OnJudgeReceivedAnswer;
-    }
+        [SerializeField] private Animator _animator;
 
-    private void OnDestroy()
-    {
-        Judge.OnJudgeThinking -= Judge_OnJudgeThinking;
-        Judge.OnJudgeAsking -= Judge_OnJudgeAsking;
-        Judge.OnJudgeReviewedAnswer -= Judge_OnJudgeReceivedAnswer;
-    }
-
-    private void Judge_OnJudgeReceivedAnswer(object sender, Judge.ReceivedAnswerArgs e)
-    {
-        if (e.IsAnswerCorrect)
+        private void Start()
         {
-            _animator.SetTrigger(JudgeAnimationParams.HasLost);
-            return;
+            Judge.Judge.OnJudgeThinking += Judge_OnJudgeThinking;
+            Judge.Judge.OnJudgeAsking += Judge_OnJudgeAsking;
+            Judge.Judge.OnJudgeReviewedAnswer += Judge_OnJudgeReceivedAnswer;
         }
 
-        _animator.SetTrigger(JudgeAnimationParams.HasWon);
-    }
+        private void OnDestroy()
+        {
+            Judge.Judge.OnJudgeThinking -= Judge_OnJudgeThinking;
+            Judge.Judge.OnJudgeAsking -= Judge_OnJudgeAsking;
+            Judge.Judge.OnJudgeReviewedAnswer -= Judge_OnJudgeReceivedAnswer;
+        }
 
-    private void Judge_OnJudgeAsking(object sender, System.EventArgs e)
-    {
-        _animator.SetTrigger(JudgeAnimationParams.IsAsking);
-    }
+        private void Judge_OnJudgeReceivedAnswer(object sender, Judge.Judge.ReceivedAnswerArgs e)
+        {
+            if (e.IsAnswerCorrect)
+            {
+                _animator.SetTrigger(JudgeAnimationParams.HasLost);
+                return;
+            }
 
-    private void Judge_OnJudgeThinking(object sender, System.EventArgs e)
-    {
-        _animator.SetTrigger(JudgeAnimationParams.IsThinking);
+            _animator.SetTrigger(JudgeAnimationParams.HasWon);
+        }
+
+        private void Judge_OnJudgeAsking(object sender, System.EventArgs e)
+        {
+            _animator.SetTrigger(JudgeAnimationParams.IsAsking);
+        }
+
+        private void Judge_OnJudgeThinking(object sender, System.EventArgs e)
+        {
+            _animator.SetTrigger(JudgeAnimationParams.IsThinking);
+        }
     }
 }

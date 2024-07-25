@@ -1,4 +1,5 @@
 using System.Collections;
+using Managers;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -8,11 +9,11 @@ public class InterviewUnitUI : MonoBehaviour
     [SerializeField] private Image _interviewUnitOccupationImage;
     [SerializeField] private InterviewUnit _interviewUnit;
 
-    private Judge _judge;
+    private Judge.Judge _judge;
 
     private void Start()
     {
-        Judge.OnJudgeAsking += Judge_OnJudgeAsking;
+        Judge.Judge.OnJudgeAsking += Judge_OnJudgeAsking;
         InterviewUnit.OnInterviewUnitAnswered += InterviewUnit_OnInterviewUnitAnswered;
 
         HideUI();
@@ -20,7 +21,7 @@ public class InterviewUnitUI : MonoBehaviour
 
     private void OnDestroy()
     {
-        Judge.OnJudgeAsking -= Judge_OnJudgeAsking;
+        Judge.Judge.OnJudgeAsking -= Judge_OnJudgeAsking;
         InterviewUnit.OnInterviewUnitAnswered -= InterviewUnit_OnInterviewUnitAnswered;
     }
 
@@ -39,7 +40,7 @@ public class InterviewUnitUI : MonoBehaviour
 
     private void Judge_OnJudgeAsking(object sender, System.EventArgs e)
     {
-        Judge judge = (Judge)sender;
+        Judge.Judge judge = (Judge.Judge)sender;
 
         _judge = judge;
 

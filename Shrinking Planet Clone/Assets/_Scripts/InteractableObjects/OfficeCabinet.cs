@@ -1,3 +1,4 @@
+using Managers;
 using UnityEngine;
 
 public class OfficeCabinet : MonoBehaviour, IInteractable, ISelectable
@@ -17,7 +18,7 @@ public class OfficeCabinet : MonoBehaviour, IInteractable, ISelectable
         {
             SoundManager.Instance.PlayDocumentDeliveredSound();
 
-            Unit unit = UnitNeedManager.Instance.GetUnitWithNeed();
+            Unit.Unit unit = UnitNeedManager.Instance.GetUnitWithNeed();
 
             unit.InvokeUnitNeedFulfilled();
             InteractSystem.Instance.SetHandsFree();

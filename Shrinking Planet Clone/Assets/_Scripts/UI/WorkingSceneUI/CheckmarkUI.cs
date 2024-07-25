@@ -4,7 +4,7 @@ public class CheckmarkUI : MonoBehaviour
 {
     [SerializeField] private GameObject _checkmarkUI;
     [SerializeField] private UnitEconomy _unitEconomy;
-    [SerializeField] private Unit _unit;
+    [SerializeField] private Unit.Unit _unit;
 
     private void Start()
     {
@@ -26,7 +26,7 @@ public class CheckmarkUI : MonoBehaviour
 
     private void ResolveWorkIssueUI_OnResolvedWorkIssue(object sender, System.EventArgs e)
     {
-        Unit unit = (Unit)sender;
+        Unit.Unit unit = (Unit.Unit)sender;
 
         if (ReferenceEquals(unit, _unit))
         {
@@ -37,7 +37,7 @@ public class CheckmarkUI : MonoBehaviour
     // Think if it's really needed in the future
     private void ResolveWorkIssueUI_OnResolvingFailedWorkIssue(object sender, System.EventArgs e)
     {
-        Unit unit = (Unit)sender;
+        Unit.Unit unit = (Unit.Unit)sender;
 
         if (ReferenceEquals(unit, _unit))
         {

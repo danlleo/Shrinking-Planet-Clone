@@ -1,4 +1,5 @@
 using System;
+using Managers;
 using UnityEngine;
 
 public class JudgeIdleState : JudgeBaseState
@@ -24,7 +25,7 @@ public class JudgeIdleState : JudgeBaseState
 
         if (_timer > _delayTime)
         {
-            judgeStateManager.SwitchState(judgeStateManager._thinkingState);
+            judgeStateManager.SwitchState(judgeStateManager.ThinkingState);
         }
     }
 }

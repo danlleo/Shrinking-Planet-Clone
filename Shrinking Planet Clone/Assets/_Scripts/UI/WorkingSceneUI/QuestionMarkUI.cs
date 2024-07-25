@@ -3,7 +3,7 @@ using UnityEngine;
 public class QuestionMarkUI : MonoBehaviour
 {
     [SerializeField] private GameObject _questionMarkUI;
-    [SerializeField] private Unit _unit;
+    [SerializeField] private Unit.Unit _unit;
 
     private void Start()
     {

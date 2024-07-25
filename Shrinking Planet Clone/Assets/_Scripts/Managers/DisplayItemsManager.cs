@@ -1,15 +1,19 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class DisplayItemsManager : MonoBehaviour
+namespace Managers
 {
-    private void Start()
+    public class DisplayItemsManager : MonoBehaviour
     {
-        IEnumerable<PurchasableItem> purchasableItemList = ItemStashManager.Instance.GetPurchasedItems();
-
-        foreach (var purchasableItem in purchasableItemList)
+        private void Start()
         {
-            Instantiate(purchasableItem.ItemSO.ItemGameObject, purchasableItem.ItemSO.SpawnPosition, Quaternion.Euler(purchasableItem.ItemSO.SpawnRotation));
+            IEnumerable<PurchasableItem> purchasableItemList = ItemStashManager.Instance.GetPurchasedItems();
+
+            foreach (PurchasableItem purchasableItem in purchasableItemList)
+            {
+                Instantiate(purchasableItem.ItemSO.ItemGameObject, purchasableItem.ItemSO.SpawnPosition,
+                    Quaternion.Euler(purchasableItem.ItemSO.SpawnRotation));
+            }
         }
     }
 }

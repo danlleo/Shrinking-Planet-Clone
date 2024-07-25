@@ -1,47 +1,43 @@
 using UnityEngine;
 
-public class JudgeQuestionsManager : Singleton<JudgeQuestionsManager>
+namespace Managers
 {
-    private const int JUDGE_QUESTION_COUNT = 8;
-    private const int QUESTION_COUNT_TO_PASS = 3;
-
-    [SerializeField] private InterviewQuestion[] _questionArray = new InterviewQuestion[JUDGE_QUESTION_COUNT];
-
-    private const int MAX_QUESTIONS = 5;
-    private int _correctlyAnsweredQuestionsCount = 0;
-    private int _currentQuestionsCount = 0;
-
-    private InterviewQuestion _currentQuestion;
-
-    protected override void Awake()
+    public class JudgeQuestionsManager : Singleton<JudgeQuestionsManager>
     {
-        base.Awake();
-    }
+        private const int JudgeQuestionCount = 8;
+        private const int QuestionCountToPass = 3;
 
-    public void SetRandomQuestion() =>_currentQuestion = _questionArray[new System.Random().Next(_questionArray.Length)];
+        [SerializeField] private InterviewQuestion[] _questionArray = new InterviewQuestion[JudgeQuestionCount];
 
-    public bool HasAskedAllQuestions() => _currentQuestionsCount == MAX_QUESTIONS;
+        private const int MaxQuestions = 5;
+        private int _correctlyAnsweredQuestionsCount;
+        private int _currentQuestionsCount;
 
-    public bool ValidateQuestion(UnitOccupationType occupationType)
-    {
-        if (occupationType == _currentQuestion.QuestionType)
+        private InterviewQuestion _currentQuestion;
+
+        public void SetRandomQuestion() =>
+            _currentQuestion = _questionArray[new System.Random().Next(_questionArray.Length)];
+
+        public bool HasAskedAllQuestions() => _currentQuestionsCount == MaxQuestions;
+
+        public bool ValidateQuestion(UnitOccupationType occupationType)
         {
+            if (occupationType != _currentQuestion.QuestionType) return false;
             _correctlyAnsweredQuestionsCount++;
+            
             return true;
         }
 
-        return false;
+        public InterviewQuestion GetCurrentQuestion() => _currentQuestion;
+
+        public void IncreaseCurrentQuestionCount() => _currentQuestionsCount++;
+
+        public int GetCurrentQuestionCount() => _currentQuestionsCount;
+
+        public int GetMaxQuestionsCount() => MaxQuestions;
+
+        public int GetCorrectlyAnsweredQuestionsCount() => _correctlyAnsweredQuestionsCount;
+
+        public bool HasFinishedInterviewWithSuccess() => _correctlyAnsweredQuestionsCount >= QuestionCountToPass;
     }
-
-    public InterviewQuestion GetCurrentQuestion() => _currentQuestion;
-
-    public void IncreaseCurrentQuestionCount() => _currentQuestionsCount++;
-
-    public int GetCurrentQuestionCount() => _currentQuestionsCount;
-
-    public int GetMaxQuestionsCount() => MAX_QUESTIONS;
-
-    public int GetCorrectlyAnsweredQuestionsCount() => _correctlyAnsweredQuestionsCount;
-
-    public bool HasFinishedInterviewWithSuccess() => _correctlyAnsweredQuestionsCount >= QUESTION_COUNT_TO_PASS;
 }

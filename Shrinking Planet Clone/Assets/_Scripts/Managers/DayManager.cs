@@ -1,4 +1,5 @@
 using System;
+using Managers;
 
 public class DayManager : Singleton<DayManager>
 {

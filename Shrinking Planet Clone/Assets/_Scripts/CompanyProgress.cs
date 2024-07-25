@@ -1,47 +1,47 @@
-public class CompanyProgress
+public abstract class CompanyProgress
 {
-    private const int COMPANY_RANK_100_INTERVIEW_PRICE = 1100;
-    private const int COMPANY_RANK_90_INTERVIEW_PRICE = 2100;
-    private const int COMPANY_RANK_80_INTERVIEW_PRICE = 3100;
-    private const int COMPANY_RANK_70_INTERVIEW_PRICE = 4100;
-    private const int COMPANY_RANK_60_INTERVIEW_PRICE = 5100;
-    private const int COMPANY_RANK_50_INTERVIEW_PRICE = 5700;
-    private const int COMPANY_RANK_40_INTERVIEW_PRICE = 6400;
-    private const int COMPANY_RANK_30_INTERVIEW_PRICE = 7000;
-    private const int COMPANY_RANK_20_INTERVIEW_PRICE = 8000;
-    private const int COMPANY_RANK_10_INTERVIEW_PRICE = 9000;
-    private const int COMPANY_RANK_2_INTERVIEW_PRICE = 10000;
+    private const int Rank100InterviewPrice = 1100;
+    private const int Rank90InterviewPrice = 2100;
+    private const int Rank80InterviewPrice = 3100;
+    private const int Rank70InterviewPrice = 4100;
+    private const int Rank60InterviewPrice = 5100;
+    private const int Rank50InterviewPrice = 5700;
+    private const int Rank40InterviewPrice = 6400;
+    private const int Rank30InterviewPrice = 7000;
+    private const int Rank20InterviewPrice = 8000;
+    private const int Rank10InterviewPrice = 9000;
+    private const int Rank2InterviewPrice = 10000;
 
-    private const int COMPANY_RANK_100_NEXT_POSITION = 90;
-    private const int COMPANY_RANK_90_NEXT_POSITION = 80;
-    private const int COMPANY_RANK_80_NEXT_POSITION = 70;
-    private const int COMPANY_RANK_70_NEXT_POSITION = 60;
-    private const int COMPANY_RANK_60_NEXT_POSITION = 50;
-    private const int COMPANY_RANK_50_NEXT_POSITION = 40;
-    private const int COMPANY_RANK_40_NEXT_POSITION = 30;
-    private const int COMPANY_RANK_30_NEXT_POSITION = 20;
-    private const int COMPANY_RANK_20_NEXT_POSITION = 10;
-    private const int COMPANY_RANK_10_NEXT_POSITION = 2;
-    private const int COMPANY_RANK_2_NEXT_POSITION = 1;
+    private const int Rank100NextPosition = 90;
+    private const int Rank90NextPosition = 80;
+    private const int Rank80NextPosition = 70;
+    private const int Rank70NextPosition = 60;
+    private const int Rank60NextPosition = 50;
+    private const int Rank50NextPosition = 40;
+    private const int Rank40NextPosition = 30;
+    private const int Rank30NextPosition = 20;
+    private const int Rank20NextPosition = 10;
+    private const int Rank10NextPosition = 2;
+    private const int Rank2NextPosition = 1;
 
-    private static int FINAL_COMPANY_RANK_POSITION = 1;
+    private const int FinalCompanyRankPosition = 1;
 
     public static int GetInterviewPrice(int companyRankPosition)
     {
         return companyRankPosition switch
         {
-            100 => COMPANY_RANK_100_INTERVIEW_PRICE,
-            90 => COMPANY_RANK_90_INTERVIEW_PRICE,
-            80 => COMPANY_RANK_80_INTERVIEW_PRICE,
-            70 => COMPANY_RANK_70_INTERVIEW_PRICE,
-            60 => COMPANY_RANK_60_INTERVIEW_PRICE,
-            50 => COMPANY_RANK_50_INTERVIEW_PRICE,
-            40 => COMPANY_RANK_40_INTERVIEW_PRICE,
-            30 => COMPANY_RANK_30_INTERVIEW_PRICE,
-            20 => COMPANY_RANK_20_INTERVIEW_PRICE,
-            10 => COMPANY_RANK_10_INTERVIEW_PRICE,
-            2 => COMPANY_RANK_2_INTERVIEW_PRICE,
-            _ => COMPANY_RANK_100_INTERVIEW_PRICE,
+            100 => Rank100InterviewPrice,
+            90 => Rank90InterviewPrice,
+            80 => Rank80InterviewPrice,
+            70 => Rank70InterviewPrice,
+            60 => Rank60InterviewPrice,
+            50 => Rank50InterviewPrice,
+            40 => Rank40InterviewPrice,
+            30 => Rank30InterviewPrice,
+            20 => Rank20InterviewPrice,
+            10 => Rank10InterviewPrice,
+            2 => Rank2InterviewPrice,
+            _ => Rank100InterviewPrice,
         };
     }
 
@@ -49,20 +49,20 @@ public class CompanyProgress
     {
         return currentCompanyRankPosition switch
         {
-            100 => COMPANY_RANK_100_NEXT_POSITION,
-            90 => COMPANY_RANK_90_NEXT_POSITION,
-            80 => COMPANY_RANK_80_NEXT_POSITION,
-            70 => COMPANY_RANK_70_NEXT_POSITION,
-            60 => COMPANY_RANK_60_NEXT_POSITION,
-            50 => COMPANY_RANK_50_NEXT_POSITION,
-            40 => COMPANY_RANK_40_NEXT_POSITION,
-            30 => COMPANY_RANK_30_NEXT_POSITION,
-            20 => COMPANY_RANK_20_NEXT_POSITION,
-            10 => COMPANY_RANK_10_NEXT_POSITION,
-            2 => COMPANY_RANK_2_NEXT_POSITION,
-            _ => COMPANY_RANK_100_NEXT_POSITION,
+            100 => Rank100NextPosition,
+            90 => Rank90NextPosition,
+            80 => Rank80NextPosition,
+            70 => Rank70NextPosition,
+            60 => Rank60NextPosition,
+            50 => Rank50NextPosition,
+            40 => Rank40NextPosition,
+            30 => Rank30NextPosition,
+            20 => Rank20NextPosition,
+            10 => Rank10NextPosition,
+            2 => Rank2NextPosition,
+            _ => Rank100NextPosition,
         };
     }
 
-    public static int GetFinalCompanyRankPosition() => FINAL_COMPANY_RANK_POSITION;
+    public static int GetFinalCompanyRankPosition() => FinalCompanyRankPosition;
 }

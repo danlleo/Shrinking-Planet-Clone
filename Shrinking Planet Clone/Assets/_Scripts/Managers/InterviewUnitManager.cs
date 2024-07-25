@@ -1,4 +1,6 @@
 using System.Collections.Generic;
+using Managers;
+using Unit;
 using UnityEngine;
 
 public class InterviewUnitManager : Singleton<InterviewUnitManager>

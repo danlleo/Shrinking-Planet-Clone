@@ -1,4 +1,5 @@
-﻿using TMPro;
+﻿using Managers;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -22,12 +23,12 @@ public class EndInterviewDayUI : MonoBehaviour
     private void Start()
     {
         HideUI();
-        Judge.OnJudgeFinishedJob += Judge_OnJudgeFinishedJob;
+        Judge.Judge.OnJudgeFinishedJob += Judge_OnJudgeFinishedJob;
     }
 
     private void OnDestroy()
     {
-        Judge.OnJudgeFinishedJob -= Judge_OnJudgeFinishedJob;
+        Judge.Judge.OnJudgeFinishedJob -= Judge_OnJudgeFinishedJob;
     }
 
     private void Judge_OnJudgeFinishedJob(object sender, System.EventArgs e)

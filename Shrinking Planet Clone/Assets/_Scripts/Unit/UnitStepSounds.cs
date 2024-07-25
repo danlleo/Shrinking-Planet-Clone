@@ -1,8 +1,9 @@
+using Managers;
 using UnityEngine;
 
 public class UnitStepSounds : MonoBehaviour
 {
-    private Unit _unit;
+    private Unit.Unit _unit;
 
     private float _footstepTimer;
     private float _footstepTimerMax = .525f;
@@ -11,7 +12,7 @@ public class UnitStepSounds : MonoBehaviour
 
     private void Awake()
     {
-        _unit = GetComponent<Unit>();
+        _unit = GetComponent<Unit.Unit>();
     }
 
     private void Start()
@@ -28,7 +29,7 @@ public class UnitStepSounds : MonoBehaviour
 
     private void UnitWalkingState_OnUnitBeganWalking(object sender, System.EventArgs e)
     {
-        Unit senderUnit = (Unit)sender;
+        Unit.Unit senderUnit = (Unit.Unit)sender;
 
         if (ReferenceEquals(senderUnit, _unit))
         {
@@ -38,7 +39,7 @@ public class UnitStepSounds : MonoBehaviour
 
     private void UnitWalkingState_OnUnitEndedWalking(object sender, System.EventArgs e)
     {
-        Unit senderUnit = (Unit)sender;
+        Unit.Unit senderUnit = (Unit.Unit)sender;
 
         if (ReferenceEquals(senderUnit, _unit))
         {

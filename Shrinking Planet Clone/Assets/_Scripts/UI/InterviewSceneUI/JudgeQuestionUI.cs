@@ -1,11 +1,12 @@
 using System;
 using System.Collections;
+using Managers;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class JudgeQuestionUI : MonoBehaviour
 {
-    [SerializeField] private Judge _judge;
+    [SerializeField] private Judge.Judge _judge;
     [SerializeField] private GameObject _judgeQuestionUI;
     [SerializeField] private Image _judgeQuestionImage;
 
@@ -13,14 +14,14 @@ public class JudgeQuestionUI : MonoBehaviour
 
     private void Start()
     {
-        Judge.OnJudgeAsking += Judge_OnJudgeAsking;
+        Judge.Judge.OnJudgeAsking += Judge_OnJudgeAsking;
 
         HideUI();
     }
 
     private void OnDestroy()
     {
-        Judge.OnJudgeAsking -= Judge_OnJudgeAsking;
+        Judge.Judge.OnJudgeAsking -= Judge_OnJudgeAsking;
     }
 
     private void Judge_OnJudgeAsking(object sender, EventArgs e)

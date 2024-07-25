@@ -3,7 +3,7 @@ using UnityEngine;
 public class RedCrossUI : MonoBehaviour
 {
     [SerializeField] private GameObject _redCrossUI;
-    [SerializeField] private Unit _unit;
+    [SerializeField] private Unit.Unit _unit;
     [SerializeField] private UnitEconomy _unitEconomy;
 
     private void Start()
@@ -26,7 +26,7 @@ public class RedCrossUI : MonoBehaviour
 
     private void ResolveWorkIssueUI_OnResolvedWorkIssue(object sender, System.EventArgs e)
     {
-        Unit unit = (Unit)sender;
+        Unit.Unit unit = (Unit.Unit)sender;
 
         if (ReferenceEquals(unit, _unit))
         {
@@ -36,7 +36,7 @@ public class RedCrossUI : MonoBehaviour
 
     private void ResolveWorkIssueUI_OnResolvingFailedWorkIssue(object sender, System.EventArgs e)
     {
-        Unit unit = (Unit)sender;
+        Unit.Unit unit = (Unit.Unit)sender;
 
         if (ReferenceEquals(unit,_unit))
         {

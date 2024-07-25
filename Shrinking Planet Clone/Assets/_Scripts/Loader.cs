@@ -19,14 +19,14 @@ public static class Loader
     // Dummy class
     private class LoadingMonoBehaviour : MonoBehaviour { }
 
-    private static Action _onLoaderCallback;
+    private static Action s_onLoaderCallback;
 
-    private static AsyncOperation _asyncOperation;
+    private static AsyncOperation s_asyncOperation;
 
     public static void Load(Scene scene)
     {
         // Set the loader callback action to load the target scene
-        _onLoaderCallback = () =>
+        s_onLoaderCallback = () =>
         {
             GameObject loadingGameObject = new GameObject("Loading GameObject");
             loadingGameObject.AddComponent<LoadingMonoBehaviour>().StartCoroutine(LoadSceneAsync(scene));
@@ -47,22 +47,16 @@ public static class Loader
 
     public static float GetLoadingProgress()
     {
-        if (_asyncOperation != null)
-        {
-            return _asyncOperation.progress;
-        }
-
-        return 1f;
+        return s_asyncOperation?.progress ?? 1f;
     }
 
     public static void LoadCallback()
     {
         // This will run only once!
         // It will run the loading of target scene
-        if (_onLoaderCallback != null)
-        {
-            _onLoaderCallback();
-            _onLoaderCallback = null;
-        }
+        if (s_onLoaderCallback == null) return;
+        
+        s_onLoaderCallback();
+        s_onLoaderCallback = null;
     }
 }

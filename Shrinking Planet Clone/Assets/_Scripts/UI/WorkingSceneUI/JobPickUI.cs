@@ -1,3 +1,4 @@
+using Managers;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -10,7 +11,7 @@ public class JobPickUI : MonoBehaviour
     [SerializeField] private Button _developerButton;
     [SerializeField] private Button _moderatorButton;
 
-    private Unit _unit;
+    private Unit.Unit _unit;
 
     private void Awake()
     {
@@ -27,13 +28,13 @@ public class JobPickUI : MonoBehaviour
 
     private void Start()
     {
-        Unit.OnUnitSelectingJob += Unit_OnUnitSelectingJob;
+        Unit.Unit.OnUnitSelectingJob += Unit_OnUnitSelectingJob;
         DayManager.Instance.OnDayEnded += DayManager_OnDayEnded;
     }
 
     private void OnDestroy()
     {
-        Unit.OnUnitSelectingJob -= Unit_OnUnitSelectingJob;
+        Unit.Unit.OnUnitSelectingJob -= Unit_OnUnitSelectingJob;
         DayManager.Instance.OnDayEnded -= DayManager_OnDayEnded;
     }
 
@@ -44,7 +45,7 @@ public class JobPickUI : MonoBehaviour
 
     private void Unit_OnUnitSelectingJob(object sender, System.EventArgs e)
     {
-        Unit unit = (Unit)sender;
+        Unit.Unit unit = (Unit.Unit)sender;
 
         SetUnit(unit);
         ShowUI();
@@ -57,7 +58,7 @@ public class JobPickUI : MonoBehaviour
 
     private void HideUI() => _jobPickUI.SetActive(false);
 
-    private void SetUnit(Unit unit) => _unit = unit;
+    private void SetUnit(Unit.Unit unit) => _unit = unit;
 
     private void SetUnitOccupation(UnitOccupationType occupation)
     {

@@ -8,10 +8,10 @@ public class InterviewUnit : MonoBehaviour, ISelectable
     public class InterviewUnitAnsweredEventArgs : EventArgs
     {
         public InterviewCameraTransform UnitInterviewCameraTransform;
-        public Judge JudgeComponent;
+        public Judge.Judge JudgeComponent;
         public bool IsAnswerCorrect;
 
-        public InterviewUnitAnsweredEventArgs(InterviewCameraTransform unitInterviewCameraTransform, Judge judgeComponent, bool isAnswerCorrect)
+        public InterviewUnitAnsweredEventArgs(InterviewCameraTransform unitInterviewCameraTransform, Judge.Judge judgeComponent, bool isAnswerCorrect)
         {
             UnitInterviewCameraTransform = unitInterviewCameraTransform;
             JudgeComponent = judgeComponent;
@@ -53,7 +53,7 @@ public class InterviewUnit : MonoBehaviour, ISelectable
         targetObject.layer = newLayer;
     }
 
-    public void InvokeInterviewUnitAnsweredEvent(Judge judge, bool isAnswerCorrect) => OnInterviewUnitAnswered?.Invoke(this, 
+    public void InvokeInterviewUnitAnsweredEvent(Judge.Judge judge, bool isAnswerCorrect) => OnInterviewUnitAnswered?.Invoke(this, 
         new InterviewUnitAnsweredEventArgs(
             _interviewCameraTransform, judge, isAnswerCorrect
         )

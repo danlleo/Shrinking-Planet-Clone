@@ -1,31 +1,33 @@
 using UnityEngine;
 
-public class UnitStateManager : MonoBehaviour
+namespace Managers
 {
-    // Holds a reference to the active state in a state machine
-    private UnitBaseState _currentState;
-
-    // Instances of a concrete states
-    public UnitIdleState _idleState = new UnitIdleState();
-    public UnitWalkingState _walkingState = new UnitWalkingState();
-    public UnitReachedDeskState _reachedDeskState = new UnitReachedDeskState();
-    public UnitWorkingState _workingState = new UnitWorkingState();
-
-    private void Start()
+    public class UnitStateManager : MonoBehaviour
     {
-        _currentState = _idleState;
+        // Holds a reference to the active state in a state machine
+        private UnitBaseState _currentState;
 
-        _currentState.EnterState(this);
-    }
+        // Instances of a concrete states
+        public readonly UnitIdleState IdleState = new();
+        public readonly UnitWalkingState WalkingState = new();
+        public readonly UnitReachedDeskState ReachedDeskState = new();
+        public readonly UnitWorkingState WorkingState = new();
 
-    private void Update()
-    {
-        _currentState.UpdateState(this);
-    }
+        private void Start()
+        {
+            _currentState = IdleState;
+            _currentState.EnterState(this);
+        }
 
-    public void SwitchState(UnitBaseState state)
-    {
-        _currentState = state;
-        state.EnterState(this);
+        private void Update()
+        {
+            _currentState.UpdateState(this);
+        }
+
+        public void SwitchState(UnitBaseState state)
+        {
+            _currentState = state;
+            state.EnterState(this);
+        }
     }
 }

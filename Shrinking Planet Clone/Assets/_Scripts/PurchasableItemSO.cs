@@ -1,9 +1,9 @@
 using UnityEngine;
 
-[CreateAssetMenu()]
+[CreateAssetMenu]
 public class PurchasableItemSO : ScriptableObject
 {
-    public GameObject ItemGameObject;
-    public Vector3 SpawnPosition;
-    public Vector3 SpawnRotation;
+    [field: SerializeField] public GameObject ItemGameObject { get; private set; }
+    [field: SerializeField] public Vector3 SpawnPosition { get; private set; }
+    [field: SerializeField] public Vector3 SpawnRotation { get; private set; }
 }
