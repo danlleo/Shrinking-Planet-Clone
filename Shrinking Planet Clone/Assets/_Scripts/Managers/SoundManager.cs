@@ -8,35 +8,35 @@ namespace Managers
     {
         [SerializeField] private AudioClipRefsSO _audioClipRefsSO;
         
-        private void Start()
-        {
-            Unit.Unit.OnUnitSelectingJob += Unit_OnUnitSelectingJob;
-            DayManager.Instance.OnDayEnded += DayManager_OnDayEnded;
-            Judge.Judge.OnJudgeAsking += Judge_OnJudgeAsking;
-            Judge.Judge.OnJudgeReviewedAnswer += Judge_OnJudgeReviewedAnswer;
-            ButtonSounds.OnButtonHover += ButtonHover_OnButtonHover;
-            ButtonSounds.OnButtonPressed += ButtonSounds_OnButtonPressed;
-            ResolveWorkIssueUI.OnResolvingFailedWorkIssue += ResolveWorkIssueUI_OnResolvingFailedWorkIssue;
-            InteractSystem.Instance.OnObjectPickUp += InteractSystem_OnObjectPickUp;
-            InteractSystem.Instance.OnObjectDispose += InteractSystem_OnObjectDispose;
-            ShopManager.Instance.OnItemBought += ShopManager_OnItemBought;
-            UnitLevel.OnAnyLevelUp += UnitLevel_OnAnyLevelUp;
-        }
-
-        private void OnDestroy()
-        {
-            Unit.Unit.OnUnitSelectingJob -= Unit_OnUnitSelectingJob;
-            DayManager.Instance.OnDayEnded -= DayManager_OnDayEnded;
-            Judge.Judge.OnJudgeAsking -= Judge_OnJudgeAsking;
-            Judge.Judge.OnJudgeReviewedAnswer -= Judge_OnJudgeReviewedAnswer;
-            ButtonSounds.OnButtonHover -= ButtonHover_OnButtonHover;
-            ButtonSounds.OnButtonPressed -= ButtonSounds_OnButtonPressed;
-            ResolveWorkIssueUI.OnResolvingFailedWorkIssue -= ResolveWorkIssueUI_OnResolvingFailedWorkIssue;
-            InteractSystem.Instance.OnObjectPickUp -= InteractSystem_OnObjectPickUp;
-            InteractSystem.Instance.OnObjectDispose -= InteractSystem_OnObjectDispose;
-            ShopManager.Instance.OnItemBought -= ShopManager_OnItemBought;
-            UnitLevel.OnAnyLevelUp -= UnitLevel_OnAnyLevelUp;
-        }
+        // private void Start()
+        // {
+        //     Unit.Unit.OnUnitSelectingJob += Unit_OnUnitSelectingJob;
+        //     DayManager.Instance.OnDayEnded += DayManager_OnDayEnded;
+        //     Judge.Judge.OnJudgeAsking += Judge_OnJudgeAsking;
+        //     Judge.Judge.OnJudgeReviewedAnswer += Judge_OnJudgeReviewedAnswer;
+        //     ButtonSounds.OnButtonHover += ButtonHover_OnButtonHover;
+        //     ButtonSounds.OnButtonPressed += ButtonSounds_OnButtonPressed;
+        //     ResolveWorkIssueUI.OnResolvingFailedWorkIssue += ResolveWorkIssueUI_OnResolvingFailedWorkIssue;
+        //     InteractSystem.Instance.OnObjectPickUp += InteractSystem_OnObjectPickUp;
+        //     InteractSystem.Instance.OnObjectDispose += InteractSystem_OnObjectDispose;
+        //     ShopManager.Instance.OnItemBought += ShopManager_OnItemBought;
+        //     UnitLevel.OnAnyLevelUp += UnitLevel_OnAnyLevelUp;
+        // }
+        //
+        // private void OnDestroy()
+        // {
+        //     Unit.Unit.OnUnitSelectingJob -= Unit_OnUnitSelectingJob;
+        //     DayManager.Instance.OnDayEnded -= DayManager_OnDayEnded;
+        //     Judge.Judge.OnJudgeAsking -= Judge_OnJudgeAsking;
+        //     Judge.Judge.OnJudgeReviewedAnswer -= Judge_OnJudgeReviewedAnswer;
+        //     ButtonSounds.OnButtonHover -= ButtonHover_OnButtonHover;
+        //     ButtonSounds.OnButtonPressed -= ButtonSounds_OnButtonPressed;
+        //     ResolveWorkIssueUI.OnResolvingFailedWorkIssue -= ResolveWorkIssueUI_OnResolvingFailedWorkIssue;
+        //     InteractSystem.Instance.OnObjectPickUp -= InteractSystem_OnObjectPickUp;
+        //     InteractSystem.Instance.OnObjectDispose -= InteractSystem_OnObjectDispose;
+        //     ShopManager.Instance.OnItemBought -= ShopManager_OnItemBought;
+        //     UnitLevel.OnAnyLevelUp -= UnitLevel_OnAnyLevelUp;
+        // }
 
         private void UnitLevel_OnAnyLevelUp(object sender, System.EventArgs e)
         {

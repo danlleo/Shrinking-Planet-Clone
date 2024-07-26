@@ -33,6 +33,8 @@ namespace Managers
             {
                 UnitSO unitSO = SaveGameManager.Instance.GetUnitSO(unitData.UnitSOName);
             
+                print(unitSO);
+                
                 if (unitSO.AvailableOnlyOnInterview)
                     continue;
 

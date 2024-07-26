@@ -197,9 +197,9 @@ MonoBehaviour:
     type: 3}
   _progressBarBackground: {fileID: 8991295048129875543}
   _unitNeed:
-    Icon: {fileID: 21300000, guid: d822d817e947dc74dac860e4f327e69b, type: 3}
-    PickUpIcon: {fileID: 21300000, guid: cb5c5efc663e2364ab0b2dc4b476a66a, type: 3}
-    Type: 0
+    <Icon>k__BackingField: {fileID: 0}
+    <PickUpIcon>k__BackingField: {fileID: 0}
+    <Type>k__BackingField: 0
   _unitNeedType: 0
 --- !u!1 &3646703264419113558
 GameObject:
@@ -508,7 +508,7 @@ GameObject:
   - component: {fileID: 8544815064011202367}
   - component: {fileID: 3014014844218498565}
   - component: {fileID: 782602450401614198}
-  - component: {fileID: 482657997684766803}
+  - component: {fileID: 5160976275829292134}
   m_Layer: 0
   m_Name: WaterStateIcon
   m_TagString: Untagged
@@ -523,18 +523,18 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7206753581745321760}
-  m_LocalRotation: {x: -0, y: -0.7461283, z: -0, w: 0.6658021}
-  m_LocalPosition: {x: 0, y: 0, z: 0.489}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 0.025, y: 0.05, z: 0.05}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 378181085050221852}
   m_RootOrder: -1
-  m_LocalEulerAnglesHint: {x: 0, y: -96.512, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -0.231, y: 0.746}
-  m_SizeDelta: {x: 0.5, y: 0.5}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &3014014844218498565
 CanvasRenderer:
@@ -574,27 +574,20 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!95 &482657997684766803
-Animator:
-  serializedVersion: 5
+--- !u!114 &5160976275829292134
+MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7206753581745321760}
   m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 6f53bf6b0a7b10a44a478be45dc96eea, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_StabilizeFeet: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorStateOnDisable: 0
-  m_WriteDefaultValuesOnDisable: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1df6f63b97565c6469e775f0aa311cd4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _followObject: {fileID: 3884953719483198485}
+  _offset: {x: 0, y: 120}
 --- !u!1 &7325285096551460874
 GameObject:
   m_ObjectHideFlags: 0

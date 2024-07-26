@@ -35,12 +35,14 @@ namespace Managers
 
         public void SaveGame(int companyRankPosition, int dayCount, int moneyAmount)
         {
-            SaveData saveData = new SaveData();
-            saveData.CompanyRankPosition = companyRankPosition;
-            saveData.DayCount = dayCount;
-            saveData.MoneyAmount = moneyAmount;
-            saveData.UnitDataList = _unitDataList;
-            saveData.PurchasedItems = ItemStashManager.Instance.GetPurchasedItems().ToList();
+            SaveData saveData = new()
+            {
+                CompanyRankPosition = companyRankPosition,
+                DayCount = dayCount,
+                MoneyAmount = moneyAmount,
+                UnitDataList = _unitDataList,
+                PurchasedItems = ItemStashManager.Instance.GetPurchasedItems().ToList()
+            };
 
             string json = JsonUtility.ToJson(saveData);
 
@@ -80,12 +82,14 @@ namespace Managers
             _unitDataList = new List<UnitData>(_defaultUnitDataList);
             _purchasedItemsList = new List<PurchasableItem>();
 
-            SaveData saveData = new SaveData();
-            saveData.CompanyRankPosition = DefaultCompanyRankPosition;
-            saveData.DayCount = DefaultDayCount;
-            saveData.MoneyAmount = DefaultMoneyAmount;
-            saveData.UnitDataList = _unitDataList;
-            saveData.PurchasedItems = _purchasedItemsList;
+            SaveData saveData = new()
+            {
+                CompanyRankPosition = DefaultCompanyRankPosition,
+                DayCount = DefaultDayCount,
+                MoneyAmount = DefaultMoneyAmount,
+                UnitDataList = _unitDataList,
+                PurchasedItems = _purchasedItemsList
+            };
 
             _saveData = saveData;
 
