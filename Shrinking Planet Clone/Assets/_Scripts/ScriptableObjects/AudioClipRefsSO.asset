@@ -12,26 +12,53 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c8269ec0f3a81f54dbbf41e1b706b720, type: 3}
   m_Name: AudioClipRefsSO
   m_EditorClassIdentifier: 
-  <UnitHover>k__BackingField: {fileID: 0}
-  <UnitSelect>k__BackingField: {fileID: 0}
-  <SetUnitOccupation>k__BackingField: {fileID: 0}
-  <UnitFail>k__BackingField: {fileID: 0}
-  <UnitSuccess>k__BackingField: {fileID: 0}
-  <EndDay>k__BackingField: {fileID: 0}
-  <UIElementSelect>k__BackingField: {fileID: 0}
-  <UIElementClick>k__BackingField: {fileID: 0}
-  <CollectCoin>k__BackingField: {fileID: 0}
-  <LevelUp>k__BackingField: {fileID: 0}
-  <JudgeAsking>k__BackingField: {fileID: 0}
-  <CorrectInterviewQuestion>k__BackingField: {fileID: 0}
-  <WrongInterviewQuestion>k__BackingField: {fileID: 0}
-  <UnitResponse>k__BackingField: []
-  <CameraWhoosh>k__BackingField: {fileID: 0}
-  <TrashDispose>k__BackingField: {fileID: 0}
-  <DocumentDelivered>k__BackingField: {fileID: 0}
-  <WaterDrank>k__BackingField: {fileID: 0}
-  <WaterPouring>k__BackingField: {fileID: 0}
-  <ItemPick>k__BackingField: {fileID: 0}
-  <ItemDrop>k__BackingField: {fileID: 0}
-  <Steps>k__BackingField: []
-  <SuccessPurchase>k__BackingField: {fileID: 0}
+  <UnitHover>k__BackingField: {fileID: 8300000, guid: 7cdcf5596b7b82d4390992a3c032238a,
+    type: 3}
+  <UnitSelect>k__BackingField: {fileID: 8300000, guid: 49b42248f10b12e44ab9285bec843ee4,
+    type: 3}
+  <SetUnitOccupation>k__BackingField: {fileID: 8300000, guid: 49b42248f10b12e44ab9285bec843ee4,
+    type: 3}
+  <UnitFail>k__BackingField: {fileID: 8300000, guid: 185cf708457e48248abbb55ae769da28,
+    type: 3}
+  <UnitSuccess>k__BackingField: {fileID: 8300000, guid: f6dea355b6dfeb2488b67ab3d68c3cab,
+    type: 3}
+  <EndDay>k__BackingField: {fileID: 8300000, guid: 3740171be9f70b34fa390d307f7e686d,
+    type: 3}
+  <UIElementSelect>k__BackingField: {fileID: 8300000, guid: a7f5bd34b24a48c4581386e3bf14ddd7,
+    type: 3}
+  <UIElementClick>k__BackingField: {fileID: 8300000, guid: 49b42248f10b12e44ab9285bec843ee4,
+    type: 3}
+  <CollectCoin>k__BackingField: {fileID: 8300000, guid: a7f0df5369550454d83aaab1ba11d777,
+    type: 3}
+  <LevelUp>k__BackingField: {fileID: 8300000, guid: 4c4b4e8899b0b2841bb0605cac0aba43,
+    type: 3}
+  <JudgeAsking>k__BackingField: {fileID: 8300000, guid: 28ca3285d2e266b48afbd85f18b7f026,
+    type: 3}
+  <CorrectInterviewQuestion>k__BackingField: {fileID: 8300000, guid: f6dea355b6dfeb2488b67ab3d68c3cab,
+    type: 3}
+  <WrongInterviewQuestion>k__BackingField: {fileID: 8300000, guid: 580f04efa1f739a4c8a8c714efa34877,
+    type: 3}
+  <UnitResponse>k__BackingField:
+  - {fileID: 8300000, guid: be19fbcf77b1edd4ba7f8e12abcbed23, type: 3}
+  - {fileID: 8300000, guid: b7d9ff6a721dfab418cb0d98a0205a91, type: 3}
+  <CameraWhoosh>k__BackingField: {fileID: 8300000, guid: 7c0898e17452e1b4ea8791aae7574a48,
+    type: 3}
+  <TrashDispose>k__BackingField: {fileID: 8300000, guid: 1ee835599a5b4464e9dfb116aca98f76,
+    type: 3}
+  <DocumentDelivered>k__BackingField: {fileID: 8300000, guid: 6e27a1a86510467499692a93ff713400,
+    type: 3}
+  <WaterDrank>k__BackingField: {fileID: 8300000, guid: 62df7e7d4d7c98f498ad1fae74554ffa,
+    type: 3}
+  <WaterPouring>k__BackingField: {fileID: 8300000, guid: 8ad31026f09cbf44baf34554917d585e,
+    type: 3}
+  <ItemPick>k__BackingField: {fileID: 8300000, guid: 3740171be9f70b34fa390d307f7e686d,
+    type: 3}
+  <ItemDrop>k__BackingField: {fileID: 8300000, guid: 1cee3e7b46aebe14eb44453b698b692c,
+    type: 3}
+  <Steps>k__BackingField:
+  - {fileID: 8300000, guid: efff6f5711755744da7c514bbd62d966, type: 3}
+  - {fileID: 8300000, guid: 43372220ae79c94438897006391ee654, type: 3}
+  - {fileID: 8300000, guid: a6a895fe77970734688496a6cd07c8d3, type: 3}
+  - {fileID: 8300000, guid: 419bcab6e071a9245acafb74ea81e045, type: 3}
+  <SuccessPurchase>k__BackingField: {fileID: 8300000, guid: 81a3bfa3a46189a46a225570fa3e0ff9,
+    type: 3}

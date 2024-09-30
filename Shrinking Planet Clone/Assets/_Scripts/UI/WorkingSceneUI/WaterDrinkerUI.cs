@@ -6,6 +6,7 @@ using UnityEngine.UI;
 
 namespace UI.WorkingSceneUI
 {
+    [DisallowMultipleComponent]
     public class WaterDrinkerUI : MonoBehaviour
     {
         [SerializeField] private WaterDrinker _waterDrinker;

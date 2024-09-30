@@ -503,15 +503,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _defaultUnitDataList:
-  - UnitSOName: JamesonUnit
-    UnitLevel: 1
-    UnitLelfOverXPs: 0
-  - UnitSOName: KendraUnit
-    UnitLevel: 1
-    UnitLelfOverXPs: 0
-  - UnitSOName: LarkUnit
-    UnitLevel: 1
-    UnitLelfOverXPs: 0
+  - <UnitSOName>k__BackingField: JamesonUnit
+    <UnitLevel>k__BackingField: 1
+    <UnitLeftOverXPs>k__BackingField: 0
+  - <UnitSOName>k__BackingField: KendraUnit
+    <UnitLevel>k__BackingField: 1
+    <UnitLeftOverXPs>k__BackingField: 0
+  - <UnitSOName>k__BackingField: LarkUnit
+    <UnitLevel>k__BackingField: 1
+    <UnitLeftOverXPs>k__BackingField: 0
 --- !u!1 &554882358
 GameObject:
   m_ObjectHideFlags: 0

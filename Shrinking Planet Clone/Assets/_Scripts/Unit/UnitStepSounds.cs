@@ -4,18 +4,19 @@ using UnityEngine;
 
 namespace Unit
 {
+    [DisallowMultipleComponent]
     public class UnitStepSounds : MonoBehaviour
     {
-        private global::Unit.Unit _unit;
+        private Unit _unit;
 
         private float _footstepTimer;
-        private float _footstepTimerMax = .525f;
+        private readonly float _footstepTimerMax = .525f;
 
         private bool _isWalking;
 
         private void Awake()
         {
-            _unit = GetComponent<global::Unit.Unit>();
+            _unit = GetComponent<Unit>();
         }
 
         private void Start()
@@ -30,9 +31,22 @@ namespace Unit
             UnitWalkingState.OnUnitEndedWalking -= UnitWalkingState_OnUnitEndedWalking;
         }
 
+        private void Update()
+        {
+            if (!_isWalking) return;
+            _footstepTimer -= Time.deltaTime;
+
+            if (!(_footstepTimer <= 0)) return;
+            _footstepTimer = _footstepTimerMax;
+
+            float volume = 1f;
+
+            SoundManager.Instance.PlayFootStepsSound(transform.position, volume);
+        }
+
         private void UnitWalkingState_OnUnitBeganWalking(object sender, System.EventArgs e)
         {
-            global::Unit.Unit senderUnit = (global::Unit.Unit)sender;
+            Unit senderUnit = (Unit)sender;
 
             if (ReferenceEquals(senderUnit, _unit))
             {
@@ -42,30 +56,11 @@ namespace Unit
 
         private void UnitWalkingState_OnUnitEndedWalking(object sender, System.EventArgs e)
         {
-            global::Unit.Unit senderUnit = (global::Unit.Unit)sender;
+            Unit senderUnit = (Unit)sender;
 
-            if (ReferenceEquals(senderUnit, _unit))
-            {
-                _isWalking = false;
-                Destroy(this);
-            }
-        }
-
-        private void Update()
-        {
-            if (_isWalking)
-            {
-                _footstepTimer -= Time.deltaTime;
-
-                if (_footstepTimer <= 0)
-                {
-                    _footstepTimer = _footstepTimerMax;
-
-                    float volume = 1f;
-
-                    SoundManager.Instance.PlayFootStepsSound(transform.position, volume);
-                }
-            }
+            if (!ReferenceEquals(senderUnit, _unit)) return;
+            _isWalking = false;
+            Destroy(this);
         }
     }
 }

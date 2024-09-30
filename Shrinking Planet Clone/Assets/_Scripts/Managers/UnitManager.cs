@@ -14,8 +14,9 @@ namespace Managers
 
         private const float SpawnUnitDelayInSeconds = 4f;
 
-        private void Start()
+        private IEnumerator Start()
         {
+            yield return new WaitUntil(() => SaveGameManager.Instance is not null);
             StartCoroutine(DelayUnitSpawnRoutine());
         }
 
@@ -28,7 +29,7 @@ namespace Managers
         private IEnumerator DelayUnitSpawnRoutine()
         {
             _unitDataList = SaveGameManager.Instance.GetUnitDataList();
-
+            
             foreach (UnitData unitData in _unitDataList)
             {
                 UnitSO unitSO = SaveGameManager.Instance.GetUnitSO(unitData.UnitSOName);

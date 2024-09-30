@@ -124,6 +124,29 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1 &21801428 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3646703264419113558, guid: 89b0ec0ad36c762478c7f1ade8de348a,
+    type: 3}
+  m_PrefabInstance: {fileID: 24020594020111338}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &21801430
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 21801428}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1df6f63b97565c6469e775f0aa311cd4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _followObject: {fileID: 8942574933725056838}
+  _offset: {x: 0, y: 90}
+  _shouldBounce: 1
+  _bounceHeight: 20
+  _bounceDuration: 0.85
 --- !u!4 &28812214 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6109874162769150847, guid: 4d0f11df00a954898acb314f59db9866,
@@ -3022,6 +3045,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _followObject: {fileID: 1878767401}
   _offset: {x: 0, y: 100}
+  _shouldBounce: 1
+  _bounceHeight: 20
+  _bounceDuration: 0.85
 --- !u!1 &641217653
 GameObject:
   m_ObjectHideFlags: 0
@@ -6934,15 +6960,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _unitNeedList:
-  - <Icon>k__BackingField: {fileID: 0}
-    <PickUpIcon>k__BackingField: {fileID: 0}
+  - <Icon>k__BackingField: {fileID: 21300000, guid: d822d817e947dc74dac860e4f327e69b,
+      type: 3}
+    <PickUpIcon>k__BackingField: {fileID: 21300000, guid: d822d817e947dc74dac860e4f327e69b,
+      type: 3}
     <Type>k__BackingField: 0
-  - <Icon>k__BackingField: {fileID: 0}
-    <PickUpIcon>k__BackingField: {fileID: 0}
-    <Type>k__BackingField: 0
-  - <Icon>k__BackingField: {fileID: 0}
-    <PickUpIcon>k__BackingField: {fileID: 0}
-    <Type>k__BackingField: 0
+  - <Icon>k__BackingField: {fileID: 21300000, guid: 1584e44a835401c43bd15fd13627c8b9,
+      type: 3}
+    <PickUpIcon>k__BackingField: {fileID: 21300000, guid: 1584e44a835401c43bd15fd13627c8b9,
+      type: 3}
+    <Type>k__BackingField: 1
+  - <Icon>k__BackingField: {fileID: 21300000, guid: 9da6e33e03c55ef4f87831beda769d57,
+      type: 3}
+    <PickUpIcon>k__BackingField: {fileID: 21300000, guid: 9da6e33e03c55ef4f87831beda769d57,
+      type: 3}
+    <Type>k__BackingField: 2
 --- !u!4 &1387779804
 Transform:
   m_ObjectHideFlags: 0
@@ -9285,6 +9317,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _followObject: {fileID: 817142122}
   _offset: {x: 0, y: 100}
+  _shouldBounce: 1
+  _bounceHeight: 20
+  _bounceDuration: 0.85
 --- !u!1 &1807165921
 GameObject:
   m_ObjectHideFlags: 0
@@ -9513,18 +9548,35 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _QandAList:
-  - <QuestionTitle>k__BackingField: 
-    <Answers>k__BackingField: []
+  - <QuestionTitle>k__BackingField: What is the main indicator of a company's profitability?
+    <Answers>k__BackingField:
+    - Net profit
+    - Number of employees
+    - Advertising expenses
+    - Office equipment
     <CorrectAnswerIndex>k__BackingField: 0
-  - <QuestionTitle>k__BackingField: 
-    <Answers>k__BackingField: []
-    <CorrectAnswerIndex>k__BackingField: 0
-  - <QuestionTitle>k__BackingField: 
-    <Answers>k__BackingField: []
-    <CorrectAnswerIndex>k__BackingField: 0
-  - <QuestionTitle>k__BackingField: 
-    <Answers>k__BackingField: []
-    <CorrectAnswerIndex>k__BackingField: 0
+  - <QuestionTitle>k__BackingField: What is the process of researching the market
+      to assess demand called?
+    <Answers>k__BackingField:
+    - Budgeting
+    - Market research
+    - Audit
+    - Branding
+    <CorrectAnswerIndex>k__BackingField: 1
+  - <QuestionTitle>k__BackingField: What does a SWOT analysis consist of?
+    <Answers>k__BackingField:
+    - Income and expenses
+    - Strengths and weaknesses
+    - Customers and competitors
+    - Production capacity
+    <CorrectAnswerIndex>k__BackingField: 1
+  - <QuestionTitle>k__BackingField: What are a company's assets?
+    <Answers>k__BackingField:
+    - Debts and liabilities
+    - Technological innovations
+    - What the company owns
+    - Personnel expenses
+    <CorrectAnswerIndex>k__BackingField: 2
 --- !u!4 &1815594115
 Transform:
   m_ObjectHideFlags: 0
@@ -9628,7 +9680,7 @@ Canvas:
   m_AdditionalShaderChannelsFlag: 25
   m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 1
   m_TargetDisplay: 0
 --- !u!224 &1832872674
 RectTransform:
@@ -12188,6 +12240,58 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5160976275829292134, guid: 89b0ec0ad36c762478c7f1ade8de348a,
+        type: 3}
+      propertyPath: _bounceHeight
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 5160976275829292134, guid: 89b0ec0ad36c762478c7f1ade8de348a,
+        type: 3}
+      propertyPath: _bounceDuration
+      value: 0.85
+      objectReference: {fileID: 0}
+    - target: {fileID: 5503502870686277443, guid: 89b0ec0ad36c762478c7f1ade8de348a,
+        type: 3}
+      propertyPath: _unitNeed.<Icon>k__BackingField
+      value: 
+      objectReference: {fileID: 21300000, guid: d822d817e947dc74dac860e4f327e69b,
+        type: 3}
+    - target: {fileID: 5503502870686277443, guid: 89b0ec0ad36c762478c7f1ade8de348a,
+        type: 3}
+      propertyPath: _unitNeed.<PickUpIcon>k__BackingField
+      value: 
+      objectReference: {fileID: 21300000, guid: cb5c5efc663e2364ab0b2dc4b476a66a,
+        type: 3}
+    - target: {fileID: 5688772251064262565, guid: 89b0ec0ad36c762478c7f1ade8de348a,
+        type: 3}
+      propertyPath: m_Size.x
+      value: 0.7747943
+      objectReference: {fileID: 0}
+    - target: {fileID: 5688772251064262565, guid: 89b0ec0ad36c762478c7f1ade8de348a,
+        type: 3}
+      propertyPath: m_Size.y
+      value: 1.4738655
+      objectReference: {fileID: 0}
+    - target: {fileID: 5688772251064262565, guid: 89b0ec0ad36c762478c7f1ade8de348a,
+        type: 3}
+      propertyPath: m_Size.z
+      value: 0.71937853
+      objectReference: {fileID: 0}
+    - target: {fileID: 5688772251064262565, guid: 89b0ec0ad36c762478c7f1ade8de348a,
+        type: 3}
+      propertyPath: m_Center.x
+      value: 0.018954873
+      objectReference: {fileID: 0}
+    - target: {fileID: 5688772251064262565, guid: 89b0ec0ad36c762478c7f1ade8de348a,
+        type: 3}
+      propertyPath: m_Center.y
+      value: 0.5475048
+      objectReference: {fileID: 0}
+    - target: {fileID: 5688772251064262565, guid: 89b0ec0ad36c762478c7f1ade8de348a,
+        type: 3}
+      propertyPath: m_Center.z
+      value: 0.0707379
+      objectReference: {fileID: 0}
     - target: {fileID: 8544815064011202367, guid: 89b0ec0ad36c762478c7f1ade8de348a,
         type: 3}
       propertyPath: m_ConstrainProportionsScale
@@ -12202,7 +12306,11 @@ PrefabInstance:
     - {fileID: 482657997684766803, guid: 89b0ec0ad36c762478c7f1ade8de348a, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 3646703264419113558, guid: 89b0ec0ad36c762478c7f1ade8de348a,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 21801430}
   m_SourcePrefab: {fileID: 100100000, guid: 89b0ec0ad36c762478c7f1ade8de348a, type: 3}
 --- !u!1 &2199041417959603811
 GameObject:

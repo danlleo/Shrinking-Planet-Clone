@@ -5,7 +5,7 @@ namespace Unit
 {
     public class UnitThirsty : MonoBehaviour, IInteractable
     {
-        [SerializeField] private global::Unit.Unit _unit;
+        [SerializeField] private Unit _unit;
         [SerializeField] private UnitNeed _unitNeed;
         [SerializeField] private UnitNeedType _unitNeedType;
 

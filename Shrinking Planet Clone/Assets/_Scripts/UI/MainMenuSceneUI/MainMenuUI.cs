@@ -1,10 +1,12 @@
 using System;
+using System.Collections;
 using Managers;
 using UnityEngine;
 using UnityEngine.UI;
 
 namespace UI.MainMenuSceneUI
 {
+    [DisallowMultipleComponent]
     public class MainMenuUI : MonoBehaviour
     {
         public static event EventHandler OnHowToPlayButtonClicked;
@@ -15,8 +17,10 @@ namespace UI.MainMenuSceneUI
         [SerializeField] private Button _howToPlayButton;
         [SerializeField] private Button _desktopButton;
 
-        private void Awake()
+        private IEnumerator Start()
         {
+            yield return new WaitUntil(() => SaveGameManager.Instance is not null);
+            
             _continueButton.onClick.AddListener(() =>
             {
                 Loader.Load(Loader.Scene.ManagingScene);
@@ -38,15 +42,9 @@ namespace UI.MainMenuSceneUI
 
             _desktopButton.onClick.AddListener(() =>
             {
-                _mainMenuPopUpConfirmationUI.Initialize("Are you sure you want to leave the game?", () =>
-                {
-                    Application.Quit();
-                });
+                _mainMenuPopUpConfirmationUI.Initialize("Are you sure you want to leave the game?", Application.Quit);
             });
-        }
-
-        private void Start()
-        {
+            
             if (!SaveGameManager.Instance.SaveExists())
                 _continueButton.gameObject.SetActive(false);
         }
