@@ -11,14 +11,14 @@ namespace Managers
     {
         private const float DefaultCameraMoveDelayTime = 1f;
 
-        [Header("Main pointing cameras transform")] [SerializeField]
-        private InterviewCameraTransform _defaultCamera;
+        [Header("Main pointing cameras transform")] 
+        [SerializeField] private InterviewCameraTransform _defaultCamera;
 
         [SerializeField] private InterviewCameraTransform _judgeLockCamera;
         [SerializeField] private InterviewCameraTransform _unitsLockCamera;
 
-        [Header("Interview Units pointing cameras transform")] [SerializeField]
-        private InterviewCameraTransform _interviewUnitACamera;
+        [Header("Interview Units pointing cameras transform")] 
+        [SerializeField] private InterviewCameraTransform _interviewUnitACamera;
 
         [SerializeField] private InterviewCameraTransform _interviewUnitBCamera;
         [SerializeField] private InterviewCameraTransform _interviewUnitCCamera;
@@ -127,7 +127,7 @@ namespace Managers
 
         public List<InterviewCameraTransform> GetUnitCameraTransformList()
         {
-            List<InterviewCameraTransform> interviewCameraTransformsList = new List<InterviewCameraTransform>
+            List<InterviewCameraTransform> interviewCameraTransformsList = new()
             {
                 _interviewUnitACamera,
                 _interviewUnitBCamera,
